@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --color-white: #ffffff;
+  --color-surface: #f4f8fc;
+  --color-surface-strong: #e7eef7;
+  --color-navy-950: #07182e;
+  --color-navy-900: #0d2341;
+  --color-navy-800: #133158;
+  --color-gold-600: #b59146;
+  --color-gold-500: #c5a062;
+  --color-slate-700: #526172;
+  --color-slate-600: #708196;
+  --color-border: rgba(13, 35, 65, 0.1);
+  --color-border-strong: rgba(13, 35, 65, 0.18);
+  --color-scroll-muted: rgba(7, 31, 61, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-white);
+  color: var(--color-navy-900);
+  font-family: var(--font-sans), sans-serif;
+  text-rendering: optimizeLegibility;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(181, 145, 70, 0.18);
+}
+
+.hero-stat-item {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: hero-stat-rise 0.7s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.stats-card {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    transform 0.7s ease-out,
+    opacity 0.7s ease-out;
+  will-change: transform, opacity;
+}
+
+.stats-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stats-card-visible:hover {
+  transform: translateY(-4px);
+}
+
+.stats-card-visible:hover .stats-icon {
+  transform: translateY(-2px) scale(1.06);
+}
+
+@keyframes hero-stat-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-shell {
+    padding-top: 2.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .footer-bg-image {
+    object-position: 72% center;
+    transform: scale(1.08);
+  }
+
+  .footer-bg-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 20, 39, 0.92) 0%,
+      rgba(4, 20, 39, 0.86) 42%,
+      rgba(3, 20, 39, 0.92) 100%
+    );
+  }
+}
