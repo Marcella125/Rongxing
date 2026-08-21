@@ -12,15 +12,15 @@ type CtaLinkProps = {
 };
 
 const baseClassName =
-  "inline-flex min-h-10 items-center justify-center gap-2 px-4 text-[0.66rem] font-bold uppercase tracking-[0.08em] transition";
+  "group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-none border px-5 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2";
 
 const variantClassNames = {
   primary:
-    "border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-white hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)]",
+    "border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)]",
   secondary:
-    "border border-[color:var(--color-navy-900)]/34 bg-white/88 text-[color:var(--color-navy-900)] hover:bg-white",
+    "border-[color:var(--color-navy-900)]/28 bg-[rgba(246,242,237,0.88)] text-[color:var(--color-navy-900)] hover:border-[color:var(--color-navy-900)]/44 hover:bg-white",
   outline:
-    "border border-[color:var(--color-gold-500)]/66 text-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)]",
+    "border-[color:var(--color-gold-500)]/66 bg-transparent text-[color:var(--color-gold-500)] hover:border-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)]",
 } as const;
 
 export function CtaLink({

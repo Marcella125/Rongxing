@@ -4,56 +4,56 @@ import type { SitePageContent, SitePageKey } from "@/types/page";
 export const companyProfile: CompanyProfile = {
   legalName: "Guangzhou Rongxing Trading Co., Ltd.",
   summary:
-    "Placeholder content for a premium international trading-company website. Verified company details will be added later.",
+    "China-based international business solutions company connecting global requirements with manufacturers, suppliers, technologies, and industrial opportunities.",
 };
 
 export const sitePages: Record<SitePageKey, SitePageContent> = {
   home: {
     key: "home",
     path: "/",
-    title: "Ronxing Trading",
+    title: "RONG XING Trading Co., Ltd.",
     description:
-      "A refined placeholder homepage for the future Guangzhou Rongxing Trading Co., Ltd. website.",
-    eyebrow: "International Trading Platform",
+      "RONG XING is a China-based international business solutions company focused on sourcing, EV trading, brand representation, and industrial solutions.",
+    eyebrow: "China-Based. Globally Connected.",
   },
   company: {
     key: "company",
     path: "/company",
-    title: "Company",
+    title: "About RONG XING",
     description:
-      "A placeholder company page reserved for verified corporate background and positioning.",
+      "Corporate overview and positioning for Guangzhou Rongxing Trading Co., Ltd.",
     eyebrow: "Company Overview",
   },
   products: {
     key: "products",
     path: "/products",
-    title: "Products",
+    title: "Legacy Products",
     description:
-      "A placeholder products page reserved for a structured future catalog.",
-    eyebrow: "Product Portfolio",
+      "Reserved route for legacy product content while the website transitions to a solutions-led structure.",
+    eyebrow: "Legacy Content",
   },
   markets: {
     key: "markets",
     path: "/markets",
-    title: "Markets",
+    title: "Global Reach",
     description:
-      "A placeholder markets page reserved for verified geography and segment information.",
-    eyebrow: "Market Presence",
+      "Global reach and market positioning for RONG XING.",
+    eyebrow: "Global Reach",
   },
   capabilities: {
     key: "capabilities",
     path: "/capabilities",
-    title: "Capabilities",
+    title: "Solutions",
     description:
-      "A placeholder capabilities page reserved for validated operational and sourcing information.",
-    eyebrow: "Operational Strength",
+      "Commercial sourcing, EV trading, brand representation, and industrial solutions from RONG XING.",
+    eyebrow: "Our Solutions",
   },
   news: {
     key: "news",
     path: "/news",
     title: "News",
     description:
-      "A placeholder news page reserved for future announcements and updates.",
+      "Reserved route for future verified updates and announcements from RONG XING.",
     eyebrow: "Latest Updates",
   },
   contact: {
@@ -61,7 +61,7 @@ export const sitePages: Record<SitePageKey, SitePageContent> = {
     path: "/contact",
     title: "Contact",
     description:
-      "A placeholder contact page reserved for verified contact information.",
-    eyebrow: "Contact Details",
+      "Contact RONG XING to discuss sourcing, EV trading, brand representation, and industrial requirements in China.",
+    eyebrow: "Let's Talk Business",
   },
 };

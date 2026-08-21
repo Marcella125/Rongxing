@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Montserrat } from "next/font/google";
+import { Bebas_Neue, Montserrat } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { AppShell } from "@/components/layout/AppShell";
@@ -9,13 +9,13 @@ import "./globals.css";
 
 const sans = Montserrat({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-body",
   display: "swap",
 });
 
-const serif = DM_Serif_Display({
+const heading = Bebas_Neue({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-heading",
   display: "swap",
   weight: "400",
 });
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`${sans.variable} ${serif.variable} bg-white text-[color:var(--color-navy-900)] antialiased`}
+        className={`${sans.variable} ${heading.variable} bg-white text-[color:var(--color-navy-900)] antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <AppShell>{children}</AppShell>
