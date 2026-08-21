@@ -170,10 +170,11 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
-              src="/images/Home Image.png"
+              src="/images/home-full-f2f6fcf3.png"
               alt="Guangzhou skyline and waterfront representing modern China and international business"
               fill
               priority
+              unoptimized
               sizes="100vw"
               className="object-cover object-[80%_50%] sm:object-[79%_50%] lg:object-[72%_50%]"
             />

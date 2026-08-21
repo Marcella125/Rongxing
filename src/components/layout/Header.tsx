@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { navigationItems } from "@/data/navigation";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/utils/cn";
 
 export function Header() {
+  const pathname = usePathname();
   const [language, setLanguage] = useState<"en" | "zh">("en");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeHref, setActiveHref] = useState("/#top");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +26,57 @@ export function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const sections = navigationItems
+      .map((item) => {
+        const id = item.href.split("#")[1];
+        return id
+          ? { href: item.href, element: document.getElementById(id) }
+          : null;
+      })
+      .filter(
+        (section): section is { href: string; element: HTMLElement } =>
+          Boolean(section?.element)
+      );
+
+    const updateActiveSection = () => {
+      const focusLine = window.scrollY + window.innerHeight * 0.34;
+      let currentHref = sections[0]?.href ?? "/#top";
+      let currentOffset = Number.NEGATIVE_INFINITY;
+
+      sections.forEach((section) => {
+        const sectionOffset = section.element.offsetTop;
+
+        if (sectionOffset <= focusLine && sectionOffset >= currentOffset) {
+          currentHref = section.href;
+          currentOffset = sectionOffset;
+        }
+      });
+
+      setActiveHref((current) =>
+        current === currentHref ? current : currentHref
+      );
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [pathname]);
+
+  const currentNavigationHref =
+    pathname === "/"
+      ? activeHref
+      : navigationItems.find((item) => item.href === pathname)?.href ?? null;
 
   return (
     <header
@@ -42,16 +97,24 @@ export function Header() {
 
           <nav aria-label="Primary" className="hidden overflow-x-auto lg:block">
             <ul className="flex min-w-max items-center justify-center gap-2 sm:gap-3">
-              {navigationItems.map((item) => (
+              {navigationItems.map((item) => {
+                const isActive = currentNavigationHref === item.href;
+
+                return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="inline-flex px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.14em] !text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+                    aria-current={isActive ? "location" : undefined}
+                    className={cn(
+                      "relative inline-flex px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.14em] !text-white transition after:absolute after:bottom-0 after:left-3 after:right-3 after:h-px after:origin-center after:bg-[color:var(--color-gold-500)] after:transition-transform after:duration-300 hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
+                      isActive ? "after:scale-x-100" : "after:scale-x-0"
+                    )}
                   >
                     {item.label}
                   </Link>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </nav>
 

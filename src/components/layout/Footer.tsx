@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Container } from "@/components/ui/Container";
-import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type FooterProps = {
   onePage?: boolean;
@@ -29,39 +32,73 @@ export function Footer({ onePage = false }: FooterProps) {
   const prefix = onePage ? "" : "/";
   const footerRef = useRef<HTMLElement | null>(null);
 
-  useDesktopGsap(footerRef, ({ gsap }) => {
-    gsap
-      .timeline({
+  useLayoutEffect(() => {
+    const footer = footerRef.current;
+
+    if (!footer) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const ctx = gsap.context(() => {
+      if (reducedMotion) {
+        gsap.set(
+          ".js-footer-logo, .js-footer-column, .js-footer-bottom",
+          { opacity: 1, y: 0 }
+        );
+        return;
+      }
+
+      const timeline = gsap.timeline({
         scrollTrigger: {
-          trigger: footerRef.current,
+          trigger: footer,
           start: "top 88%",
           once: true,
         },
-      })
-      .fromTo(
-        ".js-footer-logo",
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }
-      )
-      .fromTo(
-        ".js-footer-column",
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.58,
-          stagger: 0.08,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      )
-      .fromTo(
-        ".js-footer-bottom",
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-        "-=0.2"
-      );
-  });
+      });
+
+      timeline
+        .fromTo(
+          ".js-footer-logo",
+          { opacity: 0, y: 18 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.62,
+            ease: "power2.out",
+          }
+        )
+        .fromTo(
+          ".js-footer-column",
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.58,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+          "-=0.2"
+        )
+        .fromTo(
+          ".js-footer-bottom",
+          { opacity: 0, y: 12 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          "-=0.2"
+        );
+    }, footer);
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
 
   const withPrefix = (href: string) => {
     if (onePage || !href.startsWith("/#")) {

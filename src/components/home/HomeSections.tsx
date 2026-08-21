@@ -22,6 +22,7 @@ import {
 } from "react";
 
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
+import { Reveal, TextReveal } from "@/components/motion/Reveal";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
@@ -160,8 +161,6 @@ const detailedSolutions = [
   },
 ] as const;
 
-const desktopStickyColumnClass = "lg:sticky lg:top-28 lg:self-start";
-
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
@@ -249,26 +248,28 @@ function SectionTitle({
 }) {
   return (
     <div className="max-w-[46rem]">
-      <p className="js-detailed-label section-label mb-4">{label}</p>
-      <div className="overflow-hidden">
+      <p className="section-label mb-4">{label}</p>
+      <TextReveal forceMotion distance={48}>
         <h2
           className={cn(
-            "js-detailed-line section-heading",
+            "section-heading font-serif",
             dark ? "text-white" : "text-[color:var(--color-navy-900)]"
           )}
         >
           {title}
         </h2>
-      </div>
+      </TextReveal>
       {subtitle ? (
-        <p
-          className={cn(
-            "js-detailed-copy mt-5 max-w-[38rem] text-[1rem] leading-8",
-            dark ? "text-white/74" : "text-[color:var(--color-slate-700)]"
-          )}
-        >
-          {subtitle}
-        </p>
+        <TextReveal forceMotion delay={0.12} distance={24}>
+          <p
+            className={cn(
+              "mt-5 max-w-[38rem] text-[1rem] leading-8",
+              dark ? "text-white/74" : "text-[color:var(--color-slate-700)]"
+            )}
+          >
+            {subtitle}
+          </p>
+        </TextReveal>
       ) : null}
     </div>
   );
@@ -349,6 +350,63 @@ function MobileSolutionCapabilityCard({
   );
 }
 
+function DetailedSolutionCard({
+  solution,
+  desktop = false,
+}: {
+  solution: (typeof detailedSolutions)[number];
+  desktop?: boolean;
+}) {
+  return (
+    <article
+      data-detailed-active-card={desktop ? "" : undefined}
+      className="w-full rounded-[0.4rem] border border-[color:var(--color-border)] bg-[#f8f4ef] p-5 shadow-[0_14px_38px_rgba(11,31,59,0.055)]"
+    >
+      <div className="flex flex-col">
+        <div className="flex items-center gap-4">
+          <div className="shrink-0 font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]">
+            {solution.number}
+          </div>
+          <h3 className="min-w-0 text-[clamp(1.28rem,2.6vh,1.55rem)] font-semibold uppercase leading-[1.08] tracking-[-0.035em] text-[color:var(--color-navy-900)]">
+            {solution.title}
+          </h3>
+        </div>
+
+        <div className="mt-2 h-px w-full bg-[color:var(--color-gold-500)]/38" />
+
+        <p className="mt-2.5 text-[clamp(0.82rem,1.65vh,0.92rem)] font-semibold uppercase leading-[1.45] tracking-[0.09em] text-[color:var(--color-gold-500)]">
+          {solution.statement}
+        </p>
+
+        <div className="mt-3 space-y-1.5">
+          {solution.description.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="text-[clamp(0.86rem,1.85vh,0.96rem)] leading-[1.55] text-[color:var(--color-slate-700)]"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <div className="mt-4 grid gap-x-4 sm:grid-cols-2">
+          {solution.highlights.map((highlight) => (
+            <div
+              key={highlight}
+              className="flex items-start gap-2 border-t border-[color:var(--color-border)] py-1.5"
+            >
+              <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--color-gold-500)]" />
+              <p className="text-[0.84rem] leading-[1.45] text-[color:var(--color-navy-900)]">
+                {highlight}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function HomeSections() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const objectivesAreaRef = useRef<HTMLDivElement | null>(null);
@@ -358,7 +416,6 @@ export function HomeSections() {
   const detailedSectionRef = useRef<HTMLElement | null>(null);
   const objectivesDesktopRef = useRef<HTMLDivElement | null>(null);
   const detailedDesktopRef = useRef<HTMLDivElement | null>(null);
-  const promiseSectionRef = useRef<HTMLElement | null>(null);
   const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
   const solutionDragStartXRef = useRef(0);
   const solutionDragOffsetRef = useRef(0);
@@ -367,6 +424,7 @@ export function HomeSections() {
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [solutionCarouselIndex, setSolutionCarouselIndex] = useState(0);
   const [isSolutionDragging, setIsSolutionDragging] = useState(false);
+  const [objectivesDesktopIndex, setObjectivesDesktopIndex] = useState(0);
   const [detailedDesktopIndex, setDetailedDesktopIndex] = useState(0);
 
   const activeSolutionIndex = solutionCarouselIndex;
@@ -703,51 +761,6 @@ export function HomeSections() {
       lineDuration: 0.76,
     });
 
-    createIntroTimeline({
-      trigger: ".js-vision-section",
-      label: ".js-vision-label",
-      lines: ".js-vision-line",
-      copy: ".js-vision-copy",
-      start: "top 76%",
-      lineDuration: 0.78,
-    });
-
-    createIntroTimeline({
-      trigger: ".js-objectives-section",
-      label: ".js-objectives-label",
-      lines: ".js-objectives-line",
-      copy: ".js-objectives-copy",
-      start: "top 80%",
-      lineDuration: 0.72,
-    });
-
-    createIntroTimeline({
-      trigger: "#solutions",
-      label: ".js-solutions-label",
-      lines: ".js-solutions-line",
-      copy: ".js-solutions-copy",
-      start: "top 80%",
-      lineDuration: 0.7,
-    });
-
-    createIntroTimeline({
-      trigger: ".js-detailed-solutions-section",
-      label: ".js-detailed-label",
-      lines: ".js-detailed-line",
-      copy: ".js-detailed-copy",
-      start: "top 80%",
-      lineDuration: 0.72,
-    });
-
-    createIntroTimeline({
-      trigger: "#why-rong-xing",
-      label: ".js-why-label",
-      lines: ".js-why-line",
-      copy: ".js-why-copy",
-      start: "top 78%",
-      lineDuration: 0.74,
-    });
-
     if (!reducedMotion) {
       gsap.fromTo(
         ".js-vision-image",
@@ -782,139 +795,27 @@ export function HomeSections() {
       );
     }
 
-    createIntroTimeline({
-      trigger: ".js-global-section",
-      label: ".js-global-label",
-      lines: ".js-global-line",
-      copy: ".js-global-copy",
-      start: "top 74%",
-      lineDuration: 0.78,
-    });
-
-    createIntroTimeline({
-      trigger: "#contact",
-      label: ".js-contact-label",
-      lines: ".js-contact-line",
-      copy: ".js-contact-copy",
-      extras: ".js-contact-primary, .js-contact-secondary",
-      start: "top 80%",
-      lineDuration: 0.76,
-    });
-
   }, []);
 
   useDesktopGsap(rootRef, setupDesktopAnimations);
-
-  useLayoutEffect(() => {
-    const section = promiseSectionRef.current;
-
-    if (!section) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      gsap.set(".js-promise-label", {
-        opacity: 0,
-        y: prefersReducedMotion ? 8 : 20,
-      });
-      gsap.set(".js-promise-line", {
-        yPercent: prefersReducedMotion ? 42 : 118,
-        opacity: 0,
-        y: prefersReducedMotion ? 10 : 28,
-        filter: prefersReducedMotion ? "blur(0px)" : "blur(8px)",
-      });
-      gsap.set(".js-promise-cta", {
-        opacity: 0,
-        y: prefersReducedMotion ? 8 : 18,
-      });
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top 78%",
-            once: true,
-          },
-        })
-        .to(
-          ".js-promise-label",
-          {
-            opacity: 1,
-            y: 0,
-            duration: prefersReducedMotion ? 0.36 : 0.55,
-            ease: "power2.out",
-          }
-        )
-        .to(
-          ".js-promise-line",
-          {
-            yPercent: 0,
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: prefersReducedMotion ? 0.56 : 0.92,
-            ease: "power3.out",
-            stagger: prefersReducedMotion ? 0.08 : 0.12,
-          },
-          "-=0.12"
-        )
-        .to(
-          ".js-promise-cta",
-          {
-            opacity: 1,
-            y: 0,
-            duration: prefersReducedMotion ? 0.38 : 0.6,
-            ease: "power2.out",
-          },
-          "-=0.08"
-        );
-    }, section);
-
-    return () => {
-      ctx.revert();
-    };
-  }, []);
 
   useEffect(() => {
     const intro = objectivesIntroRef.current;
     const area = objectivesAreaRef.current;
     const progress = objectivesProgressRef.current;
 
-    if (!intro || !area || !progress) {
+    if (!intro || !area) {
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     if (isMobileViewport) {
+      if (!progress) {
+        return;
+      }
+
       const rows = Array.from(area.querySelectorAll(".js-objective-item")) as HTMLDivElement[];
 
       const ctx = gsap.context(() => {
-        if (prefersReducedMotion) {
-          gsap.set(progress, { scaleY: 1, transformOrigin: "top center" });
-
-          rows.forEach((row) => {
-            const dot = row.querySelector(".js-objective-mobile-dot");
-            const number = row.querySelector(".js-objective-mobile-number");
-            const title = row.querySelector(".js-objective-mobile-title");
-            const copy = row.querySelector(".js-objective-mobile-copy");
-
-            gsap.set(dot, {
-              scale: 1,
-              backgroundColor: "var(--color-gold-500)",
-              boxShadow: "0 0 0 rgba(197,160,98,0)",
-            });
-            gsap.set(number, { opacity: 1, scale: 1, y: 0 });
-            gsap.set(title, { yPercent: 0, opacity: 1 });
-            gsap.set(copy, { opacity: 1, y: 0 });
-          });
-          return;
-        }
-
         gsap.set(progress, { scaleY: 0, transformOrigin: "top center" });
         gsap.to(progress, {
           scaleY: 1,
@@ -1007,139 +908,44 @@ export function HomeSections() {
     }
 
     const ctx = gsap.context(() => {
-      gsap.set(intro, { opacity: 1, y: 0 });
+      const objectiveCount = strategicObjectives.length;
 
-      const rows = gsap.utils.toArray<HTMLElement>(
-        desktopStage.querySelectorAll("[data-objective-desktop-row]")
-      );
-      const progressRail = desktopStage.querySelector<HTMLElement>(
-        "[data-objective-progress]"
-      );
-      const markers = gsap.utils.toArray<HTMLElement>(
-        desktopStage.querySelectorAll("[data-objective-marker]")
-      );
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        // Match the per-item scroll distance used by Detailed Solutions.
+        end: () =>
+          `+=${Math.max(window.innerHeight * 0.6, 450) * objectiveCount}`,
+        pin: section,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        fastScrollEnd: false,
+        onEnter: () => setObjectivesDesktopIndex(0),
+        onEnterBack: () => setObjectivesDesktopIndex(objectiveCount - 1),
+        onUpdate: (self) => {
+          // Divide pinned scroll distance into five equal slides.
+          const nextIndex = Math.min(
+            objectiveCount - 1,
+            Math.floor(self.progress * objectiveCount)
+          );
 
-      if (prefersReducedMotion) {
-        gsap.set(rows, { opacity: 1, y: 0, x: 0, scale: 1 });
-        if (progressRail) {
-          gsap.set(progressRail, { scaleY: 1, transformOrigin: "top center" });
-        }
-        markers.forEach((marker) => {
-          gsap.set(marker, {
-            scale: 1,
-            backgroundColor: "var(--color-gold-500)",
-          });
-        });
-        return;
-      }
-
-      gsap.set(rows, {
-        opacity: 0,
-        y: 34,
-        x: 34,
-        scale: 0.985,
-      });
-
-      // First objective is already visible when the pinned section starts.
-      gsap.set(rows[0], {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        scale: 1,
-      });
-
-      if (progressRail) {
-        gsap.set(progressRail, {
-          scaleY: 0,
-          transformOrigin: "top center",
-        });
-      }
-
-      markers.forEach((marker, index) => {
-        gsap.set(marker, {
-          scale: index === 0 ? 1.35 : 0.78,
-          backgroundColor:
-            index === 0
-              ? "var(--color-gold-500)"
-              : "rgba(3,20,39,0.18)",
-        });
-      });
-
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${Math.max(window.innerHeight * 0.95, 720)}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.7,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
+          setObjectivesDesktopIndex((current) =>
+            current === nextIndex ? current : nextIndex
+          );
         },
       });
 
-      if (progressRail) {
-        timeline.to(
-          progressRail,
-          {
-            scaleY: 1,
-            ease: "none",
-            duration: strategicObjectives.length - 1,
-          },
-          0
-        );
-      }
+      // Recalculate after layout/fonts settle so pin measurements are correct.
+      requestAnimationFrame(() => ScrollTrigger.refresh());
 
-      // Reveal 02 -> 05 one by one. Previous rows remain visible.
-      rows.slice(1).forEach((row, rowIndex) => {
-        const step = rowIndex + 1;
-
-        timeline.to(
-          row,
-          {
-            opacity: 1,
-            y: 0,
-            x: 0,
-            scale: 1,
-            duration: 0.62,
-            ease: "power2.out",
-          },
-          step - 0.35
-        );
-
-        const marker = markers[step];
-        if (marker) {
-          timeline.to(
-            marker,
-            {
-              scale: 1.35,
-              backgroundColor: "var(--color-gold-500)",
-              duration: 0.28,
-              ease: "power2.out",
-            },
-            step - 0.32
-          );
-        }
-
-        const previousMarker = markers[step - 1];
-        if (previousMarker) {
-          timeline.to(
-            previousMarker,
-            {
-              scale: 1,
-              duration: 0.24,
-              ease: "power2.out",
-            },
-            step - 0.3
-          );
-        }
-      });
+      return () => trigger.kill();
     }, section);
 
     return () => {
       ctx.revert();
     };
-  }, [isMobileViewport, prefersReducedMotion]);
+  }, [isMobileViewport]);
 
   useEffect(() => {
     const section = detailedSectionRef.current;
@@ -1153,11 +959,15 @@ export function HomeSections() {
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: () => `+=${Math.max(window.innerHeight * 1.35, 860)}`,
+        end: () =>
+          `+=${Math.max(window.innerHeight * 0.6, 450) * detailedSolutions.length}`,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onEnter: () => setDetailedDesktopIndex(0),
+        onEnterBack: () =>
+          setDetailedDesktopIndex(detailedSolutions.length - 1),
         onUpdate: (self) => {
           const raw = self.progress * detailedSolutions.length;
           const nextIndex = Math.min(
@@ -1198,12 +1008,12 @@ export function HomeSections() {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: prefersReducedMotion ? 0.2 : 0.5,
+        duration: 0.5,
         ease: "power3.out",
         overwrite: true,
       }
     );
-  }, [detailedDesktopIndex, isMobileViewport, prefersReducedMotion]);
+  }, [detailedDesktopIndex, isMobileViewport]);
 
   return (
     <div ref={rootRef}>
@@ -1271,9 +1081,10 @@ export function HomeSections() {
             <div className="js-image-mask relative left-1/2 min-h-[25rem] w-screen -translate-x-1/2 overflow-hidden sm:min-h-[29rem] lg:left-auto lg:min-h-[37rem] lg:w-auto lg:translate-x-0">
               <div className="js-vision-image absolute inset-0">
                 <Image
-                  src="/images/about us.png"
+                  src="/images/about-vision-a698b154.png"
                   alt="Modern Guangzhou skyline and commercial district"
                   fill
+                  unoptimized
                   sizes="(min-width: 1024px) 58vw, 100vw"
                   className="object-cover object-[46%_50%] lg:object-center"
                 />
@@ -1284,21 +1095,28 @@ export function HomeSections() {
             <div className="relative bg-[color:var(--color-navy-950)] px-[var(--mobile-gutter)] py-[clamp(2.5rem,8vw,3.6rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
               <div className="relative flex h-full min-h-[25rem] flex-col justify-center sm:min-h-[32rem] lg:min-h-[37rem] lg:p-1">
                 <p className="js-vision-label section-label mb-[clamp(1.1rem,4vw,1.6rem)] text-[clamp(0.82rem,3.1vw,0.9rem)] tracking-[0.24em]">OUR VISION</p>
-                <div className="overflow-hidden">
+                <TextReveal forceMotion distance={42}>
                   <h2 className="js-vision-line font-serif text-[clamp(3.2rem,13vw,4.35rem)] uppercase leading-[0.9] tracking-[-0.055em] text-white">
                     Connecting China
                   </h2>
-                </div>
-                <div className="mt-[clamp(0.45rem,2vw,0.6rem)] overflow-hidden">
+                </TextReveal>
+                <TextReveal
+                  forceMotion
+                  className="mt-[clamp(0.45rem,2vw,0.6rem)]"
+                  delay={0.1}
+                  distance={42}
+                >
                   <h2 className="js-vision-line text-[clamp(3.35rem,13.6vw,4.35rem)] font-semibold uppercase leading-[0.9] tracking-[-0.055em] text-[color:var(--color-gold-500)]">
                     With The World.
                   </h2>
-                </div>
-                <p className="js-vision-copy mt-[clamp(1.8rem,6vw,2.3rem)] max-w-[19rem] text-[clamp(1rem,4vw,1.08rem)] leading-[1.95] text-white/82 sm:max-w-[23rem] lg:max-w-[31rem] lg:text-[0.98rem] lg:leading-8 lg:text-white/72">
-                  To provide smart and fast solutions that connect China with
-                  the world across industries, creating seamless opportunities
-                  for international trade, collaboration, and long-term growth.
-                </p>
+                </TextReveal>
+                <Reveal forceMotion delay={0.2} distance={22}>
+                  <p className="js-vision-copy mt-[clamp(1.8rem,6vw,2.3rem)] max-w-[19rem] text-[clamp(1rem,4vw,1.08rem)] leading-[1.95] text-white/82 sm:max-w-[23rem] lg:max-w-[31rem] lg:text-[0.98rem] lg:leading-8 lg:text-white/72">
+                    To provide smart and fast solutions that connect China with
+                    the world across industries, creating seamless opportunities
+                    for international trade, collaboration, and long-term growth.
+                  </p>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -1307,86 +1125,104 @@ export function HomeSections() {
 
       <section
         ref={objectivesSectionRef}
-        className="js-objectives-section bg-[color:var(--color-surface)] py-[var(--section-space)] lg:min-h-screen lg:py-[calc(var(--section-space)*0.56)]"
+        className="js-objectives-section relative bg-[color:var(--color-surface)] py-[var(--section-space)] lg:h-screen lg:min-h-0 lg:overflow-hidden lg:py-0"
       >
-        <Container className="max-w-[var(--content-max)]">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:gap-14">
-            <div ref={objectivesIntroRef} className={cn("js-objectives-intro", desktopStickyColumnClass)}>
-              <p className="js-objectives-label section-label mb-4">STRATEGIC OBJECTIVES</p>
-              <div className="overflow-hidden md:hidden">
-                <h2 className="js-objectives-line section-heading text-[color:var(--color-navy-900)]">
+        <Container className="max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
+          <div className="grid w-full gap-12 lg:translate-y-6 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:items-center lg:gap-14">
+            <div ref={objectivesIntroRef} className="js-objectives-intro lg:self-center">
+              <p className="section-label mb-4">STRATEGIC OBJECTIVES</p>
+              <TextReveal forceMotion distance={42}>
+                <h2 className="section-heading font-serif text-[color:var(--color-navy-900)] md:hidden">
                   How We Think About
                 </h2>
-              </div>
-              <div className="mt-1 overflow-hidden md:hidden">
-                <h2 className="js-objectives-line section-heading text-[color:var(--color-navy-900)]">
+                <h2 className="mt-1 section-heading font-serif text-[color:var(--color-navy-900)] md:hidden">
                   Long-Term
                   <span className="text-[color:var(--color-gold-500)]"> Execution.</span>
                 </h2>
-              </div>
-              <div className="hidden overflow-hidden md:block">
-                <h2 className="js-objectives-line section-heading text-[color:var(--color-navy-900)]">
+                <h2 className="hidden section-heading font-serif text-[color:var(--color-navy-900)] md:block">
                   How We Think About
                 </h2>
-              </div>
-              <div className="hidden overflow-hidden md:block">
-                <h2 className="js-objectives-line section-heading text-[color:var(--color-navy-900)]">
+                <h2 className="hidden section-heading font-serif text-[color:var(--color-navy-900)] md:block">
                   Long-Term Execution.
                 </h2>
-              </div>
-              <p className="js-objectives-copy mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[color:var(--color-slate-700)] md:mt-5 md:max-w-[38rem] md:text-[1rem] md:leading-8">
-                A solutions-led business model built around clarity, flexibility, and trusted partnership.
-              </p>
+              </TextReveal>
+              <Reveal forceMotion delay={0.14} distance={22}>
+                <p className="mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[color:var(--color-slate-700)] md:mt-5 md:max-w-[38rem] md:text-[1rem] md:leading-8">
+                  A solutions-led business model built around clarity, flexibility, and trusted partnership.
+                </p>
+              </Reveal>
             </div>
 
             <div ref={objectivesAreaRef} className="relative grid gap-10 md:gap-14 lg:gap-18">
               {!isMobileViewport ? (
                 <div
                   ref={objectivesDesktopRef}
-                  className="relative flex min-h-[31rem] items-center pr-10 lg:min-h-[34rem]"
+                  className="relative h-[34rem]"
                 >
-                  <div className="absolute right-2 top-1/2 hidden h-[78%] w-px -translate-y-1/2 bg-[color:var(--color-navy-900)]/10 xl:block">
-                    <div
-                      data-objective-progress
-                      className="absolute left-0 top-0 h-full w-px origin-top bg-[color:var(--color-gold-500)]"
-                      style={{ transform: "scaleY(0)" }}
-                    />
-                    {strategicObjectives.map((objective, index) => (
-                      <span
-                        key={objective.number}
-                        data-objective-marker={index}
-                        className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full"
-                        style={{
-                          top: `${(index / (strategicObjectives.length - 1)) * 100}%`,
-                        }}
-                      />
-                    ))}
-                  </div>
+                  <div className="flex h-full flex-col justify-center">
+                    {strategicObjectives.map((objective, index) => {
+                      const isActive = index === objectivesDesktopIndex;
+                      const isPast = index < objectivesDesktopIndex;
 
-                  <div className="grid w-full gap-4 xl:gap-5">
-                    {strategicObjectives.map((objective) => (
+                      return (
                       <article
                         key={objective.number}
-                        data-objective-desktop-row
-                        className="relative grid grid-cols-[4.8rem_minmax(0,1fr)] items-start gap-6 border-b border-[color:var(--color-border)]/80 pb-4 last:border-b-0 last:pb-0 xl:grid-cols-[5.3rem_minmax(0,1fr)] xl:gap-7 xl:pb-5"
+                        className={cn(
+                          "relative grid origin-center grid-cols-[3.8rem_1px_minmax(0,1fr)] items-center gap-5 border-b border-[color:var(--color-border)]/75 py-3.5 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                          isActive
+                            ? "translate-y-0 scale-100 opacity-100"
+                            : isPast
+                              ? "-translate-y-2 scale-[0.985] opacity-45"
+                              : "translate-y-1.5 scale-[0.985] opacity-60"
+                        )}
                       >
-                        <div>
-                          <p className="font-serif text-[clamp(2.8rem,4.2vw,4rem)] leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
-                            {objective.number}
-                          </p>
-                          <div className="mt-3 h-px w-12 bg-[color:var(--color-gold-500)]/70" />
-                        </div>
+                        <p
+                          className={cn(
+                            "origin-left font-serif text-[2.65rem] leading-none tracking-[-0.07em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                            isActive
+                              ? "scale-100 text-[color:var(--color-gold-500)]"
+                              : "scale-90 text-[color:var(--color-navy-900)]/35"
+                          )}
+                        >
+                          {objective.number}
+                        </p>
 
-                        <div className="pt-1">
-                          <h3 className="max-w-[24ch] text-[clamp(1.15rem,1.6vw,1.55rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] text-[color:var(--color-navy-900)]">
+                        <div className="h-[78%] w-px bg-[color:var(--color-border)]" />
+
+                        <div className="min-w-0">
+                          <h3
+                            className={cn(
+                              "max-w-[34rem] text-[clamp(0.94rem,1.25vw,1.12rem)] font-semibold uppercase leading-[1.12] tracking-[-0.025em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                              isActive
+                                ? "translate-x-0 text-[color:var(--color-navy-900)]"
+                                : "translate-x-1 text-[color:var(--color-navy-900)]/65"
+                            )}
+                          >
                             {objective.title}
                           </h3>
-                          <p className="mt-2 max-w-[34rem] text-[0.9rem] leading-6 text-[color:var(--color-slate-700)] xl:text-[0.94rem] xl:leading-7">
+                          <p
+                            className={cn(
+                              "mt-1.5 max-w-[36rem] text-[0.8rem] leading-5 text-[color:var(--color-slate-700)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                              isActive
+                                ? "translate-y-0 opacity-100"
+                                : "translate-y-0.5 opacity-70"
+                            )}
+                          >
                             {objective.description}
                           </p>
                         </div>
+
+                        <div
+                          className={cn(
+                            "pointer-events-none absolute bottom-[-1px] left-[5.3rem] right-0 h-[2px] origin-left bg-[linear-gradient(90deg,transparent_0%,rgba(197,160,98,0.9)_24%,rgba(197,160,98,0.2)_72%,transparent_100%)] shadow-[0_0_14px_rgba(197,160,98,0.45)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                            isActive
+                              ? "scale-x-100 opacity-100"
+                              : "scale-x-0 opacity-0"
+                          )}
+                        />
                       </article>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ) : (
@@ -1468,15 +1304,17 @@ export function HomeSections() {
         <Container className="max-w-[var(--content-max)]">
           <div className="max-w-[40rem]">
             <p className="js-solutions-label section-label mb-4">OUR SOLUTIONS</p>
-            <div className="overflow-hidden">
+            <TextReveal forceMotion distance={42}>
               <h2 className="text-[clamp(2rem,3.5vw,3rem)] font-semibold uppercase leading-[0.94] tracking-[-0.045em] text-white">
-                <span className="js-solutions-line block">One Partner.</span>
-                <span className="js-solutions-line block">Four Core Capabilities.</span>
+                <span className="block">One Partner.</span>
+                <span className="block">Four Core Capabilities.</span>
               </h2>
-            </div>
-            <p className="js-solutions-copy mt-4 max-w-[34rem] text-[0.96rem] leading-7 text-white/74">
-              Integrated business solutions built around your requirements.
-            </p>
+            </TextReveal>
+            <Reveal forceMotion delay={0.14} distance={22}>
+              <p className="mt-4 max-w-[34rem] text-[0.96rem] leading-7 text-white/74">
+                Integrated business solutions built around your requirements.
+              </p>
+            </Reveal>
           </div>
 
           <div
@@ -1573,11 +1411,11 @@ export function HomeSections() {
 
       <section
         ref={detailedSectionRef}
-        className="js-detailed-solutions-section bg-white py-[var(--section-space)] lg:min-h-screen lg:py-[calc(var(--section-space)*0.56)]"
+        className="js-detailed-solutions-section bg-white py-[var(--section-space)] lg:h-screen lg:min-h-[36rem] lg:overflow-hidden lg:py-0"
       >
-        <Container className="max-w-[var(--content-max)]">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:gap-14">
-            <div className={desktopStickyColumnClass}>
+        <Container className="max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
+          <div className="grid w-full gap-12 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:items-center lg:gap-14">
+            <div className="lg:self-center">
               <SectionTitle
                 label="DETAILED SOLUTIONS"
                 title="Built To Match The Scale Of The Requirement."
@@ -1587,103 +1425,22 @@ export function HomeSections() {
 
             {isMobileViewport ? (
               <div className="grid gap-6 lg:hidden">
-                {detailedSolutions.map((solution) => (
-                  <article
-                    key={solution.number}
-                    className="js-reveal-scale border border-[color:var(--color-border)] bg-[color:var(--color-surface)]/58 p-6 sm:p-8"
-                  >
-                    <div className="grid gap-6 xl:grid-cols-[5.5rem_minmax(0,1fr)]">
-                      <div className="text-[2.5rem] font-serif leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]">
-                        {solution.number}
-                      </div>
-                      <div>
-                        <h3 className="text-[1.8rem] font-semibold uppercase leading-[1.02] tracking-[-0.04em] text-[color:var(--color-navy-900)]">
-                          {solution.title}
-                        </h3>
-                        <p className="mt-4 text-[1rem] font-semibold uppercase tracking-[0.1em] text-[color:var(--color-gold-500)]">
-                          {solution.statement}
-                        </p>
-                        <div className="mt-5 space-y-4">
-                          {solution.description.map((paragraph) => (
-                            <p
-                              key={paragraph}
-                              className="text-[0.98rem] leading-8 text-[color:var(--color-slate-700)]"
-                            >
-                              {paragraph}
-                            </p>
-                          ))}
-                        </div>
-                        <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                          {solution.highlights.map((highlight) => (
-                            <div
-                              key={highlight}
-                              className="flex items-start gap-3 border-t border-[color:var(--color-border)] pt-3"
-                            >
-                              <BadgeCheck className="mt-1 h-4 w-4 shrink-0 text-[color:var(--color-gold-500)]" />
-                              <p className="text-[0.86rem] leading-6 text-[color:var(--color-navy-900)]">
-                                {highlight}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </article>
+                {detailedSolutions.map((solution, index) => (
+                  <Reveal forceMotion key={solution.number} delay={index * 0.06} distance={30}>
+                    <DetailedSolutionCard solution={solution} />
+                  </Reveal>
                 ))}
               </div>
             ) : (
               <div
                 ref={detailedDesktopRef}
-                className="relative flex min-h-[31rem] items-center lg:min-h-[34rem]"
+                className="relative ml-auto w-[92%] lg:translate-y-4 xl:w-[84%]"
               >
-                <article
+                <DetailedSolutionCard
                   key={detailedSolutions[detailedDesktopIndex].number}
-                  data-detailed-active-card
-                  className="w-full border border-[color:var(--color-border)] bg-[color:var(--color-surface)]/58 p-8 xl:p-10"
-                >
-                  <div className="grid gap-8 xl:grid-cols-[5.5rem_minmax(0,1fr)]">
-                    <div className="text-[2.8rem] font-serif leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]">
-                      {detailedSolutions[detailedDesktopIndex].number}
-                    </div>
-
-                    <div>
-                      <h3 className="text-[1.95rem] font-semibold uppercase leading-[1.02] tracking-[-0.04em] text-[color:var(--color-navy-900)]">
-                        {detailedSolutions[detailedDesktopIndex].title}
-                      </h3>
-
-                      <div className="mt-4 h-px w-full bg-[color:var(--color-gold-500)]/40" />
-
-                      <p className="mt-4 text-[1rem] font-semibold uppercase tracking-[0.1em] text-[color:var(--color-gold-500)]">
-                        {detailedSolutions[detailedDesktopIndex].statement}
-                      </p>
-
-                      <div className="mt-5 max-w-[42rem] space-y-4">
-                        {detailedSolutions[detailedDesktopIndex].description.map((paragraph) => (
-                          <p
-                            key={paragraph}
-                            className="text-[0.98rem] leading-8 text-[color:var(--color-slate-700)]"
-                          >
-                            {paragraph}
-                          </p>
-                        ))}
-                      </div>
-
-                      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                        {detailedSolutions[detailedDesktopIndex].highlights.map((highlight) => (
-                          <div
-                            key={highlight}
-                            className="flex items-start gap-3 border-t border-[color:var(--color-border)] pt-3"
-                          >
-                            <BadgeCheck className="mt-1 h-4 w-4 shrink-0 text-[color:var(--color-gold-500)]" />
-                            <p className="text-[0.86rem] leading-6 text-[color:var(--color-navy-900)]">
-                              {highlight}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </article>
+                  solution={detailedSolutions[detailedDesktopIndex]}
+                  desktop
+                />
               </div>
             )}
           </div>
@@ -1709,23 +1466,25 @@ export function HomeSections() {
 
           <div className="relative z-10 mx-auto flex min-h-[29rem] w-full max-w-[var(--content-max)] items-end px-5 py-8 sm:min-h-[34rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
             <div className="max-w-[33rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
-              <p className="js-global-label section-label mb-5">GLOBAL REACH</p>
-              <div className="overflow-hidden">
+              <p className="section-label mb-5">GLOBAL REACH</p>
+              <TextReveal forceMotion delay={0.08} distance={52}>
                 <h2 className="js-global-line text-[clamp(2.7rem,5vw,5rem)] font-semibold uppercase leading-[0.9] tracking-[-0.055em] text-white">
                   From China.
                 </h2>
-              </div>
-              <div className="mt-1 overflow-hidden">
+              </TextReveal>
+              <TextReveal forceMotion className="mt-1" delay={0.16} distance={52}>
                 <h2 className="js-global-line font-serif text-[clamp(2.7rem,5vw,5rem)] uppercase leading-[0.9] tracking-[-0.055em] text-[color:var(--color-gold-500)]">
                   To The World.
                 </h2>
-              </div>
+              </TextReveal>
 
-              <p className="js-global-copy mt-6 max-w-[30rem] text-[1rem] leading-8 text-white/74">
-                Connecting international businesses with manufacturers,
-                suppliers, technologies, services, and opportunities across
-                China.
-              </p>
+              <TextReveal forceMotion delay={0.24} distance={24}>
+                <p className="mt-6 max-w-[30rem] text-[1rem] leading-8 text-white/74">
+                  Connecting international businesses with manufacturers,
+                  suppliers, technologies, services, and opportunities across
+                  China.
+                </p>
+              </TextReveal>
             </div>
           </div>
         </div>
@@ -1735,41 +1494,39 @@ export function HomeSections() {
         <Container className="max-w-[var(--content-max)]">
           <div className="relative grid gap-14 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:items-stretch lg:gap-16">
             <div className="relative flex h-full max-w-[31rem] flex-col">
-              <p className="js-why-label section-label relative z-10 mb-5">
-                WHY RONG XING
-              </p>
-              <div className="flex flex-1 flex-col justify-between">
+              <p className="section-label relative z-10 mb-5">WHY RONG XING</p>
+              <div className="flex flex-1 flex-col">
                 <div>
-                  <div className="relative z-10 overflow-hidden">
-                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
+                  <TextReveal forceMotion className="relative z-10" delay={0.08} distance={44}>
+                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
                       Built To Make
                     </h2>
-                  </div>
-                  <div className="relative z-10 overflow-hidden">
-                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
+                  </TextReveal>
+                  <TextReveal forceMotion className="relative z-10" delay={0.14} distance={44}>
+                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
                       Business In China
                     </h2>
-                  </div>
-                  <div className="relative z-10 overflow-hidden">
-                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
+                  </TextReveal>
+                  <TextReveal forceMotion className="relative z-10" delay={0.2} distance={44}>
+                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
                       Simpler.
                     </h2>
-                  </div>
+                  </TextReveal>
                 </div>
 
-                <p className="js-why-copy relative z-10 mt-6 max-w-[25rem] text-[1rem] leading-8 text-[color:var(--color-slate-700)] lg:mt-10">
-                  Disciplined local access, practical judgment, and responsive execution for international requirements in China.
-                </p>
+                <TextReveal forceMotion className="mt-9" delay={0.26} distance={24}>
+                  <p className="relative z-10 max-w-[25rem] text-[1rem] leading-8 text-[color:var(--color-slate-700)]">
+                    Disciplined local access, practical judgment, and responsive execution for international requirements in China.
+                  </p>
+                </TextReveal>
               </div>
             </div>
 
             <div className="relative h-full">
               <div className="relative z-10 flex h-full flex-col justify-between divide-y divide-[color:var(--color-border)]/85 border-y border-[color:var(--color-border)]/85">
                 {whyItems.map((item, index) => (
-                  <article
-                    key={item.title}
-                    className="js-reveal-up group grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-5 py-5 transition-[padding,color] duration-300 hover:py-6"
-                  >
+                  <Reveal forceMotion key={item.title} delay={index * 0.07} distance={24}>
+                    <article className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-5 py-5 transition-[padding,color] duration-300 hover:py-6">
                     <div className="pt-0.5 text-[1.55rem] font-semibold leading-none tracking-[-0.04em] text-[color:var(--color-navy-900)]/34 transition-all duration-300 group-hover:scale-[1.06] group-hover:text-[color:var(--color-gold-500)]">
                       {String(index + 1).padStart(2, "0")}
                     </div>
@@ -1788,7 +1545,8 @@ export function HomeSections() {
                     <div className="pt-0.5 text-[1.1rem] text-[color:var(--color-navy-900)]/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[color:var(--color-gold-500)]">
                       <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
                     </div>
-                  </article>
+                    </article>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -1797,36 +1555,35 @@ export function HomeSections() {
       </section>
 
       <section
-        ref={promiseSectionRef}
         className="js-promise-section relative overflow-hidden bg-[color:var(--color-navy-950)] py-[calc(var(--section-space)*0.95)] text-white"
       >
         <Container className="relative z-[2] max-w-[var(--content-max)]">
           <div className="mx-auto max-w-[50rem] text-center">
-            <p className="js-promise-label section-label mb-5">OUR PROMISE</p>
-            <div className="overflow-hidden">
+            <p className="section-label mb-5">OUR PROMISE</p>
+            <TextReveal forceMotion delay={0.08} distance={58}>
               <h2 className="js-promise-line editorial-heading text-white">
                 Tell Us What
               </h2>
-            </div>
-            <div className="overflow-hidden">
+            </TextReveal>
+            <TextReveal forceMotion delay={0.14} distance={58}>
               <h2 className="js-promise-line editorial-heading text-white">
                 You Need.
               </h2>
-            </div>
-            <div className="overflow-hidden">
+            </TextReveal>
+            <TextReveal forceMotion delay={0.2} distance={58}>
               <h2 className="js-promise-line editorial-heading text-[color:var(--color-gold-500)]">
                 We Find
               </h2>
-            </div>
-            <div className="overflow-hidden">
+            </TextReveal>
+            <TextReveal forceMotion delay={0.26} distance={58}>
               <h2 className="js-promise-line editorial-heading text-[color:var(--color-gold-500)]">
                 The Solution.
               </h2>
-            </div>
+            </TextReveal>
 
             <div className="mt-10 flex justify-center">
               <div className="flex flex-col items-center gap-6">
-                <div className="js-promise-cta">
+                <Reveal forceMotion delay={0.32} distance={20}>
                   <CtaLink
                     href="/#contact"
                     variant="outline"
@@ -1837,7 +1594,7 @@ export function HomeSections() {
                   >
                     Start A Conversation
                   </CtaLink>
-                </div>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -1858,24 +1615,27 @@ export function HomeSections() {
 
         <Container className="relative max-w-[var(--content-max)] py-[var(--section-space)]">
           <div className="max-w-[42rem]">
-            <p className="js-contact-label section-label mb-5">LET&apos;S TALK BUSINESS</p>
-            <div className="overflow-hidden">
+            <p className="section-label mb-5">LET&apos;S TALK BUSINESS</p>
+            <TextReveal forceMotion delay={0.08} distance={58}>
               <h2 className="js-contact-line editorial-heading text-[color:var(--color-navy-900)]">
                 Ready To Start
               </h2>
-            </div>
-            <div className="overflow-hidden">
+            </TextReveal>
+            <TextReveal forceMotion delay={0.14} distance={58}>
               <h2 className="js-contact-line editorial-heading text-[color:var(--color-navy-900)]">
                 A Conversation?
               </h2>
-            </div>
-            <p className="js-contact-copy mt-6 max-w-[34rem] text-[1rem] leading-8 text-[color:var(--color-slate-700)]">
-              Share your requirement with our team and let&apos;s explore the
-              right solution together.
-            </p>
+            </TextReveal>
+            <TextReveal forceMotion delay={0.22} distance={24}>
+              <p className="mt-6 max-w-[34rem] text-[1rem] leading-8 text-[color:var(--color-slate-700)]">
+                Share your requirement with our team and let&apos;s explore the
+                right solution together.
+              </p>
+            </TextReveal>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <div className="js-contact-primary">
+            <Reveal forceMotion className="mt-8" delay={0.3} distance={20}>
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <div>
                 <CtaLink
                   href="/contact"
                   icon={
@@ -1885,20 +1645,21 @@ export function HomeSections() {
                   Start An Inquiry
                 </CtaLink>
               </div>
-              <div className="js-contact-secondary">
+                <div>
                 <CtaLink href="/contact" variant="secondary">
                   WhatsApp
                 </CtaLink>
               </div>
-              <div className="js-contact-secondary">
+                <div>
                 <CtaLink
                   href="mailto:info@rongxingtrading.com"
                   variant="secondary"
                 >
                   Email Us
                 </CtaLink>
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>

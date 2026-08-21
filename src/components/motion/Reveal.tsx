@@ -20,6 +20,7 @@ type RevealProps = {
   className?: string;
   delay?: number;
   distance?: number;
+  forceMotion?: boolean;
 } & Omit<HTMLMotionProps<"div">, "children">;
 
 type TextRevealProps = {
@@ -28,6 +29,7 @@ type TextRevealProps = {
   innerClassName?: string;
   delay?: number;
   distance?: number;
+  forceMotion?: boolean;
 };
 
 type StaggerProps = {
@@ -39,13 +41,19 @@ type StaggerProps = {
 
 const viewportOptions = { once: true, amount: 0.22 } as const;
 
-function useRevealTrigger() {
+function useRevealTrigger(forceMotion = false) {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, viewportOptions);
   const controls = useAnimationControls();
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [hasPassedViewport, setHasPassedViewport] = useState(false);
+  const shouldReduceMotion = forceMotion ? false : reducedMotion;
 
   useEffect(() => {
+    if (forceMotion) {
+      return;
+    }
+
     if (typeof window === "undefined" || !window.matchMedia) {
       return;
     }
@@ -61,18 +69,43 @@ function useRevealTrigger() {
     return () => {
       mediaQuery.removeEventListener("change", updateMotionPreference);
     };
-  }, []);
+  }, [forceMotion]);
 
   useEffect(() => {
-    if (reducedMotion || inView) {
+    const element = ref.current;
+
+    if (!element || hasPassedViewport) {
+      return;
+    }
+
+    const revealIfPassed = () => {
+      if (element.getBoundingClientRect().bottom <= 0) {
+        setHasPassedViewport(true);
+      }
+    };
+
+    revealIfPassed();
+    window.addEventListener("scroll", revealIfPassed, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", revealIfPassed);
+    };
+  }, [hasPassedViewport]);
+
+  useEffect(() => {
+    if (shouldReduceMotion || inView || hasPassedViewport) {
       void controls.start("visible");
       return;
     }
 
     void controls.start("hidden");
-  }, [controls, inView, reducedMotion]);
+  }, [controls, hasPassedViewport, inView, shouldReduceMotion]);
 
-  return { ref, controls, reducedMotion };
+  return {
+    ref,
+    controls,
+    reducedMotion: shouldReduceMotion,
+  };
 }
 
 export function Reveal({
@@ -80,9 +113,10 @@ export function Reveal({
   className,
   delay = 0,
   distance = 28,
+  forceMotion = false,
   ...props
 }: RevealProps) {
-  const { ref, controls, reducedMotion } = useRevealTrigger();
+  const { ref, controls, reducedMotion } = useRevealTrigger(forceMotion);
 
   return (
     <motion.div
@@ -115,8 +149,9 @@ export function TextReveal({
   innerClassName,
   delay = 0,
   distance = 32,
+  forceMotion = false,
 }: TextRevealProps) {
-  const { ref, controls, reducedMotion } = useRevealTrigger();
+  const { ref, controls, reducedMotion } = useRevealTrigger(forceMotion);
 
   return (
     <div className={cn("overflow-hidden", className)}>
@@ -149,9 +184,10 @@ export function ImageReveal({
   className,
   delay = 0,
   distance = 24,
+  forceMotion = false,
   ...props
 }: RevealProps) {
-  const { ref, controls, reducedMotion } = useRevealTrigger();
+  const { ref, controls, reducedMotion } = useRevealTrigger(forceMotion);
 
   return (
     <motion.div
