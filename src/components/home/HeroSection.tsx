@@ -10,6 +10,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
+import { assetPath } from "@/lib/paths";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -170,7 +171,7 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
-              src="/images/home-full-f2f6fcf3.png"
+              src={assetPath("/images/home-full-f2f6fcf3.png")}
               alt="Guangzhou skyline and waterfront representing modern China and international business"
               fill
               priority

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { homeNavigationItems } from "@/data/home";
+import { assetPath } from "@/lib/paths";
 import { cn } from "@/utils/cn";
 
 export function HomeHeader() {
@@ -18,7 +19,7 @@ export function HomeHeader() {
           <Link href="/" className="flex shrink-0 items-center self-center">
             <span className="flex h-[3.45rem] w-[9.75rem] items-center">
               <Image
-                src="/logos/Logo + Text.png"
+                src={assetPath("/logos/logo.png")}
                 alt="Rongxing Trading Co., Ltd. logo"
                 width={720}
                 height={272}

@@ -22,6 +22,7 @@ import {
 } from "react";
 
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
+import { assetPath } from "@/lib/paths";
 import { Reveal, TextReveal } from "@/components/motion/Reveal";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { Container } from "@/components/ui/Container";
@@ -1081,7 +1082,7 @@ export function HomeSections() {
             <div className="js-image-mask relative left-1/2 min-h-[25rem] w-screen -translate-x-1/2 overflow-hidden sm:min-h-[29rem] lg:left-auto lg:min-h-[37rem] lg:w-auto lg:translate-x-0">
               <div className="js-vision-image absolute inset-0">
                 <Image
-                  src="/images/about-vision-a698b154.png"
+                  src={assetPath("/images/about-vision-a698b154.png")}
                   alt="Modern Guangzhou skyline and commercial district"
                   fill
                   unoptimized
@@ -1454,7 +1455,7 @@ export function HomeSections() {
         <div className="relative min-h-[29rem] sm:min-h-[34rem] lg:min-h-[42rem]">
           <div className="js-global-image absolute inset-0">
             <Image
-              src="/images/global.png"
+              src={assetPath("/images/global.png")}
               alt="Global route map representing outbound connections from China"
               fill
               sizes="100vw"
@@ -1604,7 +1605,7 @@ export function HomeSections() {
       <section id="contact" className="relative overflow-hidden bg-[color:var(--color-surface)]">
         <div className="absolute inset-0">
           <Image
-            src="/images/contact.png"
+            src={assetPath("/images/contact.png")}
             alt="Guangzhou waterfront and industrial skyline"
             fill
             sizes="100vw"

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Container } from "@/components/ui/Container";
+import { assetPath } from "@/lib/paths";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,7 +113,7 @@ export function Footer({ onePage = false }: FooterProps) {
     <footer ref={footerRef} className="relative overflow-hidden bg-[color:var(--color-navy-950)] text-white">
       <div className="absolute inset-0">
         <Image
-          src="/images/footer.png"
+          src={assetPath("/images/footer.png")}
           alt=""
           fill
           sizes="100vw"

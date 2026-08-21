@@ -1,5 +1,7 @@
 import type { SVGProps } from "react";
 
+import { assetPath } from "@/lib/paths";
+
 type IconProps = SVGProps<SVGSVGElement>;
 
 type WhatsAppIconProps = {
@@ -29,8 +31,8 @@ export function WhatsAppIcon({
         .filter(Boolean)
         .join(" ")}
       style={{
-        WebkitMaskImage: "url('/logos/whatsapp-svgrepo-com.svg')",
-        maskImage: "url('/logos/whatsapp-svgrepo-com.svg')",
+        WebkitMaskImage: `url('${assetPath("/logos/whatsapp-svgrepo-com.svg")}')`,
+        maskImage: `url('${assetPath("/logos/whatsapp-svgrepo-com.svg")}')`,
         WebkitMaskRepeat: "no-repeat",
         maskRepeat: "no-repeat",
         WebkitMaskPosition: "center",
@@ -48,8 +50,8 @@ export function ChartLineUpIcon({ className }: MaskIconProps) {
       aria-hidden="true"
       className={["inline-block bg-current", className].filter(Boolean).join(" ")}
       style={{
-        WebkitMaskImage: "url('/logos/chart-line-up-svgrepo-com.svg')",
-        maskImage: "url('/logos/chart-line-up-svgrepo-com.svg')",
+        WebkitMaskImage: `url('${assetPath("/logos/chart-line-up-svgrepo-com.svg")}')`,
+        maskImage: `url('${assetPath("/logos/chart-line-up-svgrepo-com.svg")}')`,
         WebkitMaskRepeat: "no-repeat",
         maskRepeat: "no-repeat",
         WebkitMaskPosition: "center",
