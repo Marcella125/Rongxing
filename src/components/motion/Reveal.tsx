@@ -79,7 +79,9 @@ function useRevealTrigger(forceMotion = false) {
     }
 
     const revealIfPassed = () => {
-      if (element.getBoundingClientRect().bottom <= 0) {
+      const rect = element.getBoundingClientRect();
+
+      if (rect.bottom <= 0 || rect.top < window.innerHeight) {
         setHasPassedViewport(true);
       }
     };
@@ -100,6 +102,26 @@ function useRevealTrigger(forceMotion = false) {
 
     void controls.start("hidden");
   }, [controls, hasPassedViewport, inView, shouldReduceMotion]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      const element = ref.current;
+
+      if (!element) {
+        return;
+      }
+
+      const rect = element.getBoundingClientRect();
+
+      if (rect.bottom <= 0 || rect.top < window.innerHeight * 1.1) {
+        void controls.start("visible");
+      }
+    }, 900);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [controls]);
 
   return {
     ref,

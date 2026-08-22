@@ -4,6 +4,7 @@ export const navigationItems: NavigationItem[] = [
   { href: "/#top", label: "HOME" },
   { href: "/#about", label: "ABOUT US" },
   { href: "/#solutions", label: "SOLUTIONS" },
+  { href: "/#projects", label: "PROJECTS" },
   { href: "/#global-reach", label: "GLOBAL REACH" },
   { href: "/#why-rong-xing", label: "WHY RONG XING" },
   { href: "/#contact", label: "CONTACT" },

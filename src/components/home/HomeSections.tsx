@@ -2,6 +2,7 @@
 
 import {
   ArrowRight,
+  ArrowUp,
   BadgeCheck,
   Building2,
   CarFront,
@@ -11,6 +12,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import {
   useCallback,
   useEffect,
@@ -162,8 +164,41 @@ const detailedSolutions = [
   },
 ] as const;
 
+const projectCards = [
+  {
+    number: "01",
+    title: "Industrial Equipment Supply",
+    route: "Guangzhou, China -> Saudi Arabia",
+    category: "Industrial Solutions",
+    image: "/images/home-full-f2f6fcf3.png",
+    imagePosition: "63% 52%",
+    href: "/capabilities",
+  },
+  {
+    number: "02",
+    title: "Complete Production Line Delivery",
+    route: "Guangzhou, China -> United Arab Emirates",
+    category: "Turnkey Solutions",
+    image: "/images/contact.png",
+    imagePosition: "66% 48%",
+    href: "/products",
+  },
+  {
+    number: "03",
+    title: "Factory Installation & Commissioning",
+    route: "Guangzhou, China -> Egypt",
+    category: "Project Management",
+    image: "/images/about-vision-a698b154.png",
+    imagePosition: "58% 50%",
+    href: "/contact",
+  },
+] as const;
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
+
+const getDesktopCardScrollDistance = () =>
+  Math.max(window.innerHeight * 1.05, 820);
 
 function updateScrollFocusRows(
   rows: NodeListOf<HTMLElement>,
@@ -405,6 +440,128 @@ function DetailedSolutionCard({
         </div>
       </div>
     </article>
+  );
+}
+
+function ProjectShowcaseCard({
+  project,
+}: {
+  project: (typeof projectCards)[number];
+}) {
+  return (
+    <article className="group relative min-h-[15.5rem] overflow-hidden rounded-[0.45rem] border border-white/12 bg-[color:var(--color-navy-950)] shadow-[0_18px_46px_rgba(3,20,39,0.14)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)]">
+      <Image
+        src={assetPath(project.image)}
+        alt={`${project.title} project`}
+        fill
+        sizes="(min-width: 1024px) 28rem, 100vw"
+        className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+        style={{ objectPosition: project.imagePosition }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,39,0.95)_0%,rgba(3,20,39,0.86)_28%,rgba(3,20,39,0.47)_54%,rgba(3,20,39,0.1)_100%)] lg:bg-[linear-gradient(180deg,rgba(3,20,39,0.34)_0%,rgba(3,20,39,0.78)_48%,rgba(3,20,39,0.96)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.08)_0%,rgba(3,20,39,0.2)_100%)] lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.48)_0%,rgba(3,20,39,0.12)_100%)]" />
+
+      <div className="relative z-10 flex min-h-[15.5rem] flex-col justify-between px-5 py-5 sm:min-h-[13.5rem] sm:px-7 sm:py-6 lg:min-h-[clamp(22rem,46vh,28rem)] lg:px-6 lg:py-6 xl:px-7">
+        <div className="flex items-center gap-4">
+          <span className="font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)] sm:text-[2.35rem] lg:text-[2rem]">
+            {project.number}
+          </span>
+          <span className="h-px w-12 bg-[color:var(--color-gold-500)]/62" />
+        </div>
+
+        <div className="max-w-[28rem] lg:mt-auto lg:pt-16">
+          <h3 className="text-[1.05rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.18rem] lg:text-[1.02rem]">
+            {project.title}
+          </h3>
+          <p className="mt-2 text-[0.86rem] font-medium leading-6 text-white/78 lg:text-[0.82rem] lg:leading-5">
+            {project.route}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:mt-6 lg:flex-col lg:items-start">
+          <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
+            <BadgeCheck className="h-4 w-4" strokeWidth={1.7} />
+            <span>{project.category}</span>
+          </div>
+
+          <Link
+            href={project.href}
+            className="inline-flex min-h-10 w-fit items-center justify-center gap-2 border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.22)] transition duration-300 hover:border-white hover:bg-white hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-navy-950)] lg:min-h-9 lg:px-4"
+          >
+            Read More
+            <ArrowRight className="h-3.5 w-3.5 transition duration-300 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function BackToTopButton() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      const scrollTop = window.scrollY;
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      setIsVisible(scrollTop > window.innerHeight * 0.7);
+      setScrollProgress(
+        scrollableHeight > 0 ? clamp(scrollTop / scrollableHeight, 0, 1) : 0
+      );
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  const handleBackToTop = () => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  };
+
+  return (
+    <button
+      type="button"
+      aria-label="Back to top"
+      title="Back to top"
+      tabIndex={isVisible ? 0 : -1}
+      className={cn(
+        "group fixed bottom-5 right-5 z-[80] flex h-12 w-12 items-center justify-center rounded-full p-px shadow-[0_18px_46px_rgba(3,20,39,0.22)] transition duration-300 ease-out sm:bottom-7 sm:right-7 sm:h-14 sm:w-14",
+        isVisible
+          ? "translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-4 opacity-0"
+      )}
+      style={
+        {
+          background: `conic-gradient(var(--color-gold-500) ${
+            scrollProgress * 360
+          }deg, rgba(197,160,98,0.18) 0deg)`,
+        } as CSSProperties
+      }
+      onClick={handleBackToTop}
+    >
+      <span className="flex h-full w-full items-center justify-center rounded-full border border-white/10 bg-[rgba(3,20,39,0.88)] text-[color:var(--color-gold-500)] backdrop-blur-xl transition duration-300 group-hover:bg-[color:var(--color-gold-500)] group-hover:text-[color:var(--color-navy-950)] group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-[color:var(--color-gold-500)]">
+        <ArrowUp
+          className="h-4.5 w-4.5 transition duration-300 group-hover:-translate-y-0.5 sm:h-5 sm:w-5"
+          strokeWidth={1.8}
+        />
+      </span>
+    </button>
   );
 }
 
@@ -961,11 +1118,18 @@ export function HomeSections() {
         trigger: section,
         start: "top top",
         end: () =>
-          `+=${Math.max(window.innerHeight * 0.6, 450) * detailedSolutions.length}`,
+          `+=${getDesktopCardScrollDistance() * detailedSolutions.length}`,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        fastScrollEnd: false,
+        snap: {
+          snapTo: 1 / detailedSolutions.length,
+          duration: { min: 0.18, max: 0.32 },
+          delay: 0.04,
+          ease: "power2.out",
+        },
         onEnter: () => setDetailedDesktopIndex(0),
         onEnterBack: () =>
           setDetailedDesktopIndex(detailedSolutions.length - 1),
@@ -1020,7 +1184,7 @@ export function HomeSections() {
     <div ref={rootRef}>
       <section
         id="about"
-        className="js-about-section relative overflow-hidden bg-[linear-gradient(180deg,#f6f2ed_0%,#f8f5f0_100%)] py-[clamp(2.1rem,7vw,3.2rem)] lg:py-[calc(var(--section-space)*0.92)]"
+        className="js-about-section relative overflow-hidden bg-[linear-gradient(180deg,#f6f2ed_0%,#f8f5f0_100%)] py-[clamp(2.1rem,7vw,3.2rem)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
       >
         <Container className="w-full max-w-[var(--content-max)] px-[var(--mobile-gutter)] sm:px-6 lg:block lg:px-8">
           <div className="grid w-full gap-[clamp(1.6rem,5vw,2.5rem)] lg:grid-cols-2 lg:items-stretch lg:gap-12 xl:gap-16">
@@ -1182,7 +1346,7 @@ export function HomeSections() {
                             "origin-left font-serif text-[2.65rem] leading-none tracking-[-0.07em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                             isActive
                               ? "scale-100 text-[color:var(--color-gold-500)]"
-                              : "scale-90 text-[color:var(--color-navy-900)]/35"
+                              : "scale-90 text-[color:var(--color-gold-500)]"
                           )}
                         >
                           {objective.number}
@@ -1449,6 +1613,53 @@ export function HomeSections() {
       </section>
 
       <section
+        id="projects"
+        className="relative overflow-hidden bg-[#f8f4ef] py-[clamp(3.25rem,6vw,5rem)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,4vh,3rem)]"
+      >
+        <Container className="relative z-10 max-w-[var(--content-max)]">
+          <div className="mb-8 flex flex-col gap-6 sm:mb-10 lg:mb-[clamp(1.2rem,2.8vh,2rem)] lg:flex-row lg:items-start lg:justify-between">
+            <div className="max-w-[37rem]">
+              <p className="section-label mb-4 lg:mb-3">OUR PROJECTS</p>
+              <TextReveal forceMotion distance={44}>
+                <h2 className="font-serif text-[clamp(2.4rem,5.2vw,4.5rem)] uppercase leading-[0.88] tracking-[-0.055em] text-[color:var(--color-navy-900)] lg:text-[clamp(3.1rem,5.4vw,4rem)]">
+                  Trade In Motion.
+                </h2>
+              </TextReveal>
+              <Reveal forceMotion delay={0.12} distance={18}>
+                <p className="mt-5 max-w-[33rem] text-[0.96rem] leading-7 text-[color:var(--color-slate-700)] lg:mt-4 lg:max-w-[31rem] lg:text-[0.92rem] lg:leading-6">
+                  A selection of projects, partnerships, shipments, and sourcing
+                  operations delivered across industries and markets.
+                </p>
+              </Reveal>
+            </div>
+
+            <Reveal forceMotion delay={0.16} distance={18}>
+              <Link
+                href="/capabilities"
+                className="group inline-flex min-h-12 w-fit items-center justify-center gap-3 border border-[color:var(--color-gold-500)]/54 bg-white/28 px-5 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-gold-600)] backdrop-blur-sm transition duration-300 hover:border-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2"
+              >
+                View All Projects
+                <ArrowRight className="h-4 w-4 transition duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Reveal>
+          </div>
+
+          <div className="grid gap-3 sm:gap-3.5 lg:grid-cols-3 lg:gap-4">
+            {projectCards.map((project, index) => (
+              <Reveal
+                forceMotion
+                key={project.number}
+                delay={index * 0.08}
+                distance={26}
+              >
+                <ProjectShowcaseCard project={project} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section
         id="global-reach"
         className="js-global-section relative overflow-hidden text-white"
       >
@@ -1491,8 +1702,11 @@ export function HomeSections() {
         </div>
       </section>
 
-      <section id="why-rong-xing" className="bg-[color:var(--color-surface)] py-[var(--section-space)]">
-        <Container className="max-w-[var(--content-max)]">
+      <section
+        id="why-rong-xing"
+        className="bg-[color:var(--color-surface)] py-[var(--section-space)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
+      >
+        <Container className="w-full max-w-[var(--content-max)]">
           <div className="relative grid gap-14 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:items-stretch lg:gap-16">
             <div className="relative flex h-full max-w-[31rem] flex-col">
               <p className="section-label relative z-10 mb-5">WHY RONG XING</p>
@@ -1528,7 +1742,7 @@ export function HomeSections() {
                 {whyItems.map((item, index) => (
                   <Reveal forceMotion key={item.title} delay={index * 0.07} distance={24}>
                     <article className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-5 py-5 transition-[padding,color] duration-300 hover:py-6">
-                    <div className="pt-0.5 text-[1.55rem] font-semibold leading-none tracking-[-0.04em] text-[color:var(--color-navy-900)]/34 transition-all duration-300 group-hover:scale-[1.06] group-hover:text-[color:var(--color-gold-500)]">
+                    <div className="pt-0.5 text-[1.55rem] font-semibold leading-none tracking-[-0.04em] text-[color:var(--color-gold-500)] transition-all duration-300 group-hover:scale-[1.06]">
                       {String(index + 1).padStart(2, "0")}
                     </div>
 
@@ -1664,6 +1878,7 @@ export function HomeSections() {
           </div>
         </Container>
       </section>
+      <BackToTopButton />
     </div>
   );
 }
