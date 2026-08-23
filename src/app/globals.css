@@ -206,6 +206,14 @@ a {
     font-size: clamp(2.05rem, 9.6vw, 2.9rem);
   }
 
+  .mobile-hero-heading {
+    font-size: clamp(2.18rem, 10.3vw, 3rem);
+    font-weight: 700;
+    line-height: 0.86;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+  }
+
   .mobile-section-copy {
     font-size: 0.92rem;
     line-height: 1.72;
@@ -213,6 +221,152 @@ a {
 
   .mobile-section-subheading {
     font-size: 0.8rem;
+  }
+
+  .mobile-card-surface {
+    position: relative;
+    border-radius: 0.55rem;
+  }
+
+  .mobile-card-surface::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(197, 160, 98, 0),
+      rgba(197, 160, 98, 0.58),
+      rgba(197, 160, 98, 0)
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .mobile-card-surface-light {
+    box-shadow: 0 18px 42px rgba(11, 31, 59, 0.1);
+  }
+
+  .mobile-card-surface-dark {
+    box-shadow: 0 22px 52px rgba(0, 0, 0, 0.2);
+  }
+
+  .js-hero-mobile-image {
+    animation: mobile-hero-image-enter 1200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .js-hero-mobile-line {
+    animation: mobile-hero-line-enter 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .mobile-hero-line-2 {
+    animation-delay: 110ms;
+  }
+
+  .mobile-hero-line-3 {
+    animation-delay: 220ms;
+  }
+
+  .mobile-hero-line-4 {
+    animation-delay: 330ms;
+  }
+
+  .js-detailed-mobile-card-inner {
+    opacity: 0.68;
+    transform: translateY(2.2rem) scale(0.9) rotateX(5deg);
+    transform-origin: center top;
+    box-shadow: 0 8px 18px rgba(11, 31, 59, 0.06);
+    transition:
+      opacity 420ms ease,
+      transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js-detailed-mobile-card-inner [data-detailed-card-number],
+  .js-detailed-mobile-card-inner [data-detailed-card-title],
+  .js-detailed-mobile-card-inner [data-detailed-card-statement],
+  .js-detailed-mobile-card-inner [data-detailed-card-copy],
+  .js-detailed-mobile-card-inner [data-detailed-card-highlight],
+  .js-detailed-mobile-card-inner [data-detailed-card-button] {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 420ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js-detailed-mobile-card-inner [data-detailed-card-line] {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js-detailed-mobile-card.is-visible .js-detailed-mobile-card-inner {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    box-shadow: 0 20px 44px rgba(11, 31, 59, 0.14);
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-number],
+  .js-detailed-mobile-card.is-visible [data-detailed-card-title],
+  .js-detailed-mobile-card.is-visible [data-detailed-card-statement],
+  .js-detailed-mobile-card.is-visible [data-detailed-card-copy],
+  .js-detailed-mobile-card.is-visible [data-detailed-card-highlight],
+  .js-detailed-mobile-card.is-visible [data-detailed-card-button] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-line] {
+    transform: scaleX(1);
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-title] {
+    transition-delay: 50ms;
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-statement] {
+    transition-delay: 120ms;
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-copy] {
+    transition-delay: 180ms;
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-highlight] {
+    transition-delay: 240ms;
+  }
+
+  .js-detailed-mobile-card.is-visible [data-detailed-card-button] {
+    transition-delay: 300ms;
+  }
+}
+
+@keyframes mobile-hero-image-enter {
+  from {
+    opacity: 0.72;
+    transform: scale(1.12) translateY(18px);
+    filter: saturate(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: saturate(1);
+  }
+}
+
+@keyframes mobile-hero-line-enter {
+  from {
+    opacity: 0;
+    transform: translateY(2.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

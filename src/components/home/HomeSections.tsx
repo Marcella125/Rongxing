@@ -3,6 +3,10 @@
 import {
   ArrowRight,
   ArrowUp,
+  ClipboardCheck,
+  Container as ContainerIcon,
+  Factory,
+  type LucideIcon,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -252,31 +256,43 @@ const projectCards = [
   {
     number: "01",
     title: "Industrial Equipment Supply",
-    route: "Guangzhou, China -> Saudi Arabia",
+    route: "Guangzhou, China to Saudi Arabia",
     category: "Industrial Solutions",
     image: "/images/home-full-f2f6fcf3.png",
     imagePosition: "63% 52%",
     href: "/capabilities",
+    icon: Factory,
   },
   {
     number: "02",
     title: "Complete Production Line Delivery",
-    route: "Guangzhou, China -> United Arab Emirates",
+    route: "Guangzhou, China to United Arab Emirates",
     category: "Turnkey Solutions",
     image: "/images/contact.png",
     imagePosition: "66% 48%",
     href: "/products",
+    icon: ContainerIcon,
   },
   {
     number: "03",
     title: "Factory Installation & Commissioning",
-    route: "Guangzhou, China -> Egypt",
+    route: "Guangzhou, China to Egypt",
     category: "Project Management",
     image: "/images/about-vision-a698b154.png",
     imagePosition: "58% 50%",
     href: "/contact",
+    icon: ClipboardCheck,
   },
-] as const;
+] satisfies readonly {
+  number: string;
+  title: string;
+  route: string;
+  category: string;
+  image: string;
+  imagePosition: string;
+  href: string;
+  icon: LucideIcon;
+}[];
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -478,26 +494,30 @@ function MobileSolutionCapabilityCard({
   const Icon = item.icon;
 
   return (
-    <article className="relative flex min-h-[14.25rem] flex-col overflow-hidden border border-white/14 bg-[rgba(255,255,255,0.035)] px-5 py-4 shadow-[0_18px_46px_rgba(0,0,0,0.16)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.16),transparent_44%)]" />
-      <div className="absolute inset-0 navy-grid opacity-35" />
+    <article className="mobile-card-surface mobile-card-surface-dark relative flex h-[16.5rem] flex-col overflow-hidden border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_34%,rgba(255,255,255,0.008)_100%)] px-5 py-5">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_92%_8%,rgba(197,160,98,0.18),transparent_34%)]" />
+      <div className="absolute inset-x-5 top-0 h-px bg-[linear-gradient(90deg,rgba(197,160,98,0),rgba(197,160,98,0.64),rgba(197,160,98,0))]" />
+      <div className="absolute inset-0 navy-grid opacity-20" />
       <div className="relative flex h-full flex-col">
         <div className="flex items-start justify-between gap-4">
-          <span className="mobile-section-subheading text-[color:var(--color-gold-500)]">
+          <span className="font-serif text-[1.45rem] leading-none tracking-[-0.04em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
           <Icon
-            className="h-6 w-6 text-[color:var(--color-gold-500)]/86"
+            className="h-6.5 w-6.5 text-[color:var(--color-gold-500)]/86"
+            strokeWidth={1.7}
           />
         </div>
-        <h3 className="mobile-section-subheading mt-4 max-w-[15ch] text-white">
+        <h3 className="mt-4 max-w-[16ch] text-[0.9rem] font-semibold uppercase leading-[1.12] tracking-[0.08em] text-white">
           {item.title}
         </h3>
-        <p className="mobile-section-copy mt-3 max-w-[18.5rem] text-white/70">
+        <p className="mt-3 max-w-[18.5rem] text-[0.88rem] leading-[1.65] text-white/72">
           {item.description}
         </p>
         <div className="mt-auto pt-3">
-          <ArrowRight className="h-4 w-4 text-[color:var(--color-gold-500)]" />
+          <span className="inline-flex h-7 w-7 items-center justify-center text-[color:var(--color-gold-500)]">
+            <ArrowRight className="h-[18px] w-[18px]" strokeWidth={2} />
+          </span>
         </div>
       </div>
     </article>
@@ -529,8 +549,8 @@ function DetailedSolutionCard({
       className={cn(
         "relative w-full overflow-hidden border border-[color:var(--color-border)]",
         canToggle
-          ? "rounded-[0.35rem] bg-[#F8F4EF] px-3.5 py-3.5 shadow-[0_12px_32px_rgba(11,31,59,0.045)]"
-          : "rounded-[0.35rem] bg-[#F8F4EF] px-4 py-4 shadow-[0_12px_32px_rgba(11,31,59,0.045)] lg:px-5 lg:py-5"
+          ? "mobile-card-surface mobile-card-surface-light bg-[#F8F4EF] px-3.5 py-3.5"
+          : "bg-[#F8F4EF] px-4 py-4 shadow-[0_12px_32px_rgba(11,31,59,0.045)] lg:rounded-[0.55rem] lg:px-5 lg:py-5"
       )}
     >
       <div className="relative z-10 flex flex-col">
@@ -624,6 +644,7 @@ function DetailedSolutionCard({
         {canToggle ? (
           <button
             type="button"
+            data-detailed-card-button
             className="mt-3 inline-flex w-fit items-center gap-2 border border-[color:var(--color-gold-500)]/42 bg-white/38 px-3 py-2 text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-gold-600)] transition hover:border-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
             onClick={onToggle}
           >
@@ -646,18 +667,26 @@ function ProjectShowcaseCard({
 }: {
   project: (typeof projectCards)[number];
 }) {
+  const ProjectIcon = project.icon;
+
   return (
-    <article className="group relative min-h-[15.5rem] overflow-hidden rounded-[0.45rem] border border-white/12 bg-[color:var(--color-navy-950)] shadow-[0_18px_46px_rgba(3,20,39,0.14)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)]">
+    <article className="mobile-card-surface mobile-card-surface-dark group relative min-h-[15.5rem] overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)] lg:rounded-[0.45rem] lg:border-white/12 lg:shadow-[0_18px_46px_rgba(3,20,39,0.14)]">
       <Image
         src={assetPath(project.image)}
         alt={`${project.title} project`}
         fill
         sizes="(min-width: 1024px) 28rem, 100vw"
-        className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+        className="hidden object-cover transition duration-700 ease-out group-hover:scale-[1.035] lg:block"
         style={{ objectPosition: project.imagePosition }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,39,0.95)_0%,rgba(3,20,39,0.86)_28%,rgba(3,20,39,0.47)_54%,rgba(3,20,39,0.1)_100%)] lg:bg-[linear-gradient(180deg,rgba(3,20,39,0.34)_0%,rgba(3,20,39,0.78)_48%,rgba(3,20,39,0.96)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.08)_0%,rgba(3,20,39,0.2)_100%)] lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.48)_0%,rgba(3,20,39,0.12)_100%)]" />
+      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(3,20,39,0.95)_0%,rgba(3,20,39,0.86)_28%,rgba(3,20,39,0.47)_54%,rgba(3,20,39,0.1)_100%)] lg:block lg:bg-[linear-gradient(180deg,rgba(3,20,39,0.34)_0%,rgba(3,20,39,0.78)_48%,rgba(3,20,39,0.96)_100%)]" />
+      <div className="absolute inset-0 hidden bg-[linear-gradient(180deg,rgba(3,20,39,0.08)_0%,rgba(3,20,39,0.2)_100%)] lg:block lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.48)_0%,rgba(3,20,39,0.12)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0)_42%),linear-gradient(180deg,rgba(197,160,98,0.08)_0%,rgba(197,160,98,0)_58%)] lg:hidden" />
+      <div
+        className="pointer-events-none absolute bottom-5 right-5 z-20 text-[color:var(--color-gold-500)] lg:hidden"
+      >
+        <ProjectIcon className="h-8 w-8" strokeWidth={1.65} />
+      </div>
 
       <div className="relative z-10 flex min-h-[15.5rem] flex-col justify-between px-5 py-5 sm:min-h-[13.5rem] sm:px-7 sm:py-6 lg:min-h-[clamp(22rem,46vh,28rem)] lg:px-6 lg:py-6 xl:px-7">
         <div className="flex items-center gap-4">
@@ -693,6 +722,7 @@ function ProjectShowcaseCard({
 
 function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -717,6 +747,24 @@ function BackToTopButton() {
     };
   }, []);
 
+  useEffect(() => {
+    const updateMenuState = () => {
+      setIsMenuOpen(document.body.style.overflow === "hidden");
+    };
+
+    updateMenuState();
+
+    const observer = new MutationObserver(updateMenuState);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["style"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const handleBackToTop = () => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -733,10 +781,10 @@ function BackToTopButton() {
       type="button"
       aria-label="Back to top"
       title="Back to top"
-      tabIndex={isVisible ? 0 : -1}
+      tabIndex={isVisible && !isMenuOpen ? 0 : -1}
       className={cn(
         "group fixed bottom-5 right-5 z-[80] flex h-12 w-12 items-center justify-center rounded-full p-px shadow-[0_18px_46px_rgba(3,20,39,0.22)] transition duration-300 ease-out sm:bottom-7 sm:right-7 sm:h-14 sm:w-14",
-        isVisible
+        isVisible && !isMenuOpen
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"
       )}
@@ -768,6 +816,7 @@ export function HomeSections() {
   const detailedSectionRef = useRef<HTMLElement | null>(null);
   const objectivesDesktopRef = useRef<HTMLDivElement | null>(null);
   const detailedDesktopRef = useRef<HTMLDivElement | null>(null);
+  const detailedMobileRef = useRef<HTMLDivElement | null>(null);
   const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
   const solutionDragStartXRef = useRef(0);
   const solutionDragOffsetRef = useRef(0);
@@ -909,19 +958,23 @@ export function HomeSections() {
   }, []);
 
   useEffect(() => {
-    if (!isMobileViewport || prefersReducedMotion || isSolutionDragging) {
+    if (!isMobileViewport || isSolutionDragging) {
       return;
     }
 
-    const timeoutId = window.setTimeout(() => {
+    const intervalId = window.setInterval(() => {
+      if (document.visibilityState === "hidden") {
+        return;
+      }
+
       resetSolutionDragOffset();
       setSolutionCarouselIndex((current) => (current + 1) % solutionCards.length);
-    }, 4800);
+    }, 3200);
 
     return () => {
-      window.clearTimeout(timeoutId);
+      window.clearInterval(intervalId);
     };
-  }, [isMobileViewport, solutionCarouselIndex, prefersReducedMotion, isSolutionDragging]);
+  }, [isMobileViewport, isSolutionDragging]);
 
   const setupDesktopAnimations = useCallback(({ gsap, ScrollTrigger, reducedMotion }: {
     gsap: typeof import("gsap").default;
@@ -1362,6 +1415,137 @@ export function HomeSections() {
     };
   }, [isMobileViewport, prefersReducedMotion]);
 
+  useEffect(() => {
+    const stage = detailedMobileRef.current;
+
+    if (!stage || !isMobileViewport) {
+      return;
+    }
+
+    const cards = Array.from(
+      stage.querySelectorAll<HTMLElement>(".js-detailed-mobile-card")
+    );
+
+    if (!cards.length) {
+      return;
+    }
+
+    cards.forEach((card, index) => {
+      card.style.zIndex = `${cards.length + index}`;
+
+      if (prefersReducedMotion) {
+        card.classList.add("is-visible");
+      } else {
+        card.classList.remove("is-visible");
+      }
+    });
+
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.32,
+        rootMargin: "0px 0px -18% 0px",
+      }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => {
+      observer.disconnect();
+      cards.forEach((card) => {
+        card.classList.remove("is-visible");
+      });
+    };
+  }, [isMobileViewport, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (!isMobileViewport) {
+      return;
+    }
+
+    const whyItems = gsap.utils.toArray<HTMLElement>(".js-mobile-why-item");
+
+    const ctx = gsap.context(() => {
+      whyItems.forEach((item) => {
+        const icon = item.querySelector(".js-mobile-why-icon");
+        const title = item.querySelector(".js-mobile-why-title");
+        const copy = item.querySelector(".js-mobile-why-copy");
+
+        gsap.set(item, { opacity: 0.48, y: 14, scale: 0.985 });
+        gsap.set(icon, { scale: 0.86, rotate: -6 });
+        gsap.set([title, copy], { x: 8 });
+
+        gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 82%",
+            end: "top 48%",
+            scrub: 0.8,
+          },
+        });
+
+        gsap.to(icon, {
+          scale: 1,
+          rotate: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 82%",
+            end: "top 48%",
+            scrub: 0.8,
+          },
+        });
+
+        gsap.to([title, copy], {
+          x: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 82%",
+            end: "top 48%",
+            scrub: 0.8,
+          },
+        });
+      });
+
+      if (!prefersReducedMotion) {
+        gsap.fromTo(
+          ".js-contact-bg",
+          { scale: 1.04, y: 18 },
+          {
+            scale: 1,
+            y: -12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#contact",
+              start: "top 88%",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, [isMobileViewport, prefersReducedMotion]);
+
 
   useLayoutEffect(() => {
     if (isMobileViewport) {
@@ -1406,7 +1590,7 @@ export function HomeSections() {
       gsap.set(card, {
         transformStyle: "preserve-3d",
         transformPerspective: 1200,
-        willChange: "transform, opacity, filter",
+        willChange: "transform, opacity",
       });
       gsap.set([number, title, statement, ...copy, ...highlights], {
         opacity: 0,
@@ -1420,7 +1604,6 @@ export function HomeSections() {
         card,
         {
           autoAlpha: 0,
-          filter: "blur(10px)",
           rotateX: 7,
           rotateY: -16,
           scale: 0.92,
@@ -1429,7 +1612,6 @@ export function HomeSections() {
         },
         {
           autoAlpha: 1,
-          filter: "blur(0px)",
           rotateX: 0,
           rotateY: 0,
           scale: 1,
@@ -1614,7 +1796,7 @@ export function HomeSections() {
               </div>
             </div>
 
-            <div className="relative bg-[color:var(--color-navy-950)] px-[var(--mobile-gutter)] py-[clamp(1.7rem,5.6vw,2.3rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
+            <div className="relative bg-[color:var(--color-navy-950)] py-[clamp(1.7rem,5.6vw,2.3rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
               <div className="relative flex h-full flex-col justify-center lg:min-h-[37rem] lg:p-1">
                 <p className="js-vision-label section-label mb-[clamp(0.8rem,2.8vw,1rem)] text-[clamp(0.74rem,2.7vw,0.82rem)] tracking-[0.24em]">OUR VISION</p>
                 <TextReveal forceMotion distance={42}>
@@ -1817,7 +1999,7 @@ export function HomeSections() {
             ref={solutionsCarouselRef}
             style={
               {
-                "--solution-card-gap": "0rem",
+                "--solution-card-gap": "0.85rem",
                 "--solution-slide-width": "100%",
                 "--solution-drag-offset": "0px",
               } as CSSProperties
@@ -1827,11 +2009,11 @@ export function HomeSections() {
               <div
                 className="flex gap-[var(--solution-card-gap)] will-change-transform"
                 style={{
-                  transform: `translateX(calc(-${solutionCarouselIndex} * (var(--solution-slide-width) + var(--solution-card-gap)) + var(--solution-drag-offset)))`,
+                  transform: `translate3d(calc(-${solutionCarouselIndex * 100}% - ${solutionCarouselIndex * 0.85}rem + var(--solution-drag-offset)), 0, 0)`,
                   transition:
-                    prefersReducedMotion || isSolutionDragging
+                    isSolutionDragging
                       ? "none"
-                      : "transform 680ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+                      : "transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1)",
                   touchAction: "pan-y",
                 }}
                 onPointerDown={handleSolutionPointerDown}
@@ -1956,15 +2138,21 @@ export function HomeSections() {
             </div>
 
             {isMobileViewport ? (
-              <div className="grid gap-6 lg:hidden">
+              <div ref={detailedMobileRef} className="grid gap-4 lg:hidden">
                 {detailedSolutions.map((solution, index) => (
-                  <Reveal forceMotion key={solution.number} delay={index * 0.06} distance={30}>
-                    <DetailedSolutionCard
-                      solution={solution}
-                      expanded={Boolean(expandedDetailedMobileCards[solution.number])}
-                      onToggle={() => toggleDetailedMobileCard(solution.number)}
-                    />
-                  </Reveal>
+                  <div
+                    key={solution.number}
+                    className="js-detailed-mobile-card sticky top-[5.7rem]"
+                    style={{ marginTop: index === 0 ? 0 : "0.85rem" }}
+                  >
+                    <div className="js-detailed-mobile-card-inner will-change-transform">
+                      <DetailedSolutionCard
+                        solution={solution}
+                        expanded={Boolean(expandedDetailedMobileCards[solution.number])}
+                        onToggle={() => toggleDetailedMobileCard(solution.number)}
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : (
@@ -2044,13 +2232,13 @@ export function HomeSections() {
             />
           </div>
 
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(246,242,237,0.9)_0%,rgba(246,242,237,0.7)_42%,rgba(246,242,237,0.14)_100%)] lg:bg-[radial-gradient(circle_at_18%_32%,rgba(197,160,98,0.08),transparent_24%),linear-gradient(90deg,rgba(2,13,29,0.12)_0%,rgba(2,13,29,0.06)_18%,rgba(2,13,29,0.2)_42%,rgba(2,13,29,0.58)_66%,rgba(2,13,29,0.88)_100%)]" />
+          <div className="absolute inset-0 hidden lg:block lg:bg-[radial-gradient(circle_at_18%_32%,rgba(197,160,98,0.08),transparent_24%),linear-gradient(90deg,rgba(2,13,29,0.12)_0%,rgba(2,13,29,0.06)_18%,rgba(2,13,29,0.2)_42%,rgba(2,13,29,0.58)_66%,rgba(2,13,29,0.88)_100%)]" />
 
           <div className="relative z-10 mx-auto flex min-h-[25rem] w-full max-w-[var(--content-max)] items-center px-[var(--mobile-gutter)] py-8 sm:min-h-[31rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
             <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
               <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">GLOBAL REACH</p>
               <TextReveal forceMotion delay={0.08} distance={52}>
-                <h2 className="js-global-line mobile-section-heading text-[color:var(--color-navy-900)] lg:text-[clamp(2.35rem,4.2vw,4.15rem)] lg:text-white">
+                <h2 className="js-global-line mobile-section-heading text-white lg:text-[clamp(2.35rem,4.2vw,4.15rem)]">
                   From China.
                 </h2>
               </TextReveal>
@@ -2061,7 +2249,7 @@ export function HomeSections() {
               </TextReveal>
 
               <TextReveal forceMotion delay={0.24} distance={24}>
-                <p className="mobile-section-copy mt-5 max-w-[17.5rem] text-[color:var(--color-navy-900)]/88 lg:mt-6 lg:max-w-[30rem] lg:text-[1rem] lg:font-normal lg:leading-8 lg:text-white/74">
+                <p className="mobile-section-copy mt-5 max-w-[17.5rem] text-white/88 lg:mt-6 lg:max-w-[30rem] lg:text-[1rem] lg:font-normal lg:leading-8 lg:text-white/74">
                   Connecting international businesses with manufacturers,
                   suppliers, technologies, services, and opportunities across
                   China.
@@ -2082,11 +2270,13 @@ export function HomeSections() {
             <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em]">
               WHY RONG XING
             </p>
-            <h2 className="mobile-section-heading max-w-[18rem] text-[color:var(--color-navy-900)]">
-              Built To Make
-              <span className="block">Business In China</span>
-              <span className="block">Simpler.</span>
-            </h2>
+            <TextReveal forceMotion distance={38}>
+              <h2 className="mobile-section-heading max-w-[18rem] text-[color:var(--color-navy-900)]">
+                Built To Make
+                <span className="block">Business In China</span>
+                <span className="block">Simpler.</span>
+              </h2>
+            </TextReveal>
 
             <div className="mt-7 grid gap-4">
               {mobileWhyItems.map((item) => {
@@ -2095,18 +2285,18 @@ export function HomeSections() {
                 return (
                   <div
                     key={item.title}
-                    className="grid grid-cols-[2.45rem_minmax(0,1fr)] items-center gap-3.5"
+                    className="js-mobile-why-item grid grid-cols-[2.45rem_minmax(0,1fr)] items-center gap-3.5 will-change-transform"
                   >
                     <div className="relative flex flex-col items-center">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/70 bg-[#F8F4EF] text-[color:var(--color-navy-900)] shadow-[0_8px_20px_rgba(197,160,98,0.1)]">
+                      <div className="js-mobile-why-icon flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/70 bg-[#F8F4EF] text-[color:var(--color-navy-900)] shadow-[0_8px_20px_rgba(197,160,98,0.1)] will-change-transform">
                         <Icon className="h-4.5 w-4.5" />
                       </div>
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-[0.78rem] font-semibold leading-[1.18] tracking-[-0.01em] text-[color:var(--color-navy-900)]">
+                      <h3 className="js-mobile-why-title text-[0.78rem] font-semibold leading-[1.18] tracking-[-0.01em] text-[color:var(--color-navy-900)] will-change-transform">
                         {item.title}
                       </h3>
-                      <p className="mt-0.5 max-w-[15rem] text-[0.72rem] leading-[1.35] text-[color:var(--color-slate-700)]">
+                      <p className="js-mobile-why-copy mt-0.5 max-w-[15rem] text-[0.72rem] leading-[1.35] text-[color:var(--color-slate-700)] will-change-transform">
                         {item.description}
                       </p>
                     </div>
@@ -2232,7 +2422,7 @@ export function HomeSections() {
             alt="Guangzhou waterfront and industrial skyline"
             fill
             sizes="100vw"
-            className="object-cover object-[62%_50%] lg:object-[48%_50%]"
+            className="js-contact-bg object-cover object-[62%_50%] lg:object-[48%_50%]"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.9)_42%,rgba(246,242,237,0.76)_100%)] lg:bg-[linear-gradient(90deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.88)_34%,rgba(246,242,237,0.72)_64%,rgba(246,242,237,0.52)_100%)]" />
         </div>

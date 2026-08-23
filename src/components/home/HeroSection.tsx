@@ -32,6 +32,10 @@ export function HeroSection() {
     }
 
     const ctx = gsap.context(() => {
+      gsap.set(".js-hero-mobile-image", {
+        scale: reducedMotion ? 1 : 1.08,
+        y: reducedMotion ? 0 : 18,
+      });
       gsap.set(".js-hero-mobile-eyebrow, .js-hero-mobile-tag, .js-hero-mobile-copy, .js-hero-mobile-btn", {
         opacity: 0,
         y: reducedMotion ? 8 : 18,
@@ -39,6 +43,7 @@ export function HeroSection() {
       gsap.set(".js-hero-mobile-line", {
         yPercent: reducedMotion ? 28 : 88,
         opacity: 0,
+        clipPath: "inset(0 0 100% 0)",
       });
 
       gsap
@@ -55,8 +60,9 @@ export function HeroSection() {
           {
             yPercent: 0,
             opacity: 1,
-            duration: reducedMotion ? 0.4 : 0.62,
-            stagger: reducedMotion ? 0.05 : 0.08,
+            clipPath: "inset(0 0 0% 0)",
+            duration: reducedMotion ? 0.4 : 0.78,
+            stagger: reducedMotion ? 0.05 : 0.1,
           },
           "-=0.12"
         )
@@ -88,6 +94,20 @@ export function HeroSection() {
           },
           "-=0.14"
         );
+
+      if (!reducedMotion) {
+        gsap.to(".js-hero-mobile-image", {
+          scale: 1,
+          y: -16,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.1,
+          },
+        });
+      }
     }, section);
 
     return () => {
@@ -100,26 +120,58 @@ export function HeroSection() {
       opacity: 0,
       y: reducedMotion ? 10 : 24,
     });
-    gsap.set(".js-hero-line", { yPercent: reducedMotion ? 40 : 110 });
+    gsap.set(".js-hero-line", {
+      yPercent: reducedMotion ? 40 : 118,
+      opacity: reducedMotion ? 1 : 0,
+      filter: reducedMotion ? "blur(0px)" : "blur(6px)",
+      clipPath: "inset(0 0 100% 0)",
+    });
+    gsap.set(".js-hero-desktop-image", {
+      scale: reducedMotion ? 1 : 1.1,
+      y: reducedMotion ? 0 : 30,
+      filter: reducedMotion ? "saturate(1)" : "saturate(0.86)",
+    });
+    gsap.set(".js-hero-desktop-overlay", {
+      opacity: reducedMotion ? 1 : 0.35,
+    });
 
     const introTimeline = gsap.timeline({
       defaults: { ease: "power3.out" },
     });
 
     introTimeline
+      .to(".js-hero-desktop-image", {
+        scale: 1.02,
+        y: 0,
+        filter: "saturate(1)",
+        duration: reducedMotion ? 0.4 : 1.25,
+        ease: "power3.out",
+      })
+      .to(
+        ".js-hero-desktop-overlay",
+        {
+          opacity: 1,
+          duration: reducedMotion ? 0.3 : 0.85,
+          ease: "power2.out",
+        },
+        "-=0.9"
+      )
       .to(".js-hero-eyebrow", {
         opacity: 1,
         y: 0,
         duration: reducedMotion ? 0.42 : 0.7,
-      })
+      }, "-=0.6")
       .to(
         ".js-hero-line",
         {
           yPercent: 0,
-          duration: reducedMotion ? 0.56 : 0.95,
-          stagger: reducedMotion ? 0.06 : 0.1,
+          opacity: 1,
+          filter: "blur(0px)",
+          clipPath: "inset(0 0 0% 0)",
+          duration: reducedMotion ? 0.56 : 1.05,
+          stagger: reducedMotion ? 0.06 : 0.14,
         },
-        "-=0.3"
+        "-=0.38"
       )
       .to(
         ".js-hero-copy",
@@ -144,10 +196,10 @@ export function HeroSection() {
     if (!reducedMotion) {
       gsap.fromTo(
         ".js-hero-image",
-        { scale: 1.06, y: 24 },
+        { scale: 1.02, y: 0 },
         {
           scale: 1,
-          y: -18,
+          y: -26,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -177,7 +229,7 @@ export function HeroSection() {
               priority
               unoptimized
               sizes="100vw"
-              className="object-cover object-center lg:hidden"
+              className="js-hero-mobile-image object-cover object-center lg:hidden"
             />
             <Image
               src={assetPath("/images/home-full-f2f6fcf3.png")}
@@ -186,9 +238,9 @@ export function HeroSection() {
               priority
               unoptimized
               sizes="100vw"
-              className="hidden object-cover object-[80%_50%] sm:object-[79%_50%] lg:block lg:object-[72%_50%]"
+              className="js-hero-desktop-image hidden object-cover object-[80%_50%] sm:object-[79%_50%] lg:block lg:object-[72%_50%]"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(96deg,rgba(3,20,39,0.96)_0%,rgba(3,20,39,0.84)_28%,rgba(3,20,39,0.48)_62%,rgba(3,20,39,0.52)_100%)] lg:bg-[linear-gradient(95deg,rgba(3,20,39,0.94)_0%,rgba(3,20,39,0.72)_38%,rgba(3,20,39,0.32)_68%,rgba(3,20,39,0.56)_100%)]" />
+            <div className="js-hero-desktop-overlay absolute inset-0 bg-[linear-gradient(96deg,rgba(3,20,39,0.96)_0%,rgba(3,20,39,0.84)_28%,rgba(3,20,39,0.48)_62%,rgba(3,20,39,0.52)_100%)] lg:bg-[linear-gradient(95deg,rgba(3,20,39,0.94)_0%,rgba(3,20,39,0.72)_38%,rgba(3,20,39,0.32)_68%,rgba(3,20,39,0.56)_100%)]" />
             <div className="navy-grid absolute inset-0 opacity-50" />
           </div>
 
@@ -203,29 +255,29 @@ export function HeroSection() {
                   <div className="js-hero-mobile-eyebrow mb-[clamp(1.35rem,5vw,1.8rem)] h-[2px] w-[clamp(4rem,18vw,4.8rem)] bg-[color:var(--color-gold-500)]" />
 
                   <div className="max-w-full overflow-hidden">
-                    <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
+                    <div className="js-hero-mobile-line mobile-hero-line-1 max-w-full">
+                      <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         Connecting
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
-                    <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
+                    <div className="js-hero-mobile-line mobile-hero-line-2 max-w-full">
+                      <h1 className="mobile-hero-heading max-w-full break-normal text-[color:var(--color-gold-500)] [overflow-wrap:normal]">
                         China
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
-                    <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
+                    <div className="js-hero-mobile-line mobile-hero-line-3 max-w-full">
+                      <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         With The
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
-                    <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
+                    <div className="js-hero-mobile-line mobile-hero-line-4 max-w-full">
+                      <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         World.
                       </h1>
                     </div>
@@ -274,14 +326,14 @@ export function HeroSection() {
                 </p>
 
                 <div className="overflow-hidden">
-                  <div className="js-hero-line">
+                  <div className="js-hero-line desktop-hero-line-1">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
                       Connecting <span className="text-[color:var(--color-gold-500)]">China</span>
                     </h1>
                   </div>
                 </div>
                 <div className="overflow-hidden">
-                  <div className="js-hero-line">
+                  <div className="js-hero-line desktop-hero-line-2">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
                       With The World.
                     </h1>
