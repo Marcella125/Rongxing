@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
-const basePath = process.env.PAGES_BASE_PATH ?? "";
+const isProduction = process.env.NODE_ENV === "production";
+const basePath =
+  process.env.PAGES_BASE_PATH ?? (isProduction ? "/Guanzhou-Rongxing" : "");
 
 const nextConfig: NextConfig = {
   output: "export",
+  distDir: isProduction ? "docs" : ".next",
   trailingSlash: true,
   basePath,
   assetPrefix: basePath || undefined,

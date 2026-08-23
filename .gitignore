@@ -1,6 +1,11 @@
 node_modules
 .next
 out
+docs/cache
+docs/dev
+docs/server
+docs/static
+docs/trace
 coverage
 dist
 *.log

@@ -818,12 +818,15 @@ export function HomeSections() {
   const detailedDesktopRef = useRef<HTMLDivElement | null>(null);
   const detailedMobileRef = useRef<HTMLDivElement | null>(null);
   const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
+  const solutionCarouselStartedRef = useRef(false);
   const solutionDragStartXRef = useRef(0);
   const solutionDragOffsetRef = useRef(0);
   const solutionIsDraggingRef = useRef(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [solutionCarouselIndex, setSolutionCarouselIndex] = useState(0);
+  const [isSolutionsCarouselInView, setIsSolutionsCarouselInView] =
+    useState(false);
   const [isSolutionDragging, setIsSolutionDragging] = useState(false);
   const [objectivesDesktopIndex, setObjectivesDesktopIndex] = useState(0);
   const [detailedDesktopIndex, setDetailedDesktopIndex] = useState(0);
@@ -958,7 +961,43 @@ export function HomeSections() {
   }, []);
 
   useEffect(() => {
-    if (!isMobileViewport || isSolutionDragging) {
+    if (!isMobileViewport) {
+      setIsSolutionsCarouselInView(false);
+      solutionCarouselStartedRef.current = false;
+      return;
+    }
+
+    const carousel = solutionsCarouselRef.current;
+
+    if (!carousel) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const isInView = entry.isIntersecting;
+        setIsSolutionsCarouselInView(isInView);
+
+        if (isInView && !solutionCarouselStartedRef.current) {
+          solutionCarouselStartedRef.current = true;
+          resetSolutionDragOffset();
+          setSolutionCarouselIndex(0);
+        }
+      },
+      {
+        threshold: 0.38,
+      }
+    );
+
+    observer.observe(carousel);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobileViewport]);
+
+  useEffect(() => {
+    if (!isMobileViewport || !isSolutionsCarouselInView || isSolutionDragging) {
       return;
     }
 
@@ -974,7 +1013,7 @@ export function HomeSections() {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [isMobileViewport, isSolutionDragging]);
+  }, [isMobileViewport, isSolutionsCarouselInView, isSolutionDragging]);
 
   const setupDesktopAnimations = useCallback(({ gsap, ScrollTrigger, reducedMotion }: {
     gsap: typeof import("gsap").default;

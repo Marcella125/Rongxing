@@ -176,11 +176,11 @@ export function Header() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <Container className="relative z-20 max-w-[var(--content-max)] py-6">
-        <div className="flex items-center justify-between gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+      <Container className="relative z-20 max-w-[var(--content-max)] py-4 lg:py-6">
+        <div className="flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
           <Link
             href="/"
-            className="font-serif text-[1.32rem] uppercase leading-none tracking-[0.12em] !text-white"
+            className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white lg:text-[1.32rem]"
           >
             RONG XING
           </Link>
@@ -237,10 +237,10 @@ export function Header() {
             aria-label="Open menu"
             aria-controls="mobile-navigation"
             aria-expanded={isMobileMenuOpen}
-            className="inline-flex h-10 w-10 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] lg:hidden"
+            className="inline-flex h-8 w-8 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] lg:hidden"
             onClick={() => setIsMobileMenuOpen(true)}
           >
-            <Menu className="h-5 w-5" strokeWidth={1.8} />
+            <Menu className="h-[18px] w-[18px]" strokeWidth={1.8} />
           </button>
         </div>
       </Container>
@@ -255,11 +255,11 @@ export function Header() {
         )}
         style={{ backgroundColor: "var(--color-navy-950)" }}
       >
-        <Container className="flex min-h-full max-w-[var(--content-max)] flex-col pb-7 pt-6">
-          <div className="flex items-center justify-between gap-6">
+        <Container className="flex min-h-full max-w-[var(--content-max)] flex-col pb-7 pt-4">
+          <div className="flex items-center justify-between gap-4">
             <Link
               href="/"
-              className="font-serif text-[1.32rem] uppercase leading-none tracking-[0.12em] !text-white"
+              className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               RONG XING
@@ -267,10 +267,10 @@ export function Header() {
             <button
               type="button"
               aria-label="Close menu"
-              className="inline-flex h-10 w-10 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              className="inline-flex h-8 w-8 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <X className="h-5 w-5" strokeWidth={1.8} />
+              <X className="h-[18px] w-[18px]" strokeWidth={1.8} />
             </button>
           </div>
 
