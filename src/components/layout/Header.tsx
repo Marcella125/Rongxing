@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState, type MouseEvent } from "react";
 
 import { navigationItems } from "@/data/navigation";
 import { Container } from "@/components/ui/Container";
@@ -10,9 +10,59 @@ import { cn } from "@/utils/cn";
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [language, setLanguage] = useState<"en" | "zh">("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("/#top");
+
+  const scrollToHomeSection = (hash: string, behavior: ScrollBehavior = "smooth") => {
+    const id = hash.replace("#", "");
+    const target = document.getElementById(id);
+
+    if (!target) {
+      return false;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const headerHeight =
+      document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+    const offset = id === "top" ? 0 : headerHeight + 18;
+    const top =
+      id === "top"
+        ? 0
+        : Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
+
+    window.scrollTo({
+      top,
+      behavior: prefersReducedMotion ? "auto" : behavior,
+    });
+
+    window.history.pushState(null, "", `/#${id}`);
+    setActiveHref(`/#${id}`);
+    return true;
+  };
+
+  const handleNavigationClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const hash = href.split("#")[1];
+
+    if (!hash) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (pathname === "/") {
+      scrollToHomeSection(`#${hash}`);
+      return;
+    }
+
+    router.push(href);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +80,14 @@ export function Header() {
   useEffect(() => {
     if (pathname !== "/") {
       return;
+    }
+
+    const hash = window.location.hash;
+
+    if (hash) {
+      window.requestAnimationFrame(() => {
+        scrollToHomeSection(hash);
+      });
     }
 
     const sections = navigationItems
@@ -61,6 +119,10 @@ export function Header() {
       setActiveHref((current) =>
         current === currentHref ? current : currentHref
       );
+
+      if (window.location.hash !== `#${currentHref.split("#")[1]}`) {
+        window.history.replaceState(null, "", currentHref);
+      }
     };
 
     updateActiveSection();
@@ -105,6 +167,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
+                    onClick={(event) => handleNavigationClick(event, item.href)}
                     className={cn(
                       "relative inline-flex px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.14em] !text-white transition after:absolute after:bottom-0 after:left-3 after:right-3 after:h-px after:origin-center after:bg-[color:var(--color-gold-500)] after:transition-transform after:duration-300 hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
                       isActive ? "after:scale-x-100" : "after:scale-x-0"

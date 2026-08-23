@@ -200,6 +200,8 @@ const clamp = (value: number, min: number, max: number) =>
 const getDesktopCardScrollDistance = () =>
   Math.max(window.innerHeight * 1.05, 820);
 
+const detailedSolutionsScrollTriggerId = "detailed-solutions-scroll";
+
 function updateScrollFocusRows(
   rows: NodeListOf<HTMLElement>,
   viewportCenter: number,
@@ -396,27 +398,42 @@ function DetailedSolutionCard({
   return (
     <article
       data-detailed-active-card={desktop ? "" : undefined}
-      className="w-full rounded-[0.4rem] border border-[color:var(--color-border)] bg-[#f8f4ef] p-5 shadow-[0_14px_38px_rgba(11,31,59,0.055)]"
+      className="relative w-full overflow-hidden rounded-[0.45rem] border border-[color:var(--color-border)] bg-[#f8f4ef]/95 p-5 shadow-[0_28px_70px_rgba(11,31,59,0.11)] backdrop-blur-xl"
     >
-      <div className="flex flex-col">
-        <div className="flex items-center gap-4">
-          <div className="shrink-0 font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(255,255,255,0.16)_42%,rgba(197,160,98,0.1))]" />
+      <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-[linear-gradient(90deg,transparent,rgba(197,160,98,0.88),transparent)]" />
+      <div className="relative z-10 flex flex-col">
+        <div className="relative flex items-center gap-4">
+          <div
+            data-detailed-card-number
+            className="shrink-0 font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]"
+          >
             {solution.number}
           </div>
-          <h3 className="min-w-0 text-[clamp(1.28rem,2.6vh,1.55rem)] font-semibold uppercase leading-[1.08] tracking-[-0.035em] text-[color:var(--color-navy-900)]">
+          <h3
+            data-detailed-card-title
+            className="min-w-0 text-[clamp(1.28rem,2.6vh,1.55rem)] font-semibold uppercase leading-[1.08] tracking-[-0.035em] text-[color:var(--color-navy-900)]"
+          >
             {solution.title}
           </h3>
         </div>
 
-        <div className="mt-2 h-px w-full bg-[color:var(--color-gold-500)]/38" />
+        <div
+          data-detailed-card-line
+          className="relative mt-2 h-px w-full bg-[color:var(--color-gold-500)]/48"
+        />
 
-        <p className="mt-2.5 text-[clamp(0.82rem,1.65vh,0.92rem)] font-semibold uppercase leading-[1.45] tracking-[0.09em] text-[color:var(--color-gold-500)]">
+        <p
+          data-detailed-card-statement
+          className="relative mt-2.5 text-[clamp(0.82rem,1.65vh,0.92rem)] font-semibold uppercase leading-[1.45] tracking-[0.09em] text-[color:var(--color-gold-500)]"
+        >
           {solution.statement}
         </p>
 
-        <div className="mt-3 space-y-1.5">
+        <div className="relative mt-3 space-y-1.5">
           {solution.description.map((paragraph) => (
             <p
+              data-detailed-card-copy
               key={paragraph}
               className="text-[clamp(0.86rem,1.85vh,0.96rem)] leading-[1.55] text-[color:var(--color-slate-700)]"
             >
@@ -428,10 +445,10 @@ function DetailedSolutionCard({
         <div className="mt-4 grid gap-x-4 sm:grid-cols-2">
           {solution.highlights.map((highlight) => (
             <div
+              data-detailed-card-highlight
               key={highlight}
-              className="flex items-start gap-2 border-t border-[color:var(--color-border)] py-1.5"
+              className="relative border-t border-[color:var(--color-border)] py-1.5"
             >
-              <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--color-gold-500)]" />
               <p className="text-[0.84rem] leading-[1.45] text-[color:var(--color-navy-900)]">
                 {highlight}
               </p>
@@ -466,7 +483,6 @@ function ProjectShowcaseCard({
           <span className="font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)] sm:text-[2.35rem] lg:text-[2rem]">
             {project.number}
           </span>
-          <span className="h-px w-12 bg-[color:var(--color-gold-500)]/62" />
         </div>
 
         <div className="max-w-[28rem] lg:mt-auto lg:pt-16">
@@ -484,13 +500,10 @@ function ProjectShowcaseCard({
             <span>{project.category}</span>
           </div>
 
-          <Link
-            href={project.href}
-            className="inline-flex min-h-10 w-fit items-center justify-center gap-2 border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.22)] transition duration-300 hover:border-white hover:bg-white hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--color-navy-950)] lg:min-h-9 lg:px-4"
-          >
+          <span className="inline-flex min-h-10 w-fit items-center justify-center gap-2 border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.22)] lg:min-h-9 lg:px-4">
             Read More
-            <ArrowRight className="h-3.5 w-3.5 transition duration-300 group-hover:translate-x-0.5" />
-          </Link>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
         </div>
       </div>
     </article>
@@ -606,6 +619,28 @@ export function HomeSections() {
   const jumpToSolution = (targetIndex: number) => {
     resetSolutionDragOffset();
     setSolutionCarouselIndex(targetIndex);
+  };
+
+  const jumpToDetailedSolution = (targetIndex: number) => {
+    if (isMobileViewport) {
+      return;
+    }
+
+    const trigger = ScrollTrigger.getById(detailedSolutionsScrollTriggerId);
+    const section = detailedSectionRef.current;
+
+    if (!trigger || !section) {
+      return;
+    }
+
+    const segmentDistance =
+      (trigger.end - trigger.start) / detailedSolutions.length;
+    const targetY = trigger.start + segmentDistance * targetIndex + 2;
+
+    window.scrollTo({
+      top: targetY,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   };
 
   const finishSolutionDrag = () => {
@@ -1115,6 +1150,7 @@ export function HomeSections() {
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
+        id: detailedSolutionsScrollTriggerId,
         trigger: section,
         start: "top top",
         end: () =>
@@ -1139,10 +1175,22 @@ export function HomeSections() {
             detailedSolutions.length - 1,
             Math.floor(raw)
           );
+          const segmentProgress = raw - Math.floor(raw);
+          const floatProgress = Math.sin(segmentProgress * Math.PI);
 
           setDetailedDesktopIndex((current) =>
             current === nextIndex ? current : nextIndex
           );
+
+          if (!prefersReducedMotion) {
+            gsap.set(stage, {
+              rotateX: floatProgress * 1.8,
+              rotateY: (segmentProgress - 0.5) * -7,
+              y: -8 + floatProgress * 18,
+              transformPerspective: 1200,
+              transformOrigin: "center center",
+            });
+          }
         },
       });
     }, section);
@@ -1150,7 +1198,7 @@ export function HomeSections() {
     return () => {
       ctx.revert();
     };
-  }, [isMobileViewport]);
+  }, [isMobileViewport, prefersReducedMotion]);
 
 
   useLayoutEffect(() => {
@@ -1166,19 +1214,139 @@ export function HomeSections() {
       return;
     }
 
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 24, scale: 0.99 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "power3.out",
-        overwrite: true,
-      }
+    const number = card.querySelector<HTMLElement>("[data-detailed-card-number]");
+    const title = card.querySelector<HTMLElement>("[data-detailed-card-title]");
+    const line = card.querySelector<HTMLElement>("[data-detailed-card-line]");
+    const statement = card.querySelector<HTMLElement>(
+      "[data-detailed-card-statement]"
     );
-  }, [detailedDesktopIndex, isMobileViewport]);
+    const copy = card.querySelectorAll<HTMLElement>("[data-detailed-card-copy]");
+    const highlights = card.querySelectorAll<HTMLElement>(
+      "[data-detailed-card-highlight]"
+    );
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 14 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.32,
+            ease: "power2.out",
+            overwrite: true,
+          }
+        );
+        return;
+      }
+
+      gsap.set(card, {
+        transformStyle: "preserve-3d",
+        transformPerspective: 1200,
+        willChange: "transform, opacity, filter",
+      });
+      gsap.set([number, title, statement, ...copy, ...highlights], {
+        opacity: 0,
+        y: 18,
+      });
+      gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+
+      const tl = gsap.timeline({ defaults: { overwrite: true } });
+
+      tl.fromTo(
+        card,
+        {
+          autoAlpha: 0,
+          filter: "blur(10px)",
+          rotateX: 7,
+          rotateY: -16,
+          scale: 0.92,
+          x: 92,
+          y: 34,
+        },
+        {
+          autoAlpha: 1,
+          filter: "blur(0px)",
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          x: 0,
+          y: 0,
+          duration: 0.72,
+          ease: "expo.out",
+        }
+      )
+        .fromTo(
+          number,
+          { opacity: 0, scale: 0.72, rotateZ: -8, y: 18 },
+          {
+            opacity: 1,
+            scale: 1,
+            rotateZ: 0,
+            y: 0,
+            duration: 0.58,
+            ease: "back.out(1.9)",
+          },
+          0.08
+        )
+        .to(
+          title,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.52,
+            ease: "power3.out",
+          },
+          0.14
+        )
+        .to(
+          line,
+          {
+            scaleX: 1,
+            duration: 0.64,
+            ease: "power4.out",
+          },
+          0.2
+        )
+        .to(
+          statement,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.48,
+            ease: "power3.out",
+          },
+          0.28
+        )
+        .to(
+          copy,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.48,
+            stagger: 0.055,
+            ease: "power3.out",
+          },
+          0.36
+        )
+        .to(
+          highlights,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.44,
+            stagger: 0.045,
+            ease: "power3.out",
+          },
+          0.48
+        );
+    }, card);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [detailedDesktopIndex, isMobileViewport, prefersReducedMotion]);
 
   return (
     <div ref={rootRef}>
@@ -1464,7 +1632,7 @@ export function HomeSections() {
 
       <section
         id="solutions"
-        className="min-h-svh bg-[color:var(--color-navy-950)] py-[clamp(3.4rem,4.6vw,5.4rem)] text-white md:min-h-0"
+        className="min-h-svh scroll-mt-[5.75rem] bg-[color:var(--color-navy-950)] py-[clamp(3.4rem,4.6vw,5.4rem)] text-white md:min-h-0"
       >
         <Container className="max-w-[var(--content-max)]">
           <div className="max-w-[40rem]">
@@ -1576,16 +1744,73 @@ export function HomeSections() {
 
       <section
         ref={detailedSectionRef}
-        className="js-detailed-solutions-section bg-white py-[var(--section-space)] lg:h-screen lg:min-h-[36rem] lg:overflow-hidden lg:py-0"
+        className="js-detailed-solutions-section surface-grid relative overflow-hidden bg-white py-[var(--section-space)] lg:h-screen lg:min-h-[36rem] lg:py-0"
       >
-        <Container className="max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
-          <div className="grid w-full gap-12 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:items-center lg:gap-14">
+        <div className="absolute inset-0">
+          <Image
+            src={assetPath("/images/services.png")}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[58%_50%] opacity-[0.13]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_42%,rgba(248,244,239,0.74)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(197,160,98,0.1)_0%,transparent_34%,rgba(255,255,255,0.88)_100%)]" />
+        </div>
+
+        <Container className="relative z-10 max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
+          <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:items-center lg:gap-16">
             <div className="lg:self-center">
               <SectionTitle
                 label="DETAILED SOLUTIONS"
                 title="Built To Match The Scale Of The Requirement."
                 subtitle="A four-part business platform designed to move from inquiry to execution with precision."
               />
+
+              <div className="mt-8 hidden max-w-[33rem] lg:block">
+                <div className="h-px w-full bg-[color:var(--color-border-strong)]" />
+                <div className="divide-y divide-[color:var(--color-border)]">
+                  {detailedSolutions.map((solution, index) => (
+                    <button
+                      type="button"
+                      key={solution.number}
+                      className={cn(
+                        "grid w-full grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-4 py-3 text-left transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+                        detailedDesktopIndex === index
+                          ? "text-[color:var(--color-navy-900)]"
+                          : "text-[color:var(--color-slate-600)] hover:text-[color:var(--color-navy-900)]"
+                      )}
+                      onClick={() => jumpToDetailedSolution(index)}
+                    >
+                      <span
+                        className={cn(
+                          "font-serif text-[1.55rem] leading-none tracking-[-0.06em] transition duration-300",
+                          detailedDesktopIndex === index
+                            ? "text-[color:var(--color-gold-500)]"
+                            : "text-[color:var(--color-navy-900)]/28"
+                        )}
+                      >
+                        {solution.number}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-[0.76rem] font-semibold uppercase tracking-[0.16em]">
+                          {solution.title}
+                        </p>
+                        <div className="mt-2 h-px overflow-hidden bg-[color:var(--color-border)]">
+                          <div
+                            className={cn(
+                              "h-full origin-left bg-[color:var(--color-gold-500)] transition duration-500",
+                              detailedDesktopIndex === index
+                                ? "scale-x-100"
+                                : "scale-x-0"
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {isMobileViewport ? (
@@ -1600,6 +1825,7 @@ export function HomeSections() {
               <div
                 ref={detailedDesktopRef}
                 className="relative ml-auto w-[92%] lg:translate-y-4 xl:w-[84%]"
+                style={{ perspective: "1200px" }}
               >
                 <DetailedSolutionCard
                   key={detailedSolutions[detailedDesktopIndex].number}
@@ -1633,15 +1859,6 @@ export function HomeSections() {
               </Reveal>
             </div>
 
-            <Reveal forceMotion delay={0.16} distance={18}>
-              <Link
-                href="/capabilities"
-                className="group inline-flex min-h-12 w-fit items-center justify-center gap-3 border border-[color:var(--color-gold-500)]/54 bg-white/28 px-5 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-gold-600)] backdrop-blur-sm transition duration-300 hover:border-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2"
-              >
-                View All Projects
-                <ArrowRight className="h-4 w-4 transition duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Reveal>
           </div>
 
           <div className="grid gap-3 sm:gap-3.5 lg:grid-cols-3 lg:gap-4">
