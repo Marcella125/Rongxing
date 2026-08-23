@@ -1838,14 +1838,49 @@ export function HomeSections() {
             <div className="relative bg-[color:var(--color-navy-950)] py-[clamp(1.7rem,5.6vw,2.3rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
               <div className="relative flex h-full flex-col justify-center lg:min-h-[37rem] lg:p-1">
                 <p className="js-vision-label section-label mb-[clamp(0.8rem,2.8vw,1rem)] text-[clamp(0.74rem,2.7vw,0.82rem)] tracking-[0.24em]">OUR VISION</p>
-                <TextReveal forceMotion distance={42}>
+                <TextReveal forceMotion className="lg:hidden" distance={42}>
+                  <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.75rem,5.2vw,3.65rem)]">
+                    Connecting
+                  </h2>
+                </TextReveal>
+                <TextReveal
+                  forceMotion
+                  className="mt-[clamp(0.28rem,1.4vw,0.45rem)] lg:hidden"
+                  delay={0.1}
+                  distance={42}
+                >
+                  <h2 className="js-vision-line mobile-section-heading text-[color:var(--color-gold-500)] lg:text-[clamp(2.85rem,5.35vw,3.65rem)]">
+                    China
+                  </h2>
+                </TextReveal>
+                <TextReveal
+                  forceMotion
+                  className="mt-[clamp(0.28rem,1.4vw,0.45rem)] lg:hidden"
+                  delay={0.16}
+                  distance={42}
+                >
+                  <h2 className="js-vision-line mobile-section-heading text-white">
+                    With The
+                  </h2>
+                </TextReveal>
+                <TextReveal
+                  forceMotion
+                  className="mt-[clamp(0.28rem,1.4vw,0.45rem)] lg:hidden"
+                  delay={0.22}
+                  distance={42}
+                >
+                  <h2 className="js-vision-line mobile-section-heading text-[color:var(--color-gold-500)]">
+                    World.
+                  </h2>
+                </TextReveal>
+                <TextReveal forceMotion className="hidden lg:block" distance={42}>
                   <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.75rem,5.2vw,3.65rem)]">
                     Connecting China
                   </h2>
                 </TextReveal>
                 <TextReveal
                   forceMotion
-                  className="mt-[clamp(0.28rem,1.4vw,0.45rem)] lg:mt-[clamp(0.45rem,2vw,0.6rem)]"
+                  className="hidden lg:mt-[clamp(0.45rem,2vw,0.6rem)] lg:block"
                   delay={0.1}
                   distance={42}
                 >

@@ -125,37 +125,37 @@ export function Footer({ onePage = false }: FooterProps) {
           className="object-cover object-center opacity-28"
         />
         <div className="absolute inset-0 bg-[rgba(3,20,39,0.9)]" />
-        <div className="navy-grid absolute inset-0 opacity-50" />
+        <div className="navy-grid absolute inset-0 hidden opacity-50 lg:block" />
       </div>
 
-      <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-9 sm:px-6 lg:px-8 lg:py-14">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.72fr)_minmax(0,0.98fr)_minmax(0,0.86fr)] lg:gap-12">
+      <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.72fr)_minmax(0,0.98fr)_minmax(0,0.86fr)] lg:gap-12">
           <div className="js-footer-logo">
-            <p className="font-serif text-[1.5rem] uppercase tracking-[0.14em] text-white">
+            <p className="font-serif text-[1.65rem] uppercase tracking-[0.16em] text-white lg:text-[1.5rem] lg:tracking-[0.14em]">
               RONG XING
             </p>
-            <p className="mt-1 text-[0.48rem] uppercase tracking-[0.48em] text-white/68">
+            <p className="mt-1 text-[0.5rem] uppercase tracking-[0.52em] text-white/62 lg:text-[0.48rem] lg:tracking-[0.48em]">
               Trading Co., Ltd.
             </p>
-            <p className="mt-5 max-w-[18rem] text-[0.88rem] leading-6 text-white/72 lg:mt-6 lg:text-[0.9rem] lg:leading-7">
+            <p className="mt-5 max-w-[18rem] text-[0.92rem] leading-6 text-white/76 lg:mt-6 lg:text-[0.9rem] lg:leading-7">
               China-based. Globally connected.
             </p>
 
-            <div className="mt-5 space-y-2.5 border-y border-white/10 py-4 text-[0.84rem] text-white/84 lg:mt-7 lg:border-0 lg:py-0 lg:text-[0.86rem]">
+            <div className="mt-5 grid gap-3 text-[0.88rem] text-white/86 lg:mt-7 lg:block lg:space-y-2.5 lg:text-[0.86rem]">
               <a
                 href="mailto:info@rongxingtrading.com"
-                className="block transition hover:text-[color:var(--color-gold-500)]"
+                className="block break-words transition hover:text-[color:var(--color-gold-500)]"
               >
                 info@rongxingtrading.com
               </a>
-              <p>Guangzhou, China</p>
+              <p className="text-white/72 lg:text-white/84">Guangzhou, China</p>
             </div>
           </div>
 
-          <div className="js-footer-column">
+          <div className="js-footer-column mt-2 lg:mt-0">
             <button
               type="button"
-              className="flex w-full items-center justify-between border-b border-white/10 py-4 text-left lg:hidden"
+              className="flex min-h-14 w-full items-center justify-between text-left lg:hidden"
               aria-expanded={openMobileSection === "company"}
               onClick={() =>
                 setOpenMobileSection((current) =>
@@ -174,7 +174,7 @@ export function Footer({ onePage = false }: FooterProps) {
             <p className="section-label hidden lg:block">Company</p>
             <ul
               className={cn(
-                "grid overflow-hidden transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:block lg:max-h-none lg:space-y-3 lg:overflow-visible lg:opacity-100",
+                "grid overflow-hidden px-4 transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:block lg:max-h-none lg:space-y-3 lg:overflow-visible lg:px-0 lg:opacity-100",
                 openMobileSection === "company"
                   ? "max-h-56 gap-3 py-4 opacity-100"
                   : "max-h-0 gap-3 py-0 opacity-0"
@@ -196,7 +196,7 @@ export function Footer({ onePage = false }: FooterProps) {
           <div className="js-footer-column">
             <button
               type="button"
-              className="flex w-full items-center justify-between border-b border-white/10 py-4 text-left lg:hidden"
+              className="flex min-h-14 w-full items-center justify-between text-left lg:hidden"
               aria-expanded={openMobileSection === "solutions"}
               onClick={() =>
                 setOpenMobileSection((current) =>
@@ -215,7 +215,7 @@ export function Footer({ onePage = false }: FooterProps) {
             <p className="section-label hidden lg:block">Solutions</p>
             <ul
               className={cn(
-                "grid overflow-hidden transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:max-h-none lg:max-w-[15rem] lg:space-y-3 lg:overflow-visible lg:opacity-100",
+                "grid overflow-hidden px-4 transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:max-h-none lg:max-w-[15rem] lg:space-y-3 lg:overflow-visible lg:px-0 lg:opacity-100",
                 openMobileSection === "solutions"
                   ? "max-h-64 gap-3 py-4 opacity-100"
                   : "max-h-0 gap-3 py-0 opacity-0"
@@ -237,7 +237,7 @@ export function Footer({ onePage = false }: FooterProps) {
           <div className="js-footer-column lg:pl-8">
             <button
               type="button"
-              className="flex w-full items-center justify-between border-b border-white/10 py-4 text-left lg:hidden"
+              className="flex min-h-14 w-full items-center justify-between text-left lg:hidden"
               aria-expanded={openMobileSection === "contact"}
               onClick={() =>
                 setOpenMobileSection((current) =>
@@ -256,7 +256,7 @@ export function Footer({ onePage = false }: FooterProps) {
             <p className="section-label hidden lg:block">Get In Touch</p>
             <div
               className={cn(
-                "space-y-4 overflow-hidden text-[0.9rem] text-white/82 transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:max-h-none lg:overflow-visible lg:opacity-100",
+                "space-y-4 overflow-hidden px-4 text-[0.9rem] text-white/82 transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:max-h-none lg:overflow-visible lg:px-0 lg:opacity-100",
                 openMobileSection === "contact"
                   ? "max-h-72 py-4 opacity-100"
                   : "max-h-0 py-0 opacity-0"
@@ -294,7 +294,7 @@ export function Footer({ onePage = false }: FooterProps) {
           </div>
         </div>
 
-        <div className="js-footer-bottom mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 text-[0.72rem] leading-5 text-white/62 sm:flex-row sm:items-center sm:justify-between lg:mt-10 lg:text-[0.78rem]">
+        <div className="js-footer-bottom mt-7 flex flex-col items-center justify-center gap-3 text-center text-[0.72rem] leading-5 text-white/62 sm:flex-row lg:mt-10 lg:border-t lg:border-white/10 lg:pt-5 lg:text-[0.78rem]">
           <p>{"\u00A9"} {currentYear} RONG XING Trading Co., Ltd. All rights reserved.</p>
         </div>
       </Container>

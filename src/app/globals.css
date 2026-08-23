@@ -396,8 +396,8 @@ a {
 
 @media (max-width: 640px) {
   .footer-shell {
-    padding-top: 2.75rem;
-    padding-bottom: 0.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .footer-bg-image {

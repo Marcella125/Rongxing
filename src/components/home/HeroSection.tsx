@@ -257,28 +257,21 @@ export function HeroSection() {
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line mobile-hero-line-1 max-w-full">
                       <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
-                        Connecting
+                        Your Business.
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line mobile-hero-line-2 max-w-full">
-                      <h1 className="mobile-hero-heading max-w-full break-normal text-[color:var(--color-gold-500)] [overflow-wrap:normal]">
-                        China
+                      <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
+                        Our Network
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line mobile-hero-line-3 max-w-full">
                       <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
-                        With The
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="max-w-full overflow-hidden">
-                    <div className="js-hero-mobile-line mobile-hero-line-4 max-w-full">
-                      <h1 className="mobile-hero-heading max-w-full break-normal text-white [overflow-wrap:normal]">
-                        World.
+                        In <span className="text-[color:var(--color-gold-500)]">China.</span>
                       </h1>
                     </div>
                   </div>
@@ -328,14 +321,14 @@ export function HeroSection() {
                 <div className="overflow-hidden">
                   <div className="js-hero-line desktop-hero-line-1">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
-                      Connecting <span className="text-[color:var(--color-gold-500)]">China</span>
+                      Your Business.
                     </h1>
                   </div>
                 </div>
                 <div className="overflow-hidden">
                   <div className="js-hero-line desktop-hero-line-2">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
-                      With The World.
+                      Our Network In <span className="text-[color:var(--color-gold-500)]">China.</span>
                     </h1>
                   </div>
                 </div>
