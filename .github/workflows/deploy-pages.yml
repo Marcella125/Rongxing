@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Clean previous static output
-        run: rm -rf out
+        run: rm -rf docs
 
       - name: Build static site
         run: npm run build
@@ -43,11 +43,11 @@ jobs:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - name: Disable Jekyll processing
-        run: touch out/.nojekyll
+        run: touch docs/.nojekyll
 
       - name: Verify exported asset paths
         run: |
-          if [ -n "${PAGES_BASE_PATH}" ] && grep -R '="/_next/' out/*.html out/*/*.html; then
+          if [ -n "${PAGES_BASE_PATH}" ] && grep -R '="/_next/' docs/*.html docs/*/*.html; then
             echo "Found unprefixed Next asset URLs in static export."
             exit 1
           fi
@@ -57,7 +57,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./out
+          path: ./docs
 
   deploy:
     environment:
