@@ -7,6 +7,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 
 import { navigationItems } from "@/data/navigation";
 import { Container } from "@/components/ui/Container";
+import { appPath } from "@/lib/paths";
 import { cn } from "@/utils/cn";
 
 export function Header() {
@@ -41,7 +42,7 @@ export function Header() {
       behavior: prefersReducedMotion ? "auto" : behavior,
     });
 
-    window.history.pushState(null, "", `/#${id}`);
+    window.history.pushState(null, "", appPath(`/#${id}`));
     setActiveHref(`/#${id}`);
     return true;
   };
@@ -148,7 +149,7 @@ export function Header() {
       );
 
       if (window.location.hash !== `#${currentHref.split("#")[1]}`) {
-        window.history.replaceState(null, "", currentHref);
+        window.history.replaceState(null, "", appPath(currentHref));
       }
     };
 
