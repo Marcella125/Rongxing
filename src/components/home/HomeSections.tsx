@@ -3,11 +3,6 @@
 import {
   ArrowRight,
   ArrowUp,
-  BadgeCheck,
-  Building2,
-  CarFront,
-  Factory,
-  Handshake,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,6 +16,7 @@ import {
   useState,
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
+  type SVGProps,
 } from "react";
 
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
@@ -31,6 +27,94 @@ import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 
 gsap.registerPlugin(ScrollTrigger);
+
+type PremiumIconProps = SVGProps<SVGSVGElement>;
+
+function SourcingMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M7.5 24.5V11.7L16 7l8.5 4.7v12.8" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10.5 24.5v-8.2h11v8.2M13.2 19.1h5.6M13.2 21.7h5.6" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16 7v6.1M8.7 12.6h14.6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" opacity=".62" />
+    </svg>
+  );
+}
+
+function EvMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M8.5 19h15l-2-5.4a3 3 0 0 0-2.8-1.9h-5.4a3 3 0 0 0-2.8 1.9L8.5 19Z" stroke="currentColor" strokeWidth="1.65" strokeLinejoin="round" />
+      <path d="M7 19h18v4.2H7V19ZM10.4 24.7h1.9M19.7 24.7h1.9M12.1 16h7.8" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="m17.2 6.9-3 5.1h3.7l-2.7 4.6" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function BrandMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M10.3 17.1 7.8 19.6a3.25 3.25 0 0 0 4.6 4.6l3.2-3.2M21.7 14.9l2.5-2.5a3.25 3.25 0 0 0-4.6-4.6l-3.2 3.2" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="m13.3 18.7 5.4-5.4M11.5 9.2l2 2M20.5 20.8l2 2" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7.2 12.5h3.2M21.6 19.5h3.2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" opacity=".65" />
+    </svg>
+  );
+}
+
+function IndustrialMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M7.5 24.5V13.2l5.6 3.2v-3.2l5.6 3.2v-6.1h5.8v14.2h-17Z" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11 20.1h2.3M15.2 20.1h2.3M19.4 20.1h2.3M20.3 10.3V7.5h3.1v2.8" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PrecisionMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <circle cx="16" cy="16" r="8.6" stroke="currentColor" strokeWidth="1.55" />
+      <circle cx="16" cy="16" r="3.2" stroke="currentColor" strokeWidth="1.55" />
+      <path d="M16 5.7V9M16 23v3.3M5.7 16H9M23 16h3.3M18.2 13.8l4.5-4.5" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IntegrityMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M16 6.8 24 10v5.5c0 5.1-3.1 8.7-8 10.4-4.9-1.7-8-5.3-8-10.4V10l8-3.2Z" stroke="currentColor" strokeWidth="1.65" strokeLinejoin="round" />
+      <path d="m12.5 16.4 2.3 2.3 5-5" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function NetworkMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <circle cx="16" cy="16" r="9.3" stroke="currentColor" strokeWidth="1.55" />
+      <path d="M6.8 16h18.4M16 6.7c2.6 2.6 4 5.7 4 9.3s-1.4 6.7-4 9.3c-2.6-2.6-4-5.7-4-9.3s1.4-6.7 4-9.3Z" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.4 10.4c1.8 1 4 1.6 6.6 1.6s4.8-.6 6.6-1.6M9.4 21.6c1.8-1 4-1.6 6.6-1.6s4.8.6 6.6 1.6" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" opacity=".7" />
+    </svg>
+  );
+}
+
+function GrowthMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="M8 24.5h16M10.4 22v-5.1M16 22v-8.2M21.6 22V10.5" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" />
+      <path d="m9.5 13.2 4.3-4.3 3.9 3.9 5.8-5.8M20.5 7h3v3" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function VerifiedMark(props: PremiumIconProps) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
+      <path d="m16 5.8 2.7 2.1 3.4-.2 1.2 3.2 2.8 2-1 3.3 1 3.3-2.8 2-1.2 3.2-3.4-.2-2.7 2.1-2.7-2.1-3.4.2-1.2-3.2-2.8-2 1-3.3-1-3.3 2.8-2 1.2-3.2 3.4.2L16 5.8Z" stroke="currentColor" strokeWidth="1.45" strokeLinejoin="round" />
+      <path d="m12.4 16.2 2.3 2.3 5-5" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 const strategicObjectives = [
   {
@@ -71,28 +155,28 @@ const solutionCards = [
     title: "Commercial Sourcing",
     description:
       "Direct access to manufacturers, competitive pricing, quality products and efficient execution.",
-    icon: Building2,
+    icon: SourcingMark,
   },
   {
     number: "02",
     title: "Electric Vehicle Trading",
     description:
       "Flexible sourcing and export solutions from individual vehicles to large-scale international orders.",
-    icon: CarFront,
+    icon: EvMark,
   },
   {
     number: "03",
     title: "International Brand Representation",
     description:
       "Connecting international brands with the right markets, partners, distributors and commercial opportunities.",
-    icon: Handshake,
+    icon: BrandMark,
   },
   {
     number: "04",
     title: "Industrial Solutions",
     description:
       "Production lines, machinery, equipment and integrated solutions for establishing and developing manufacturing operations.",
-    icon: Factory,
+    icon: IndustrialMark,
   },
 ] as const;
 
@@ -273,6 +357,39 @@ const whyItems = [
   },
 ] as const;
 
+const mobileWhyItems = [
+  {
+    title: whyItems[0].title,
+    description: whyItems[0].description,
+    icon: PrecisionMark,
+  },
+  {
+    title: whyItems[1].title,
+    description: whyItems[1].description,
+    icon: IntegrityMark,
+  },
+  {
+    title: whyItems[2].title,
+    description: whyItems[2].description,
+    icon: NetworkMark,
+  },
+  {
+    title: whyItems[3].title,
+    description: whyItems[3].description,
+    icon: GrowthMark,
+  },
+  {
+    title: whyItems[4].title,
+    description: whyItems[4].description,
+    icon: BrandMark,
+  },
+  {
+    title: whyItems[5].title,
+    description: whyItems[5].description,
+    icon: SourcingMark,
+  },
+] as const;
+
 function SectionTitle({
   label,
   title,
@@ -290,7 +407,7 @@ function SectionTitle({
       <TextReveal forceMotion distance={48}>
         <h2
           className={cn(
-            "section-heading font-serif",
+            "mobile-section-heading section-heading",
             dark ? "text-white" : "text-[color:var(--color-navy-900)]"
           )}
         >
@@ -301,7 +418,7 @@ function SectionTitle({
         <TextReveal forceMotion delay={0.12} distance={24}>
           <p
             className={cn(
-              "mt-5 max-w-[38rem] text-[1rem] leading-8",
+              "mobile-section-copy mt-4 max-w-[38rem] lg:mt-5 lg:text-[1rem] lg:leading-8",
               dark ? "text-white/74" : "text-[color:var(--color-slate-700)]"
             )}
           >
@@ -332,18 +449,17 @@ function SolutionCapabilityCard({
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.12),transparent_40%)] opacity-0 transition duration-300 group-hover:opacity-100" />
       <div className="relative flex h-full flex-col">
         <div className="flex items-start justify-between gap-4">
-          <span className="text-[0.92rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-gold-500)]">
+          <span className="mobile-section-subheading text-[0.92rem] text-[color:var(--color-gold-500)] lg:font-semibold lg:tracking-[0.18em]">
             {item.number}
           </span>
           <Icon
-            className="h-4.5 w-4.5 text-[color:var(--color-gold-500)]/86 sm:h-5 sm:w-5"
-            strokeWidth={1.5}
+            className="h-6 w-6 text-[color:var(--color-gold-500)]/88 sm:h-6 sm:w-6"
           />
         </div>
         <h3 className="mt-5 max-w-[16ch] text-[1.08rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.14rem]">
           {item.title}
         </h3>
-        <p className="mt-4 max-w-[18rem] text-[0.86rem] leading-6 text-white/68 sm:text-[0.9rem]">
+        <p className="mobile-section-copy mt-4 max-w-[18rem] text-white/68 sm:text-[0.9rem]">
           {item.description}
         </p>
         <div className="mt-auto pt-7">
@@ -362,25 +478,25 @@ function MobileSolutionCapabilityCard({
   const Icon = item.icon;
 
   return (
-    <article className="relative flex h-[15.8rem] flex-col overflow-hidden border border-white/12 bg-white/[0.02] px-5 py-5">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.08),transparent_42%)]" />
+    <article className="relative flex min-h-[14.25rem] flex-col overflow-hidden border border-white/14 bg-[rgba(255,255,255,0.035)] px-5 py-4 shadow-[0_18px_46px_rgba(0,0,0,0.16)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.16),transparent_44%)]" />
+      <div className="absolute inset-0 navy-grid opacity-35" />
       <div className="relative flex h-full flex-col">
         <div className="flex items-start justify-between gap-4">
-          <span className="text-[0.88rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-gold-500)]">
+          <span className="mobile-section-subheading text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
           <Icon
-            className="h-4.5 w-4.5 text-[color:var(--color-gold-500)]/84"
-            strokeWidth={1.45}
+            className="h-6 w-6 text-[color:var(--color-gold-500)]/86"
           />
         </div>
-        <h3 className="mt-4 max-w-[14ch] text-[1.02rem] font-semibold uppercase leading-[1.06] tracking-[-0.02em] text-white">
+        <h3 className="mobile-section-subheading mt-4 max-w-[15ch] text-white">
           {item.title}
         </h3>
-        <p className="mt-3 max-w-[17rem] text-[0.9rem] leading-6 text-white/68">
+        <p className="mobile-section-copy mt-3 max-w-[18.5rem] text-white/70">
           {item.description}
         </p>
-        <div className="mt-auto pt-5">
+        <div className="mt-auto pt-3">
           <ArrowRight className="h-4 w-4 text-[color:var(--color-gold-500)]" />
         </div>
       </div>
@@ -391,28 +507,60 @@ function MobileSolutionCapabilityCard({
 function DetailedSolutionCard({
   solution,
   desktop = false,
+  expanded = true,
+  onToggle,
 }: {
   solution: (typeof detailedSolutions)[number];
   desktop?: boolean;
+  expanded?: boolean;
+  onToggle?: () => void;
 }) {
+  const visibleDescription = expanded
+    ? solution.description
+    : solution.description.slice(0, 1);
+  const visibleHighlights = expanded
+    ? solution.highlights
+    : solution.highlights.slice(0, 2);
+  const canToggle = Boolean(onToggle);
+
   return (
     <article
       data-detailed-active-card={desktop ? "" : undefined}
-      className="relative w-full overflow-hidden rounded-[0.45rem] border border-[color:var(--color-border)] bg-[#f8f4ef]/95 p-5 shadow-[0_28px_70px_rgba(11,31,59,0.11)] backdrop-blur-xl"
+      className={cn(
+        "relative w-full overflow-hidden border border-[color:var(--color-border)]",
+        canToggle
+          ? "rounded-[0.35rem] bg-[#F8F4EF] px-3.5 py-3.5 shadow-[0_12px_32px_rgba(11,31,59,0.045)]"
+          : "rounded-[0.35rem] bg-[#F8F4EF] px-4 py-4 shadow-[0_12px_32px_rgba(11,31,59,0.045)] lg:px-5 lg:py-5"
+      )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.78),rgba(255,255,255,0.16)_42%,rgba(197,160,98,0.1))]" />
-      <div className="pointer-events-none absolute left-0 top-0 h-px w-full bg-[linear-gradient(90deg,transparent,rgba(197,160,98,0.88),transparent)]" />
       <div className="relative z-10 flex flex-col">
-        <div className="relative flex items-center gap-4">
+        <div
+          className={cn(
+            "relative grid gap-x-3",
+            canToggle
+              ? "grid-cols-[2.35rem_minmax(0,1fr)] items-center"
+              : "grid-cols-[2.55rem_minmax(0,1fr)] items-center lg:grid-cols-[3rem_minmax(0,1fr)]"
+          )}
+        >
           <div
             data-detailed-card-number
-            className="shrink-0 font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)]"
+            className={cn(
+              "shrink-0 font-serif leading-none text-[color:var(--color-gold-500)]",
+              canToggle
+                ? "text-[2rem] tracking-[-0.065em]"
+                : "text-[2rem] tracking-[-0.065em] lg:text-[2.2rem]"
+            )}
           >
             {solution.number}
           </div>
           <h3
             data-detailed-card-title
-            className="min-w-0 text-[clamp(1.28rem,2.6vh,1.55rem)] font-semibold uppercase leading-[1.08] tracking-[-0.035em] text-[color:var(--color-navy-900)]"
+            className={cn(
+              "min-w-0 font-semibold uppercase text-[color:var(--color-navy-900)]",
+              canToggle
+                ? "mobile-section-subheading"
+                : "mobile-section-subheading lg:text-[1rem]"
+            )}
           >
             {solution.title}
           </h3>
@@ -420,41 +568,74 @@ function DetailedSolutionCard({
 
         <div
           data-detailed-card-line
-          className="relative mt-2 h-px w-full bg-[color:var(--color-gold-500)]/48"
+          className={cn(
+            "relative h-px w-full bg-[color:var(--color-gold-500)]/48",
+            canToggle ? "mt-2.5" : "mt-3"
+          )}
         />
 
         <p
           data-detailed-card-statement
-          className="relative mt-2.5 text-[clamp(0.82rem,1.65vh,0.92rem)] font-semibold uppercase leading-[1.45] tracking-[0.09em] text-[color:var(--color-gold-500)]"
+          className={cn(
+            "relative mt-2.5 font-semibold uppercase leading-[1.45] tracking-[0.09em] text-[color:var(--color-gold-500)]",
+            "mobile-section-subheading"
+          )}
         >
           {solution.statement}
         </p>
 
         <div className="relative mt-3 space-y-1.5">
-          {solution.description.map((paragraph) => (
+          {visibleDescription.map((paragraph) => (
             <p
               data-detailed-card-copy
               key={paragraph}
-              className="text-[clamp(0.86rem,1.85vh,0.96rem)] leading-[1.55] text-[color:var(--color-slate-700)]"
+              className={cn(
+                "text-[color:var(--color-slate-700)]",
+                canToggle
+                  ? "mobile-section-copy"
+                  : "mobile-section-copy lg:text-[0.92rem] lg:leading-[1.65]"
+              )}
             >
               {paragraph}
             </p>
           ))}
         </div>
 
-        <div className="mt-4 grid gap-x-4 sm:grid-cols-2">
-          {solution.highlights.map((highlight) => (
+        <div className={cn("grid gap-x-4 sm:grid-cols-2", canToggle ? "mt-3" : "mt-4")}>
+          {visibleHighlights.map((highlight) => (
             <div
               data-detailed-card-highlight
               key={highlight}
-              className="relative border-t border-[color:var(--color-border)] py-1.5"
+              className={cn(
+                "relative border-t border-[color:var(--color-border)]",
+                canToggle ? "py-1.5" : "py-1.5"
+              )}
             >
-              <p className="text-[0.84rem] leading-[1.45] text-[color:var(--color-navy-900)]">
+              <p className={cn(
+                "leading-[1.45] text-[color:var(--color-navy-900)]",
+                canToggle ? "text-[0.82rem]" : "text-[0.84rem]"
+              )}>
                 {highlight}
               </p>
             </div>
           ))}
         </div>
+
+        {canToggle ? (
+          <button
+            type="button"
+            className="mt-3 inline-flex w-fit items-center gap-2 border border-[color:var(--color-gold-500)]/42 bg-white/38 px-3 py-2 text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-gold-600)] transition hover:border-[color:var(--color-gold-500)] hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+            onClick={onToggle}
+          >
+            {expanded ? "Show Less" : "Read More"}
+            <ArrowRight
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-300",
+                expanded && "-rotate-90"
+              )}
+            />
+          </button>
+        ) : null}
       </div>
     </article>
   );
@@ -489,14 +670,14 @@ function ProjectShowcaseCard({
           <h3 className="text-[1.05rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.18rem] lg:text-[1.02rem]">
             {project.title}
           </h3>
-          <p className="mt-2 text-[0.86rem] font-medium leading-6 text-white/78 lg:text-[0.82rem] lg:leading-5">
+          <p className="mobile-section-copy mt-2 font-medium text-white/78 lg:text-[0.82rem] lg:leading-5">
             {project.route}
           </p>
         </div>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:mt-6 lg:flex-col lg:items-start">
           <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
-            <BadgeCheck className="h-4 w-4" strokeWidth={1.7} />
+            <VerifiedMark className="h-4.5 w-4.5" />
             <span>{project.category}</span>
           </div>
 
@@ -597,6 +778,9 @@ export function HomeSections() {
   const [isSolutionDragging, setIsSolutionDragging] = useState(false);
   const [objectivesDesktopIndex, setObjectivesDesktopIndex] = useState(0);
   const [detailedDesktopIndex, setDetailedDesktopIndex] = useState(0);
+  const [expandedDetailedMobileCards, setExpandedDetailedMobileCards] = useState<
+    Record<string, boolean>
+  >({});
 
   const activeSolutionIndex = solutionCarouselIndex;
 
@@ -641,6 +825,13 @@ export function HomeSections() {
       top: targetY,
       behavior: prefersReducedMotion ? "auto" : "smooth",
     });
+  };
+
+  const toggleDetailedMobileCard = (number: string) => {
+    setExpandedDetailedMobileCards((current) => ({
+      ...current,
+      [number]: !current[number],
+    }));
   };
 
   const finishSolutionDrag = () => {
@@ -1022,66 +1213,37 @@ export function HomeSections() {
         });
 
         rows.forEach((row) => {
-          const dot = row.querySelector(".js-objective-mobile-dot");
           const number = row.querySelector(".js-objective-mobile-number");
           const title = row.querySelector(".js-objective-mobile-title");
           const copy = row.querySelector(".js-objective-mobile-copy");
 
-          gsap.set(number, { opacity: 0.45, scale: 0.8, y: 10 });
-          gsap.set(title, { yPercent: 108, opacity: 0 });
-          gsap.set(copy, { opacity: 0, y: 16 });
-          gsap.set(dot, {
-            scale: 0.72,
-            backgroundColor: "rgba(197,160,98,0.2)",
-            boxShadow: "0 0 0 rgba(197,160,98,0)",
-          });
+          gsap.set(row, { opacity: 0.46, y: 10, scale: 0.985 });
+          gsap.set(number, { opacity: 0.72, scale: 0.9 });
+          gsap.set(title, { opacity: 0.72, x: 6 });
+          gsap.set(copy, { opacity: 0.54, x: 6 });
 
-          gsap.to(number, {
+          gsap.to(row, {
             opacity: 1,
-            scale: 1,
             y: 0,
+            scale: 1,
             ease: "none",
             scrollTrigger: {
               trigger: row,
               start: "top 72%",
-              end: "top 44%",
+              end: "top 42%",
               scrub: 1,
             },
           });
 
-          gsap.to(title, {
-            yPercent: 0,
+          gsap.to([number, title, copy], {
             opacity: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 68%",
-              end: "top 38%",
-              scrub: 1,
-            },
-          });
-
-          gsap.to(copy, {
-            opacity: 1,
-            y: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 62%",
-              end: "top 34%",
-              scrub: 1,
-            },
-          });
-
-          gsap.to(dot, {
+            x: 0,
             scale: 1,
-            backgroundColor: "var(--color-gold-500)",
-            boxShadow: "0 0 14px rgba(197,160,98,0.34)",
             ease: "none",
             scrollTrigger: {
               trigger: row,
-              start: "top 66%",
-              end: "top 38%",
+              start: "top 70%",
+              end: "top 40%",
               scrub: 1,
             },
           });
@@ -1186,7 +1348,7 @@ export function HomeSections() {
             gsap.set(stage, {
               rotateX: floatProgress * 1.8,
               rotateY: (segmentProgress - 0.5) * -7,
-              y: -8 + floatProgress * 18,
+              y: 8 + floatProgress * 12,
               transformPerspective: 1200,
               transformOrigin: "center center",
             });
@@ -1352,7 +1514,7 @@ export function HomeSections() {
     <div ref={rootRef}>
       <section
         id="about"
-        className="js-about-section relative overflow-hidden bg-[linear-gradient(180deg,#f6f2ed_0%,#f8f5f0_100%)] py-[clamp(2.1rem,7vw,3.2rem)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
+        className="js-about-section mobile-section-pad relative overflow-hidden bg-[linear-gradient(180deg,#f6f2ed_0%,#f8f5f0_100%)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
       >
         <Container className="w-full max-w-[var(--content-max)] px-[var(--mobile-gutter)] sm:px-6 lg:block lg:px-8">
           <div className="grid w-full gap-[clamp(1.6rem,5vw,2.5rem)] lg:grid-cols-2 lg:items-stretch lg:gap-12 xl:gap-16">
@@ -1361,18 +1523,36 @@ export function HomeSections() {
               <p className="js-about-label section-label mb-[clamp(1rem,4vw,1.75rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em]">RONG XING</p>
               <div className="flex flex-1 flex-col justify-between">
                 <div>
-                  <div className="overflow-hidden">
-                    <h2 className="js-about-line font-serif text-[clamp(3.65rem,15vw,4.9rem)] uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-navy-900)]">
+                  <div className="lg:hidden">
+                    <TextReveal forceMotion distance={36}>
+                      <h2 className="mobile-section-heading text-[color:var(--color-navy-900)]">
+                        One Company.
+                      </h2>
+                    </TextReveal>
+                    <TextReveal forceMotion delay={0.08} distance={36}>
+                      <h2 className="mobile-section-heading mt-1 text-[color:var(--color-navy-900)]">
+                        Multiple Solutions.
+                      </h2>
+                    </TextReveal>
+                    <TextReveal forceMotion delay={0.16} distance={36}>
+                      <h2 className="mobile-section-heading mt-1 text-[color:var(--color-gold-500)]">
+                        Global Reach.
+                      </h2>
+                    </TextReveal>
+                  </div>
+
+                  <div className="hidden overflow-hidden lg:block">
+                    <h2 className="js-about-line text-[clamp(3.05rem,6.7vw,4.15rem)] font-semibold uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-navy-900)]">
                       One Company.
                     </h2>
                   </div>
-                  <div className="overflow-hidden">
-                    <h2 className="js-about-line font-serif text-[clamp(3.65rem,15vw,4.9rem)] uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-navy-900)]">
+                  <div className="hidden overflow-hidden lg:block">
+                    <h2 className="js-about-line text-[clamp(3.05rem,6.7vw,4.15rem)] font-semibold uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-navy-900)]">
                       Multiple Solutions.
                     </h2>
                   </div>
-                  <div className="overflow-hidden">
-                    <h2 className="js-about-line font-serif text-[clamp(3.65rem,15vw,4.9rem)] uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-gold-500)]">
+                  <div className="hidden overflow-hidden lg:block">
+                    <h2 className="js-about-line text-[clamp(3.05rem,6.7vw,4.15rem)] font-semibold uppercase leading-[0.9] tracking-[-0.065em] text-[color:var(--color-gold-500)]">
                       Global Reach.
                     </h2>
                   </div>
@@ -1384,7 +1564,16 @@ export function HomeSections() {
               <div className="flex h-full w-full flex-col justify-between">
                 <div>
                   <p className="js-about-side-label section-label mb-[clamp(1.1rem,4vw,1.4rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em]">WHAT WE DO</p>
-                  <p className="js-about-copy prose-copy max-w-[19.5rem] text-[clamp(0.98rem,3.9vw,1.08rem)] leading-[1.95] sm:max-w-[24rem] lg:max-w-[31rem]">
+                  <Reveal forceMotion className="lg:hidden" delay={0.12} distance={22}>
+                    <p className="prose-copy mobile-section-copy max-w-[20rem] sm:max-w-[24rem]">
+                      From sourcing a single product to establishing complete
+                      industrial operations,
+                      <br />
+                      RONG XING connects your requirements with the right
+                      resources in China.
+                    </p>
+                  </Reveal>
+                  <p className="js-about-copy prose-copy hidden max-w-[20rem] sm:max-w-[24rem] lg:block lg:max-w-[31rem] lg:text-[clamp(0.98rem,1.2vw,1.08rem)] lg:leading-[1.9]">
                     From sourcing a single product to establishing complete
                     industrial operations,
                     <br />
@@ -1393,7 +1582,7 @@ export function HomeSections() {
                   </p>
                 </div>
 
-                <div className="js-about-support mt-[clamp(1.9rem,7vw,2.6rem)] max-w-[19.5rem] border-t border-[color:var(--color-gold-500)]/18 pt-[clamp(1rem,3.5vw,1.2rem)] sm:max-w-[24rem] sm:mt-0 lg:max-w-[26rem]">
+                <div className="js-about-support mt-[clamp(1.9rem,7vw,2.6rem)] hidden max-w-[19.5rem] border-t border-[color:var(--color-gold-500)]/18 pt-[clamp(1rem,3.5vw,1.2rem)] sm:max-w-[24rem] sm:mt-0 lg:block lg:max-w-[26rem]">
                   <p className="text-[clamp(0.76rem,3vw,0.84rem)] font-medium uppercase leading-[1.95] tracking-[0.28em] text-[color:var(--color-slate-700)]/86">
                     Built around your requirements.
                     <br />
@@ -1411,7 +1600,7 @@ export function HomeSections() {
       <section className="js-vision-section relative overflow-hidden bg-[linear-gradient(180deg,#07182e_0%,#031427_100%)] py-0 text-white lg:py-[calc(var(--section-space)*1.02)]">
         <Container className="max-w-[var(--content-max)] px-0 sm:px-0 lg:px-8">
           <div className="relative grid gap-0 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,0.5fr)] lg:items-stretch lg:gap-0">
-            <div className="js-image-mask relative left-1/2 min-h-[25rem] w-screen -translate-x-1/2 overflow-hidden sm:min-h-[29rem] lg:left-auto lg:min-h-[37rem] lg:w-auto lg:translate-x-0">
+            <div className="js-image-mask relative left-1/2 aspect-[1.32/1] w-screen -ml-[50vw] overflow-hidden sm:aspect-[1.55/1] lg:left-auto lg:ml-0 lg:min-h-[37rem] lg:w-auto lg:aspect-auto">
               <div className="js-vision-image absolute inset-0">
                 <Image
                   src={assetPath("/images/about-vision-a698b154.png")}
@@ -1419,32 +1608,32 @@ export function HomeSections() {
                   fill
                   unoptimized
                   sizes="(min-width: 1024px) 58vw, 100vw"
-                  className="object-cover object-[46%_50%] lg:object-center"
+                  className="object-cover object-center lg:object-center"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.06)_0%,rgba(3,20,39,0.14)_58%,rgba(3,20,39,0.24)_100%)] lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.28)_0%,rgba(3,20,39,0.08)_40%,rgba(3,20,39,0.32)_100%)]" />
               </div>
             </div>
 
-            <div className="relative bg-[color:var(--color-navy-950)] px-[var(--mobile-gutter)] py-[clamp(2.5rem,8vw,3.6rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
-              <div className="relative flex h-full min-h-[25rem] flex-col justify-center sm:min-h-[32rem] lg:min-h-[37rem] lg:p-1">
-                <p className="js-vision-label section-label mb-[clamp(1.1rem,4vw,1.6rem)] text-[clamp(0.82rem,3.1vw,0.9rem)] tracking-[0.24em]">OUR VISION</p>
+            <div className="relative bg-[color:var(--color-navy-950)] px-[var(--mobile-gutter)] py-[clamp(1.7rem,5.6vw,2.3rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
+              <div className="relative flex h-full flex-col justify-center lg:min-h-[37rem] lg:p-1">
+                <p className="js-vision-label section-label mb-[clamp(0.8rem,2.8vw,1rem)] text-[clamp(0.74rem,2.7vw,0.82rem)] tracking-[0.24em]">OUR VISION</p>
                 <TextReveal forceMotion distance={42}>
-                  <h2 className="js-vision-line font-serif text-[clamp(3.2rem,13vw,4.35rem)] uppercase leading-[0.9] tracking-[-0.055em] text-white">
+                  <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.75rem,5.2vw,3.65rem)]">
                     Connecting China
                   </h2>
                 </TextReveal>
                 <TextReveal
                   forceMotion
-                  className="mt-[clamp(0.45rem,2vw,0.6rem)]"
+                  className="mt-[clamp(0.28rem,1.4vw,0.45rem)] lg:mt-[clamp(0.45rem,2vw,0.6rem)]"
                   delay={0.1}
                   distance={42}
                 >
-                  <h2 className="js-vision-line text-[clamp(3.35rem,13.6vw,4.35rem)] font-semibold uppercase leading-[0.9] tracking-[-0.055em] text-[color:var(--color-gold-500)]">
+                  <h2 className="js-vision-line mobile-section-heading text-[color:var(--color-gold-500)] lg:text-[clamp(2.85rem,5.35vw,3.65rem)]">
                     With The World.
                   </h2>
                 </TextReveal>
                 <Reveal forceMotion delay={0.2} distance={22}>
-                  <p className="js-vision-copy mt-[clamp(1.8rem,6vw,2.3rem)] max-w-[19rem] text-[clamp(1rem,4vw,1.08rem)] leading-[1.95] text-white/82 sm:max-w-[23rem] lg:max-w-[31rem] lg:text-[0.98rem] lg:leading-8 lg:text-white/72">
+                  <p className="js-vision-copy mobile-section-copy mt-[clamp(1.15rem,4vw,1.45rem)] max-w-[20rem] text-white/82 sm:max-w-[23rem] lg:mt-[clamp(1.8rem,6vw,2.3rem)] lg:max-w-[31rem] lg:text-[0.98rem] lg:leading-8 lg:text-white/72">
                     To provide smart and fast solutions that connect China with
                     the world across industries, creating seamless opportunities
                     for international trade, collaboration, and long-term growth.
@@ -1458,29 +1647,29 @@ export function HomeSections() {
 
       <section
         ref={objectivesSectionRef}
-        className="js-objectives-section relative bg-[color:var(--color-surface)] py-[var(--section-space)] lg:h-screen lg:min-h-0 lg:overflow-hidden lg:py-0"
+        className="js-objectives-section mobile-section-pad relative bg-[color:var(--color-surface)] lg:h-screen lg:min-h-0 lg:overflow-hidden lg:py-0"
       >
         <Container className="max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
           <div className="grid w-full gap-12 lg:translate-y-6 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:items-center lg:gap-14">
             <div ref={objectivesIntroRef} className="js-objectives-intro lg:self-center">
               <p className="section-label mb-4">STRATEGIC OBJECTIVES</p>
               <TextReveal forceMotion distance={42}>
-                <h2 className="section-heading font-serif text-[color:var(--color-navy-900)] md:hidden">
+                <h2 className="mobile-section-heading text-[color:var(--color-navy-900)] md:hidden">
                   How We Think About
                 </h2>
-                <h2 className="mt-1 section-heading font-serif text-[color:var(--color-navy-900)] md:hidden">
+                <h2 className="mobile-section-heading mt-1 text-[color:var(--color-navy-900)] md:hidden">
                   Long-Term
                   <span className="text-[color:var(--color-gold-500)]"> Execution.</span>
                 </h2>
-                <h2 className="hidden section-heading font-serif text-[color:var(--color-navy-900)] md:block">
+                <h2 className="hidden section-heading text-[color:var(--color-navy-900)] md:block">
                   How We Think About
                 </h2>
-                <h2 className="hidden section-heading font-serif text-[color:var(--color-navy-900)] md:block">
+                <h2 className="hidden section-heading text-[color:var(--color-navy-900)] md:block">
                   Long-Term Execution.
                 </h2>
               </TextReveal>
               <Reveal forceMotion delay={0.14} distance={22}>
-                <p className="mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[color:var(--color-slate-700)] md:mt-5 md:max-w-[38rem] md:text-[1rem] md:leading-8">
+                <p className="mobile-section-copy mt-4 max-w-[22rem] text-[color:var(--color-slate-700)] md:mt-5 md:max-w-[38rem] md:text-[1rem] md:leading-8">
                   A solutions-led business model built around clarity, flexibility, and trusted partnership.
                 </p>
               </Reveal>
@@ -1560,10 +1749,10 @@ export function HomeSections() {
                 </div>
               ) : (
                 <>
-                  <div className="absolute bottom-4 left-[1rem] top-3 w-px bg-[color:var(--color-gold-500)]/14 md:hidden" />
+                  <div className="absolute bottom-2 left-[3.6rem] top-2 w-px bg-[linear-gradient(180deg,transparent,rgba(197,160,98,0.28)_12%,rgba(197,160,98,0.2)_88%,transparent)] md:hidden" />
                   <div
                     ref={objectivesProgressRef}
-                    className="absolute bottom-4 left-[1rem] top-3 w-px origin-top bg-[color:var(--color-gold-500)] md:hidden"
+                    className="absolute bottom-2 left-[3.6rem] top-2 w-px origin-top bg-[color:var(--color-gold-500)] shadow-[0_0_12px_rgba(197,160,98,0.32)] md:hidden"
                     style={{ transform: "scaleY(0)" }}
                   />
                   <div className="absolute bottom-0 right-[0.35rem] top-2 hidden w-px bg-[color:var(--color-navy-900)]/10 md:block" />
@@ -1573,55 +1762,28 @@ export function HomeSections() {
                   />
 
                   {strategicObjectives.map((objective, index) => (
-                    <div
+                    <article
                       key={objective.number}
                       className={cn(
-                        "js-objective-item relative grid gap-4 pl-10 md:grid-cols-[5.75rem_minmax(0,1fr)] md:gap-8 md:pl-0 lg:hidden",
+                        "js-objective-item relative grid grid-cols-[2.2rem_1px_minmax(0,1fr)] items-start gap-x-4 py-4 lg:hidden",
                         index % 2 === 1 ? "lg:ml-12" : "lg:mr-12"
                       )}
                     >
-                      <div className="absolute left-[0.62rem] top-[0.7rem] flex flex-col items-center md:hidden">
-                        <span className="js-objective-mobile-dot block h-3 w-3 rounded-full border border-[color:var(--color-gold-500)]/70 bg-[color:var(--color-gold-500)]/20" />
-                      </div>
+                      <p className="js-objective-mobile-number font-serif text-[2rem] leading-[0.84] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
+                        {objective.number}
+                      </p>
 
-                      <div className="md:hidden">
-                        <div className="grid grid-cols-[2.4rem_minmax(0,1fr)] items-start gap-x-3">
-                          <p className="js-objective-mobile-number font-serif text-[3rem] leading-[0.84] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
-                            {objective.number}
-                          </p>
-                          <div className="min-w-0 overflow-hidden pt-[0.05rem]">
-                            <h3 className="js-objective-mobile-title text-[1.12rem] font-semibold uppercase leading-[1] tracking-[-0.035em] text-[color:var(--color-navy-900)]">
-                              {objective.title}
-                            </h3>
-                          </div>
-                        </div>
-                        <p className="js-objective-mobile-copy mt-3 max-w-[20rem] text-[0.96rem] leading-7 text-[color:var(--color-slate-700)]">
+                      <span className="block h-full min-h-[6.5rem] w-px bg-transparent" />
+
+                      <div className="min-w-0 pb-1 pr-1">
+                        <h3 className="js-objective-mobile-title mobile-section-subheading max-w-[17rem] text-[0.78rem] leading-[1.22] tracking-[0.11em] text-[color:var(--color-navy-900)]">
+                          {objective.title}
+                        </h3>
+                        <p className="js-objective-mobile-copy mobile-section-copy mt-2.5 max-w-[18rem] text-[0.86rem] leading-[1.62] text-[color:var(--color-slate-700)]">
                           {objective.description}
                         </p>
                       </div>
-
-                      <div className="relative pt-2">
-                        <div className="js-objective-ghost pointer-events-none absolute left-0 top-[-1.1rem] hidden text-[6.5rem] font-semibold leading-none tracking-[-0.08em] text-[color:var(--color-gold-500)]/[0.06] lg:block">
-                          {objective.number}
-                        </div>
-                        <div className="relative z-10 hidden pb-2 md:block">
-                          <p className="js-objective-number text-[4.25rem] font-serif leading-[0.84] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
-                            {objective.number}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="js-objective-body hidden pt-2 md:block">
-                        <div className="overflow-hidden py-2">
-                          <h3 className="js-objective-title text-[1.45rem] font-semibold uppercase leading-[1.02] tracking-[-0.04em] text-[color:var(--color-navy-900)]">
-                            {objective.title}
-                          </h3>
-                        </div>
-                        <p className="js-objective-copy mt-5 max-w-[34rem] text-[0.98rem] leading-8 text-[color:var(--color-slate-700)]">
-                          {objective.description}
-                        </p>
-                      </div>
-                    </div>
+                    </article>
                   ))}
                 </>
               )}
@@ -1632,37 +1794,36 @@ export function HomeSections() {
 
       <section
         id="solutions"
-        className="min-h-svh scroll-mt-[5.75rem] bg-[color:var(--color-navy-950)] py-[clamp(3.4rem,4.6vw,5.4rem)] text-white md:min-h-0"
+        className="scroll-mt-[5.75rem] bg-[color:var(--color-navy-950)] py-[clamp(2.25rem,6.5vw,3rem)] text-white md:py-[clamp(3.4rem,4.6vw,5.4rem)]"
       >
         <Container className="max-w-[var(--content-max)]">
           <div className="max-w-[40rem]">
-            <p className="js-solutions-label section-label mb-4">OUR SOLUTIONS</p>
+            <p className="js-solutions-label section-label mb-3 md:mb-4">OUR SOLUTIONS</p>
             <TextReveal forceMotion distance={42}>
-              <h2 className="text-[clamp(2rem,3.5vw,3rem)] font-semibold uppercase leading-[0.94] tracking-[-0.045em] text-white">
+              <h2 className="mobile-section-heading text-white md:text-[clamp(2rem,3.5vw,3rem)] lg:text-[clamp(1.85rem,3.05vw,2.55rem)]">
                 <span className="block">One Partner.</span>
                 <span className="block">Four Core Capabilities.</span>
               </h2>
             </TextReveal>
             <Reveal forceMotion delay={0.14} distance={22}>
-              <p className="mt-4 max-w-[34rem] text-[0.96rem] leading-7 text-white/74">
+              <p className="mobile-section-copy mt-3 max-w-[22rem] text-white/74 md:mt-4 md:max-w-[34rem] md:text-[0.96rem] md:leading-7">
                 Integrated business solutions built around your requirements.
               </p>
             </Reveal>
           </div>
 
           <div
-            className="mt-8 md:hidden"
+            className="mt-6 md:hidden"
             ref={solutionsCarouselRef}
             style={
               {
-                "--solution-card-gap": "0.5rem",
-                "--solution-side-padding": "0.5rem",
-                "--solution-slide-width": "calc(100% - 1rem)",
+                "--solution-card-gap": "0rem",
+                "--solution-slide-width": "100%",
                 "--solution-drag-offset": "0px",
               } as CSSProperties
             }
           >
-            <div className="overflow-hidden px-[var(--solution-side-padding)]">
+            <div className="overflow-hidden">
               <div
                 className="flex gap-[var(--solution-card-gap)] will-change-transform"
                 style={{
@@ -1690,17 +1851,7 @@ export function HomeSections() {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-5">
-              <button
-                type="button"
-                aria-label="Previous solution"
-                disabled={solutionCarouselIndex === 0}
-                className="flex h-9 w-9 items-center justify-center border border-white/12 text-white/82 transition hover:border-[color:var(--color-gold-500)] hover:text-[color:var(--color-gold-500)] disabled:cursor-default disabled:border-white/8 disabled:text-white/24"
-                onClick={() => moveSolutionCarousel(-1)}
-              >
-                {"\u2190"}
-              </button>
-
+            <div className="mt-4 flex items-center justify-center">
               <div className="flex items-center gap-2">
                 {solutionCards.map((item, index) => (
                   <button
@@ -1709,7 +1860,7 @@ export function HomeSections() {
                     aria-label={`Go to solution ${item.number}`}
                     aria-pressed={activeSolutionIndex === index}
                     className={cn(
-                      "h-2.5 w-2.5 rounded-full border transition",
+                      "h-2 w-2 rounded-full border transition",
                       activeSolutionIndex === index
                         ? "border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)]"
                         : "border-white/28 bg-transparent"
@@ -1718,15 +1869,6 @@ export function HomeSections() {
                   />
                 ))}
               </div>
-
-              <button
-                type="button"
-                aria-label="Next solution"
-                className="flex h-9 w-9 items-center justify-center border border-white/12 text-white/82 transition hover:border-[color:var(--color-gold-500)] hover:text-[color:var(--color-gold-500)]"
-                onClick={() => moveSolutionCarousel(1)}
-              >
-                {"\u2192"}
-              </button>
             </div>
           </div>
 
@@ -1744,7 +1886,7 @@ export function HomeSections() {
 
       <section
         ref={detailedSectionRef}
-        className="js-detailed-solutions-section surface-grid relative overflow-hidden bg-white py-[var(--section-space)] lg:h-screen lg:min-h-[36rem] lg:py-0"
+        className="js-detailed-solutions-section surface-grid mobile-section-pad relative overflow-hidden bg-white lg:h-screen lg:min-h-[36rem] lg:py-0"
       >
         <div className="absolute inset-0">
           <Image
@@ -1759,7 +1901,7 @@ export function HomeSections() {
         </div>
 
         <Container className="relative z-10 max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
-          <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:items-center lg:gap-16">
+          <div className="grid w-full gap-10 lg:mx-auto lg:max-w-[88rem] lg:translate-y-[clamp(1.5rem,4vh,3rem)] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] lg:items-center lg:gap-14">
             <div className="lg:self-center">
               <SectionTitle
                 label="DETAILED SOLUTIONS"
@@ -1817,14 +1959,18 @@ export function HomeSections() {
               <div className="grid gap-6 lg:hidden">
                 {detailedSolutions.map((solution, index) => (
                   <Reveal forceMotion key={solution.number} delay={index * 0.06} distance={30}>
-                    <DetailedSolutionCard solution={solution} />
+                    <DetailedSolutionCard
+                      solution={solution}
+                      expanded={Boolean(expandedDetailedMobileCards[solution.number])}
+                      onToggle={() => toggleDetailedMobileCard(solution.number)}
+                    />
                   </Reveal>
                 ))}
               </div>
             ) : (
               <div
                 ref={detailedDesktopRef}
-                className="relative ml-auto w-[92%] lg:translate-y-4 xl:w-[84%]"
+                className="relative ml-auto w-[92%] xl:w-[86%]"
                 style={{ perspective: "1200px" }}
               >
                 <DetailedSolutionCard
@@ -1840,19 +1986,19 @@ export function HomeSections() {
 
       <section
         id="projects"
-        className="relative overflow-hidden bg-[#f8f4ef] py-[clamp(3.25rem,6vw,5rem)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,4vh,3rem)]"
+        className="mobile-section-pad relative overflow-hidden bg-[#f8f4ef] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,4vh,3rem)]"
       >
         <Container className="relative z-10 max-w-[var(--content-max)]">
           <div className="mb-8 flex flex-col gap-6 sm:mb-10 lg:mb-[clamp(1.2rem,2.8vh,2rem)] lg:flex-row lg:items-start lg:justify-between">
             <div className="max-w-[37rem]">
               <p className="section-label mb-4 lg:mb-3">OUR PROJECTS</p>
               <TextReveal forceMotion distance={44}>
-                <h2 className="font-serif text-[clamp(2.4rem,5.2vw,4.5rem)] uppercase leading-[0.88] tracking-[-0.055em] text-[color:var(--color-navy-900)] lg:text-[clamp(3.1rem,5.4vw,4rem)]">
+                <h2 className="mobile-section-heading text-[color:var(--color-navy-900)] lg:text-[clamp(2.65rem,4.4vw,3.35rem)]">
                   Trade In Motion.
                 </h2>
               </TextReveal>
               <Reveal forceMotion delay={0.12} distance={18}>
-                <p className="mt-5 max-w-[33rem] text-[0.96rem] leading-7 text-[color:var(--color-slate-700)] lg:mt-4 lg:max-w-[31rem] lg:text-[0.92rem] lg:leading-6">
+                <p className="mobile-section-copy mt-5 max-w-[33rem] text-[color:var(--color-slate-700)] lg:mt-4 lg:max-w-[31rem] lg:text-[0.92rem] lg:leading-6">
                   A selection of projects, partnerships, shipments, and sourcing
                   operations delivered across industries and markets.
                 </p>
@@ -1878,42 +2024,50 @@ export function HomeSections() {
 
       <section
         id="global-reach"
-        className="js-global-section relative overflow-hidden text-white"
+        className="js-global-section relative overflow-hidden bg-[#f6f2ed] text-[color:var(--color-navy-900)] lg:text-white"
       >
-        <div className="relative min-h-[29rem] sm:min-h-[34rem] lg:min-h-[42rem]">
+        <div className="relative min-h-[25rem] sm:min-h-[31rem] lg:min-h-[42rem]">
           <div className="js-global-image absolute inset-0">
+            <Image
+              src={assetPath("/images/global mobile.png")}
+              alt="Light global trade route map and container port"
+              fill
+              sizes="100vw"
+              className="object-cover object-center lg:hidden"
+            />
             <Image
               src={assetPath("/images/global.png")}
               alt="Global route map representing outbound connections from China"
               fill
               sizes="100vw"
-              className="object-cover object-[20%_48%] opacity-95"
+              className="hidden object-cover object-[20%_48%] opacity-95 lg:block"
             />
           </div>
 
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_32%,rgba(197,160,98,0.08),transparent_24%),linear-gradient(90deg,rgba(2,13,29,0.12)_0%,rgba(2,13,29,0.06)_18%,rgba(2,13,29,0.2)_42%,rgba(2,13,29,0.58)_66%,rgba(2,13,29,0.88)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(246,242,237,0.9)_0%,rgba(246,242,237,0.7)_42%,rgba(246,242,237,0.14)_100%)] lg:bg-[radial-gradient(circle_at_18%_32%,rgba(197,160,98,0.08),transparent_24%),linear-gradient(90deg,rgba(2,13,29,0.12)_0%,rgba(2,13,29,0.06)_18%,rgba(2,13,29,0.2)_42%,rgba(2,13,29,0.58)_66%,rgba(2,13,29,0.88)_100%)]" />
 
-          <div className="relative z-10 mx-auto flex min-h-[29rem] w-full max-w-[var(--content-max)] items-end px-5 py-8 sm:min-h-[34rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
-            <div className="max-w-[33rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
-              <p className="section-label mb-5">GLOBAL REACH</p>
+          <div className="relative z-10 mx-auto flex min-h-[25rem] w-full max-w-[var(--content-max)] items-center px-[var(--mobile-gutter)] py-8 sm:min-h-[31rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
+            <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
+              <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">GLOBAL REACH</p>
               <TextReveal forceMotion delay={0.08} distance={52}>
-                <h2 className="js-global-line text-[clamp(2.7rem,5vw,5rem)] font-semibold uppercase leading-[0.9] tracking-[-0.055em] text-white">
+                <h2 className="js-global-line mobile-section-heading text-[color:var(--color-navy-900)] lg:text-[clamp(2.35rem,4.2vw,4.15rem)] lg:text-white">
                   From China.
                 </h2>
               </TextReveal>
-              <TextReveal forceMotion className="mt-1" delay={0.16} distance={52}>
-                <h2 className="js-global-line font-serif text-[clamp(2.7rem,5vw,5rem)] uppercase leading-[0.9] tracking-[-0.055em] text-[color:var(--color-gold-500)]">
+              <TextReveal forceMotion className="mt-0.5 lg:mt-1" delay={0.16} distance={52}>
+                <h2 className="js-global-line mobile-section-heading text-[color:var(--color-gold-500)] lg:text-[clamp(2.35rem,4.2vw,4.15rem)] lg:leading-[0.9]">
                   To The World.
                 </h2>
               </TextReveal>
 
               <TextReveal forceMotion delay={0.24} distance={24}>
-                <p className="mt-6 max-w-[30rem] text-[1rem] leading-8 text-white/74">
+                <p className="mobile-section-copy mt-5 max-w-[17.5rem] text-[color:var(--color-navy-900)]/88 lg:mt-6 lg:max-w-[30rem] lg:text-[1rem] lg:font-normal lg:leading-8 lg:text-white/74">
                   Connecting international businesses with manufacturers,
                   suppliers, technologies, services, and opportunities across
                   China.
                 </p>
               </TextReveal>
+
             </div>
           </div>
         </div>
@@ -1921,26 +2075,64 @@ export function HomeSections() {
 
       <section
         id="why-rong-xing"
-        className="bg-[color:var(--color-surface)] py-[var(--section-space)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
+        className="bg-[color:var(--color-surface)] py-[clamp(2.4rem,8vw,3.3rem)] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,5vh,3.2rem)]"
       >
         <Container className="w-full max-w-[var(--content-max)]">
-          <div className="relative grid gap-14 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:items-stretch lg:gap-16">
+          <div className="lg:hidden">
+            <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em]">
+              WHY RONG XING
+            </p>
+            <h2 className="mobile-section-heading max-w-[18rem] text-[color:var(--color-navy-900)]">
+              Built To Make
+              <span className="block">Business In China</span>
+              <span className="block">Simpler.</span>
+            </h2>
+
+            <div className="mt-7 grid gap-4">
+              {mobileWhyItems.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.title}
+                    className="grid grid-cols-[2.45rem_minmax(0,1fr)] items-center gap-3.5"
+                  >
+                    <div className="relative flex flex-col items-center">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/70 bg-[#F8F4EF] text-[color:var(--color-navy-900)] shadow-[0_8px_20px_rgba(197,160,98,0.1)]">
+                        <Icon className="h-4.5 w-4.5" />
+                      </div>
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[0.78rem] font-semibold leading-[1.18] tracking-[-0.01em] text-[color:var(--color-navy-900)]">
+                        {item.title}
+                      </h3>
+                      <p className="mt-0.5 max-w-[15rem] text-[0.72rem] leading-[1.35] text-[color:var(--color-slate-700)]">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="relative hidden gap-14 lg:grid lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:items-stretch lg:gap-16">
             <div className="relative flex h-full max-w-[31rem] flex-col">
               <p className="section-label relative z-10 mb-5">WHY RONG XING</p>
               <div className="flex flex-1 flex-col">
                 <div>
                   <TextReveal forceMotion className="relative z-10" delay={0.08} distance={44}>
-                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
+                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
                       Built To Make
                     </h2>
                   </TextReveal>
                   <TextReveal forceMotion className="relative z-10" delay={0.14} distance={44}>
-                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
+                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
                       Business In China
                     </h2>
                   </TextReveal>
                   <TextReveal forceMotion className="relative z-10" delay={0.2} distance={44}>
-                    <h2 className="js-why-line section-heading max-w-[26rem] font-serif text-[color:var(--color-navy-900)]">
+                    <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
                       Simpler.
                     </h2>
                   </TextReveal>
@@ -1987,34 +2179,34 @@ export function HomeSections() {
       </section>
 
       <section
-        className="js-promise-section relative overflow-hidden bg-[color:var(--color-navy-950)] py-[calc(var(--section-space)*0.95)] text-white"
+        className="js-promise-section mobile-section-pad relative overflow-hidden bg-[color:var(--color-navy-950)] text-white lg:flex lg:min-h-[72vh] lg:items-center lg:py-[clamp(4rem,8vh,5.5rem)]"
       >
-        <Container className="relative z-[2] max-w-[var(--content-max)]">
-          <div className="mx-auto max-w-[50rem] text-center">
-            <p className="section-label mb-5">OUR PROMISE</p>
+        <Container className="relative z-[2] w-full max-w-[var(--content-max)]">
+          <div className="w-full max-w-[21rem] text-left lg:mx-auto lg:max-w-[42rem] lg:text-center">
+            <p className="section-label mb-5 lg:mb-6">OUR PROMISE</p>
             <TextReveal forceMotion delay={0.08} distance={58}>
-              <h2 className="js-promise-line editorial-heading text-white">
+              <h2 className="js-promise-line mobile-section-heading editorial-heading text-white lg:leading-[0.92]">
                 Tell Us What
               </h2>
             </TextReveal>
             <TextReveal forceMotion delay={0.14} distance={58}>
-              <h2 className="js-promise-line editorial-heading text-white">
+              <h2 className="js-promise-line mobile-section-heading editorial-heading text-white lg:leading-[0.92]">
                 You Need.
               </h2>
             </TextReveal>
             <TextReveal forceMotion delay={0.2} distance={58}>
-              <h2 className="js-promise-line editorial-heading text-[color:var(--color-gold-500)]">
+              <h2 className="js-promise-line mobile-section-heading editorial-heading text-[color:var(--color-gold-500)] lg:leading-[0.92]">
                 We Find
               </h2>
             </TextReveal>
             <TextReveal forceMotion delay={0.26} distance={58}>
-              <h2 className="js-promise-line editorial-heading text-[color:var(--color-gold-500)]">
+              <h2 className="js-promise-line mobile-section-heading editorial-heading text-[color:var(--color-gold-500)] lg:leading-[0.92]">
                 The Solution.
               </h2>
             </TextReveal>
 
-            <div className="mt-10 flex justify-center">
-              <div className="flex flex-col items-center gap-6">
+            <div className="mt-8 flex justify-start lg:mt-9 lg:justify-center">
+              <div className="flex flex-col items-start gap-6 lg:items-center">
                 <Reveal forceMotion delay={0.32} distance={20}>
                   <CtaLink
                     href="/#contact"
@@ -2040,52 +2232,54 @@ export function HomeSections() {
             alt="Guangzhou waterfront and industrial skyline"
             fill
             sizes="100vw"
-            className="object-cover object-[48%_50%]"
+            className="object-cover object-[62%_50%] lg:object-[48%_50%]"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.88)_34%,rgba(246,242,237,0.72)_64%,rgba(246,242,237,0.52)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.9)_42%,rgba(246,242,237,0.76)_100%)] lg:bg-[linear-gradient(90deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.88)_34%,rgba(246,242,237,0.72)_64%,rgba(246,242,237,0.52)_100%)]" />
         </div>
 
-        <Container className="relative max-w-[var(--content-max)] py-[var(--section-space)]">
+        <Container className="relative max-w-[var(--content-max)] py-[clamp(3rem,9vw,4.2rem)] lg:py-[var(--section-space)]">
           <div className="max-w-[42rem]">
-            <p className="section-label mb-5">LET&apos;S TALK BUSINESS</p>
+            <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">LET&apos;S TALK BUSINESS</p>
             <TextReveal forceMotion delay={0.08} distance={58}>
-              <h2 className="js-contact-line editorial-heading text-[color:var(--color-navy-900)]">
+              <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
                 Ready To Start
               </h2>
             </TextReveal>
             <TextReveal forceMotion delay={0.14} distance={58}>
-              <h2 className="js-contact-line editorial-heading text-[color:var(--color-navy-900)]">
+              <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
                 A Conversation?
               </h2>
             </TextReveal>
             <TextReveal forceMotion delay={0.22} distance={24}>
-              <p className="mt-6 max-w-[34rem] text-[1rem] leading-8 text-[color:var(--color-slate-700)]">
+              <p className="mobile-section-copy mt-5 max-w-[21rem] text-[color:var(--color-slate-700)] lg:mt-6 lg:max-w-[34rem] lg:text-[1rem] lg:leading-8">
                 Share your requirement with our team and let&apos;s explore the
                 right solution together.
               </p>
             </TextReveal>
 
-            <Reveal forceMotion className="mt-8" delay={0.3} distance={20}>
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <div>
+            <Reveal forceMotion className="mt-7 lg:mt-8" delay={0.3} distance={20}>
+              <div className="flex max-w-[15rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
+                <div className="w-full sm:w-auto">
                 <CtaLink
                   href="/contact"
                   icon={
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   }
+                  className="w-full justify-start sm:w-auto sm:justify-center"
                 >
                   Start An Inquiry
                 </CtaLink>
               </div>
-                <div>
-                <CtaLink href="/contact" variant="secondary">
+                <div className="w-full sm:w-auto">
+                <CtaLink href="/contact" variant="secondary" className="w-full justify-start sm:w-auto sm:justify-center">
                   WhatsApp
                 </CtaLink>
               </div>
-                <div>
+                <div className="w-full sm:w-auto">
                 <CtaLink
                   href="mailto:info@rongxingtrading.com"
                   variant="secondary"
+                  className="w-full justify-start sm:w-auto sm:justify-center"
                 >
                   Email Us
                 </CtaLink>

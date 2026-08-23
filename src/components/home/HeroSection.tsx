@@ -171,13 +171,22 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
+              src={assetPath("/images/mobile home.png")}
+              alt="Container port and vehicle representing China-based international trade"
+              fill
+              priority
+              unoptimized
+              sizes="100vw"
+              className="object-cover object-center lg:hidden"
+            />
+            <Image
               src={assetPath("/images/home-full-f2f6fcf3.png")}
               alt="Guangzhou skyline and waterfront representing modern China and international business"
               fill
               priority
               unoptimized
               sizes="100vw"
-              className="object-cover object-[80%_50%] sm:object-[79%_50%] lg:object-[72%_50%]"
+              className="hidden object-cover object-[80%_50%] sm:object-[79%_50%] lg:block lg:object-[72%_50%]"
             />
             <div className="absolute inset-0 bg-[linear-gradient(96deg,rgba(3,20,39,0.96)_0%,rgba(3,20,39,0.84)_28%,rgba(3,20,39,0.48)_62%,rgba(3,20,39,0.52)_100%)] lg:bg-[linear-gradient(95deg,rgba(3,20,39,0.94)_0%,rgba(3,20,39,0.72)_38%,rgba(3,20,39,0.32)_68%,rgba(3,20,39,0.56)_100%)]" />
             <div className="navy-grid absolute inset-0 opacity-50" />
@@ -195,28 +204,28 @@ export function HeroSection() {
 
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="max-w-full break-normal font-serif text-[clamp(3.45rem,15.8vw,4.95rem)] uppercase leading-[0.88] tracking-[-0.05em] text-white [overflow-wrap:normal]">
+                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         Connecting
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="max-w-full break-normal font-serif text-[clamp(3.45rem,15.8vw,4.95rem)] uppercase leading-[0.88] tracking-[-0.05em] text-white [overflow-wrap:normal]">
+                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         China
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="max-w-full break-normal font-serif text-[clamp(3.45rem,15.8vw,4.95rem)] uppercase leading-[0.88] tracking-[-0.05em] text-white [overflow-wrap:normal]">
+                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         With The
                       </h1>
                     </div>
                   </div>
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line max-w-full">
-                      <h1 className="max-w-full break-normal font-serif text-[clamp(3.45rem,15.8vw,4.95rem)] uppercase leading-[0.88] tracking-[-0.05em] text-white [overflow-wrap:normal]">
+                      <h1 className="mobile-section-heading max-w-full break-normal text-white [overflow-wrap:normal]">
                         World.
                       </h1>
                     </div>
@@ -266,14 +275,14 @@ export function HeroSection() {
 
                 <div className="overflow-hidden">
                   <div className="js-hero-line">
-                    <h1 className="max-w-[7.2ch] font-serif text-[clamp(3.35rem,6.2vw,5.6rem)] uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.8rem,5.7vw,6rem)]">
-                      Connecting China
+                    <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
+                      Connecting <span className="text-[color:var(--color-gold-500)]">China</span>
                     </h1>
                   </div>
                 </div>
                 <div className="overflow-hidden">
                   <div className="js-hero-line">
-                    <h1 className="max-w-[7.2ch] font-serif text-[clamp(3.35rem,6.2vw,5.6rem)] uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.8rem,5.7vw,6rem)]">
+                    <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
                       With The World.
                     </h1>
                   </div>

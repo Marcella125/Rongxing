@@ -1,5 +1,6 @@
 "use client";
 
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type MouseEvent } from "react";
@@ -14,6 +15,7 @@ export function Header() {
   const [language, setLanguage] = useState<"en" | "zh">("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("/#top");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const scrollToHomeSection = (hash: string, behavior: ScrollBehavior = "smooth") => {
     const id = hash.replace("#", "");
@@ -55,6 +57,7 @@ export function Header() {
     }
 
     event.preventDefault();
+    setIsMobileMenuOpen(false);
 
     if (pathname === "/") {
       scrollToHomeSection(`#${hash}`);
@@ -76,6 +79,30 @@ export function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -143,12 +170,12 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300 ${
-        isScrolled
+        isScrolled || isMobileMenuOpen
           ? "border-white/15 bg-[rgba(3,20,39,0.94)] backdrop-blur-xl"
           : "border-transparent bg-transparent"
       }`}
     >
-      <Container className="max-w-[var(--content-max)] py-6">
+      <Container className="relative z-20 max-w-[var(--content-max)] py-6">
         <div className="flex items-center justify-between gap-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
           <Link
             href="/"
@@ -183,7 +210,7 @@ export function Header() {
 
           <div
             aria-label="Language"
-            className="flex items-center justify-end gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] !text-white"
+            className="hidden items-center justify-end gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] !text-white lg:flex"
           >
             <button
               type="button"
@@ -203,8 +230,134 @@ export function Header() {
               中文
             </button>
           </div>
+
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-controls="mobile-navigation"
+            aria-expanded={isMobileMenuOpen}
+            className="inline-flex h-10 w-10 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] lg:hidden"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.8} />
+          </button>
         </div>
       </Container>
+
+      <div
+        id="mobile-navigation"
+        className={cn(
+          "fixed inset-0 z-[100] h-[100dvh] min-h-[100dvh] overflow-y-auto bg-[#031427] transition-opacity duration-200 lg:hidden",
+          isMobileMenuOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        )}
+        style={{ backgroundColor: "var(--color-navy-950)" }}
+      >
+        <Container className="flex min-h-full max-w-[var(--content-max)] flex-col pb-7 pt-6">
+          <div className="flex items-center justify-between gap-6">
+            <Link
+              href="/"
+              className="font-serif text-[1.32rem] uppercase leading-none tracking-[0.12em] !text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              RONG XING
+            </Link>
+            <button
+              type="button"
+              aria-label="Close menu"
+              className="inline-flex h-10 w-10 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X className="h-5 w-5" strokeWidth={1.8} />
+            </button>
+          </div>
+
+          <div className="mt-12">
+            <p className="section-label mb-5 text-[0.68rem] tracking-[0.24em]">
+              Menu
+            </p>
+            <nav aria-label="Mobile primary">
+            <ul className="divide-y divide-white/10 border-y border-white/10">
+              {navigationItems.map((item, index) => {
+                const isActive = currentNavigationHref === item.href;
+                const itemNumber = String(index + 1).padStart(2, "0");
+
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? "location" : undefined}
+                      onClick={(event) => handleNavigationClick(event, item.href)}
+                      className={cn(
+                        "grid min-h-[3.45rem] grid-cols-[2.25rem_minmax(0,1fr)_2.5rem] items-center gap-3 py-3 text-[0.86rem] font-semibold uppercase tracking-[0.18em] !text-white transition hover:!text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
+                        isActive && "!text-[color:var(--color-gold-500)]"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "font-serif text-[1rem] tracking-[-0.04em]",
+                          isActive
+                            ? "text-[color:var(--color-gold-500)]"
+                            : "text-white/28"
+                        )}
+                      >
+                        {itemNumber}
+                      </span>
+                      {item.label}
+                      <span
+                        className={cn(
+                          "ml-auto h-px w-8 origin-right bg-[color:var(--color-gold-500)] transition duration-300",
+                          isActive
+                            ? "scale-x-100 opacity-100"
+                            : "scale-x-0 opacity-0"
+                        )}
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            </nav>
+          </div>
+
+          <div
+            aria-label="Mobile language"
+            className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white"
+          >
+            <span className="text-white/48">Language</span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                aria-pressed={language === "en"}
+                onClick={() => setLanguage("en")}
+                className={cn(
+                  "transition",
+                  language === "en"
+                    ? "text-[color:var(--color-gold-500)]"
+                    : "text-white/55"
+                )}
+              >
+                EN
+              </button>
+              <span aria-hidden="true" className="text-white/24">/</span>
+              <button
+                type="button"
+                aria-pressed={language === "zh"}
+                onClick={() => setLanguage("zh")}
+                className={cn(
+                  "transition",
+                  language === "zh"
+                    ? "text-[color:var(--color-gold-500)]"
+                    : "text-white/55"
+                )}
+              >
+                中文
+              </button>
+            </div>
+          </div>
+        </Container>
+      </div>
     </header>
   );
 }
