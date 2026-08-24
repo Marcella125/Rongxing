@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const isProduction = process.env.NODE_ENV === "production";
-const basePath = process.env.PAGES_BASE_PATH ?? "";
+const basePath =
+  process.env.PAGES_BASE_PATH ?? (isProduction ? "/Rongxing" : "");
 
 const nextConfig: NextConfig = {
   output: "export",
