@@ -223,7 +223,7 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
-              src={assetPath("/images/mobile home.png")}
+              src={assetPath("/images/mobile home.png?v=20260824")}
               alt="Container port and vehicle representing China-based international trade"
               fill
               priority
@@ -232,7 +232,7 @@ export function HeroSection() {
               className="js-hero-mobile-image object-cover object-center lg:hidden"
             />
             <Image
-              src={assetPath("/images/home-full-f2f6fcf3.png")}
+              src={assetPath("/images/home-full-f2f6fcf3.png?v=20260824")}
               alt="Guangzhou skyline and waterfront representing modern China and international business"
               fill
               priority

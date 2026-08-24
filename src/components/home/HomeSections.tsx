@@ -278,7 +278,7 @@ const projectCards = [
     title: "Factory Installation & Commissioning",
     route: "Guangzhou, China to Egypt",
     category: "Project Management",
-    image: "/images/about-vision-a698b154.png",
+    image: "/images/about-vision-a698b154.png?v=20260824",
     imagePosition: "58% 50%",
     href: "/contact",
     icon: ClipboardCheck,
@@ -1807,7 +1807,7 @@ export function HomeSections() {
             <div className="js-image-mask relative left-1/2 aspect-[1.32/1] w-screen -ml-[50vw] overflow-hidden sm:aspect-[1.55/1] lg:left-auto lg:ml-0 lg:min-h-[37rem] lg:w-auto lg:aspect-auto">
               <div className="js-vision-image absolute inset-0">
                 <Image
-                  src={assetPath("/images/about-vision-a698b154.png")}
+                  src={assetPath("/images/about-vision-a698b154.png?v=20260824")}
                   alt="Modern Guangzhou skyline and commercial district"
                   fill
                   unoptimized
