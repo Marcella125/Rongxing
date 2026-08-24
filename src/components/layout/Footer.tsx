@@ -125,7 +125,6 @@ export function Footer({ onePage = false }: FooterProps) {
           className="object-cover object-center opacity-28"
         />
         <div className="absolute inset-0 bg-[rgba(3,20,39,0.9)]" />
-        <div className="navy-grid absolute inset-0 hidden opacity-50 lg:block" />
       </div>
 
       <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">

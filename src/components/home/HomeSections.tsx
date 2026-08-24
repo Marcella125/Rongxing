@@ -1561,23 +1561,6 @@ export function HomeSections() {
         });
       });
 
-      if (!prefersReducedMotion) {
-        gsap.fromTo(
-          ".js-contact-bg",
-          { scale: 1.04, y: 18 },
-          {
-            scale: 1,
-            y: -12,
-            ease: "none",
-            scrollTrigger: {
-              trigger: "#contact",
-              start: "top 88%",
-              end: "bottom top",
-              scrub: 1,
-            },
-          }
-        );
-      }
     });
 
     return () => {
@@ -1818,7 +1801,7 @@ export function HomeSections() {
         </Container>
       </section>
 
-      <section className="js-vision-section relative overflow-hidden bg-[linear-gradient(180deg,#07182e_0%,#031427_100%)] py-0 text-white lg:py-[calc(var(--section-space)*1.02)]">
+      <section className="js-vision-section relative overflow-hidden bg-[color:var(--color-navy-950)] py-0 text-white lg:py-[calc(var(--section-space)*1.02)]">
         <Container className="max-w-[var(--content-max)] px-0 sm:px-0 lg:px-8">
           <div className="relative grid gap-0 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,0.5fr)] lg:items-stretch lg:gap-0">
             <div className="js-image-mask relative left-1/2 aspect-[1.32/1] w-screen -ml-[50vw] overflow-hidden sm:aspect-[1.55/1] lg:left-auto lg:ml-0 lg:min-h-[37rem] lg:w-auto lg:aspect-auto">
@@ -2443,7 +2426,7 @@ export function HomeSections() {
       </section>
 
       <section
-        className="js-promise-section mobile-section-pad relative overflow-hidden bg-[color:var(--color-navy-950)] text-white lg:flex lg:min-h-[72vh] lg:items-center lg:py-[clamp(4rem,8vh,5.5rem)]"
+        className="js-promise-section mobile-section-pad relative overflow-hidden bg-[color:var(--color-navy-950)] text-white lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(4rem,8vh,5.5rem)]"
       >
         <Container className="relative z-[2] w-full max-w-[var(--content-max)]">
           <div className="w-full max-w-[21rem] text-left lg:mx-auto lg:max-w-[42rem] lg:text-center">
@@ -2478,7 +2461,7 @@ export function HomeSections() {
                     icon={
                       <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     }
-                    className="border-[color:var(--color-gold-500)] !text-[color:var(--color-gold-500)] hover:!text-[color:var(--color-navy-950)]"
+                    className="!min-h-[2.65rem] whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em] border-[color:var(--color-gold-500)] !text-[color:var(--color-gold-500)] hover:!text-[color:var(--color-navy-950)]"
                   >
                     Start A Conversation
                   </CtaLink>
@@ -2489,67 +2472,68 @@ export function HomeSections() {
         </Container>
       </section>
 
-      <section id="contact" className="relative overflow-hidden bg-[color:var(--color-surface)]">
-        <div className="absolute inset-0">
-          <Image
-            src={assetPath("/images/contact.png")}
-            alt="Guangzhou waterfront and industrial skyline"
-            fill
-            sizes="100vw"
-            className="js-contact-bg object-cover object-[62%_50%] lg:object-[48%_50%]"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.9)_42%,rgba(246,242,237,0.76)_100%)] lg:bg-[linear-gradient(90deg,rgba(246,242,237,0.96)_0%,rgba(246,242,237,0.88)_34%,rgba(246,242,237,0.72)_64%,rgba(246,242,237,0.52)_100%)]" />
-        </div>
+      <section id="contact" className="mobile-section-pad relative overflow-hidden bg-[color:var(--color-surface)] lg:flex lg:min-h-[100svh] lg:items-center lg:py-0">
+        <Container className="relative w-full max-w-[var(--content-max)] lg:py-[clamp(3rem,6vh,4.5rem)]">
+          <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] lg:gap-16">
+            <div className="max-w-[42rem]">
+              <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">LET&apos;S TALK BUSINESS</p>
+              <TextReveal forceMotion delay={0.08} distance={58}>
+                <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
+                  Ready To Start
+                </h2>
+              </TextReveal>
+              <TextReveal forceMotion delay={0.14} distance={58}>
+                <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
+                  A Conversation?
+                </h2>
+              </TextReveal>
+              <TextReveal forceMotion delay={0.22} distance={24}>
+                <p className="mobile-section-copy mt-5 max-w-[21rem] text-[color:var(--color-slate-700)] lg:mt-6 lg:max-w-[34rem] lg:text-[1rem] lg:leading-8">
+                  Share your requirement with our team and let&apos;s explore the
+                  right solution together.
+                </p>
+              </TextReveal>
 
-        <Container className="relative max-w-[var(--content-max)] py-[clamp(3rem,9vw,4.2rem)] lg:py-[var(--section-space)]">
-          <div className="max-w-[42rem]">
-            <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">LET&apos;S TALK BUSINESS</p>
-            <TextReveal forceMotion delay={0.08} distance={58}>
-              <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
-                Ready To Start
-              </h2>
-            </TextReveal>
-            <TextReveal forceMotion delay={0.14} distance={58}>
-              <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
-                A Conversation?
-              </h2>
-            </TextReveal>
-            <TextReveal forceMotion delay={0.22} distance={24}>
-              <p className="mobile-section-copy mt-5 max-w-[21rem] text-[color:var(--color-slate-700)] lg:mt-6 lg:max-w-[34rem] lg:text-[1rem] lg:leading-8">
-                Share your requirement with our team and let&apos;s explore the
-                right solution together.
-              </p>
-            </TextReveal>
-
-            <Reveal forceMotion className="mt-7 lg:mt-8" delay={0.3} distance={20}>
-              <div className="flex max-w-[15rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
-                <div className="w-full sm:w-auto">
-                <CtaLink
-                  href="/contact"
-                  icon={
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  }
-                  className="w-full justify-start sm:w-auto sm:justify-center"
-                >
-                  Start An Inquiry
-                </CtaLink>
-              </div>
-                <div className="w-full sm:w-auto">
-                <CtaLink href="/contact" variant="secondary" className="w-full justify-start sm:w-auto sm:justify-center">
-                  WhatsApp
-                </CtaLink>
-              </div>
-                <div className="w-full sm:w-auto">
-                <CtaLink
-                  href="mailto:info@rongxingtrading.com"
-                  variant="secondary"
-                  className="w-full justify-start sm:w-auto sm:justify-center"
-                >
-                  Email Us
-                </CtaLink>
+              <Reveal forceMotion className="mt-7 lg:mt-8" delay={0.3} distance={20}>
+                <div className="flex max-w-full flex-col items-start gap-2.5 sm:flex-row sm:flex-wrap">
+                  <div>
+                  <CtaLink
+                    href="/contact"
+                    icon={
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    }
+                    className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
+                  >
+                    Start An Inquiry
+                  </CtaLink>
                 </div>
-              </div>
-            </Reveal>
+                  <div>
+                  <CtaLink href="/contact" variant="secondary" className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]">
+                    WhatsApp
+                  </CtaLink>
+                </div>
+                  <div>
+                  <CtaLink
+                    href="mailto:info@rongxingtrading.com"
+                    variant="secondary"
+                    className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
+                  >
+                    Email Us
+                  </CtaLink>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            <div className="relative hidden h-[min(70vh,42rem)] min-h-[32rem] overflow-hidden lg:block">
+              <Image
+                src={assetPath("/images/contact.png")}
+                alt="Guangzhou waterfront and industrial skyline"
+                fill
+                sizes="(min-width: 1024px) 52vw, 0vw"
+                className="object-cover object-[58%_50%]"
+              />
+            </div>
           </div>
         </Container>
       </section>

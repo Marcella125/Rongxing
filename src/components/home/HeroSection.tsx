@@ -286,26 +286,26 @@ export function HeroSection() {
                     technologies, services, and opportunities in China.
                   </p>
 
-                  <div className="mt-[clamp(1.8rem,6.4vw,2.3rem)] flex w-full max-w-[39rem] flex-col gap-[clamp(0.9rem,3vw,1.1rem)]">
-                    <div className="js-hero-mobile-btn w-full max-w-full">
+                  <div className="mt-[clamp(1.8rem,6.4vw,2.3rem)] flex w-full max-w-[39rem] flex-col items-start gap-2.5">
+                    <div className="js-hero-mobile-btn max-w-full">
                       <CtaLink
                         href="/#solutions"
                         icon={
-                          <ArrowRight className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                          <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                         }
-                        className="min-h-[4rem] w-full max-w-full justify-start gap-4 border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-6 text-[0.9rem] tracking-[0.18em] text-[color:var(--color-navy-950)]"
+                        className="!min-h-[2.75rem] w-[9.75rem] max-w-full !justify-start whitespace-nowrap !gap-2 border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] text-[color:var(--color-navy-950)]"
                       >
-                        Explore Our Solutions
+                        Our Solutions
                       </CtaLink>
                     </div>
-                    <div className="js-hero-mobile-btn w-full max-w-full">
+                    <div className="js-hero-mobile-btn max-w-full">
                       <CtaLink
                         href="/#contact"
                         variant="outline"
                         icon={
-                          <ArrowRight className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                          <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                         }
-                        className="min-h-[4rem] w-full max-w-full justify-start gap-4 border-[color:var(--color-gold-500)]/72 bg-transparent px-6 text-[0.9rem] tracking-[0.18em] !text-white hover:!text-[color:var(--color-navy-950)]"
+                        className="!min-h-[2.75rem] w-[9.75rem] max-w-full !justify-start whitespace-nowrap !gap-2 border-[color:var(--color-gold-500)]/72 bg-transparent !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] !text-white hover:!text-[color:var(--color-navy-950)]"
                       >
                         Talk To Us
                       </CtaLink>
@@ -350,15 +350,19 @@ export function HeroSection() {
                       icon={
                         <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                       }
+                      className="w-[13.25rem]"
                     >
-                      Explore Our Solutions
+                      Our Solutions
                     </CtaLink>
                   </div>
                   <div className="js-hero-btn">
                     <CtaLink
                       href="/#contact"
                       variant="outline"
-                      className="border-white/32 !text-white hover:!text-[color:var(--color-navy-950)]"
+                      icon={
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      }
+                      className="w-[13.25rem] border-white/32 !text-white hover:!text-[color:var(--color-navy-950)]"
                     >
                       Talk To Us
                     </CtaLink>
