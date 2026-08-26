@@ -122,9 +122,9 @@ export function Footer({ onePage = false }: FooterProps) {
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-center opacity-28"
+          className="footer-bg-image hidden object-cover object-center opacity-28 lg:block"
         />
-        <div className="absolute inset-0 bg-[rgba(3,20,39,0.9)]" />
+        <div className="footer-bg-overlay absolute inset-0 bg-[rgba(3,20,39,0.9)]" />
       </div>
 
       <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">

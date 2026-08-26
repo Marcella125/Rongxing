@@ -142,6 +142,10 @@ export function HeroSection() {
       filter: reducedMotion ? "blur(0px)" : "blur(6px)",
       clipPath: "inset(0 0 100% 0)",
     });
+    gsap.set(".js-hero-word", {
+      opacity: reducedMotion ? 1 : 0,
+      y: reducedMotion ? 0 : 18,
+    });
     gsap.set(".js-hero-desktop-image", {
       scale: reducedMotion ? 1 : 1.1,
       y: reducedMotion ? 0 : 30,
@@ -198,6 +202,17 @@ export function HeroSection() {
           stagger: reducedMotion ? 0.06 : 0.14,
         },
         "-=0.38"
+      )
+      .to(
+        ".js-hero-word",
+        {
+          opacity: 1,
+          y: 0,
+          duration: reducedMotion ? 0.32 : 0.56,
+          stagger: reducedMotion ? 0.03 : 0.075,
+          ease: "power3.out",
+        },
+        "-=0.7"
       )
       .to(
         ".js-hero-copy",
@@ -349,14 +364,20 @@ export function HeroSection() {
                 <div className="overflow-hidden">
                   <div className="js-hero-line desktop-hero-line-1">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
-                      Your Business.
+                      <span className="js-hero-word inline-block">Your</span>{" "}
+                      <span className="js-hero-word inline-block">Business.</span>
                     </h1>
                   </div>
                 </div>
                 <div className="overflow-hidden">
                   <div className="js-hero-line desktop-hero-line-2">
                     <h1 className="max-w-[7.2ch] text-[clamp(3rem,5.25vw,4.85rem)] font-semibold uppercase leading-[0.88] tracking-[-0.055em] text-white xl:text-[clamp(3.25rem,5vw,5.25rem)]">
-                      Our Network In <span className="text-[color:var(--color-gold-500)]">China.</span>
+                      <span className="js-hero-word inline-block">Our</span>{" "}
+                      <span className="js-hero-word inline-block">Network</span>{" "}
+                      <span className="js-hero-word inline-block">In</span>{" "}
+                      <span className="js-hero-word inline-block text-[color:var(--color-gold-500)]">
+                        China.
+                      </span>
                     </h1>
                   </div>
                 </div>

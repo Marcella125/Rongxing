@@ -426,9 +426,11 @@ const getDetailUrl = ({
 function CountUpStatValue({
   value,
   className,
+  delay = 0,
 }: {
   value: string;
   className?: string;
+  delay?: number;
 }) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const [displayValue, setDisplayValue] = useState("0");
@@ -453,6 +455,7 @@ function CountUpStatValue({
       "(prefers-reduced-motion: reduce)"
     ).matches;
     let frameId = 0;
+    let timeoutId = 0;
     let hasAnimated = false;
 
     const formatValue = (current: number) =>
@@ -470,20 +473,22 @@ function CountUpStatValue({
         return;
       }
 
-      const startedAt = performance.now();
-      const duration = 1250;
+      timeoutId = window.setTimeout(() => {
+        const startedAt = performance.now();
+        const duration = 1250;
 
-      const tick = (now: number) => {
-        const progress = clamp((now - startedAt) / duration, 0, 1);
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-        setDisplayValue(formatValue(target * easedProgress));
+        const tick = (now: number) => {
+          const progress = clamp((now - startedAt) / duration, 0, 1);
+          const easedProgress = 1 - Math.pow(1 - progress, 3);
+          setDisplayValue(formatValue(target * easedProgress));
 
-        if (progress < 1) {
-          frameId = window.requestAnimationFrame(tick);
-        }
-      };
+          if (progress < 1) {
+            frameId = window.requestAnimationFrame(tick);
+          }
+        };
 
-      frameId = window.requestAnimationFrame(tick);
+        frameId = window.requestAnimationFrame(tick);
+      }, delay);
     };
 
     const observer = new IntersectionObserver(
@@ -500,9 +505,10 @@ function CountUpStatValue({
 
     return () => {
       observer.disconnect();
+      window.clearTimeout(timeoutId);
       window.cancelAnimationFrame(frameId);
     };
-  }, [value]);
+  }, [delay, value]);
 
   return (
     <span ref={ref} className={className}>
@@ -2743,6 +2749,7 @@ export function HomeSections() {
                     <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
                       <CountUpStatValue
                         value="22+"
+                        delay={520}
                         className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
                       />
                       <p className="mt-4 max-w-[5.75rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
@@ -2752,6 +2759,7 @@ export function HomeSections() {
                     <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
                       <CountUpStatValue
                         value="800+"
+                        delay={640}
                         className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
                       />
                       <p className="mt-4 max-w-[5.9rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
@@ -2761,6 +2769,7 @@ export function HomeSections() {
                     <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
                       <CountUpStatValue
                         value="120+"
+                        delay={760}
                         className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
                       />
                       <p className="mt-4 max-w-[5.9rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
@@ -2770,6 +2779,7 @@ export function HomeSections() {
                     <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
                       <CountUpStatValue
                         value="15+"
+                        delay={880}
                         className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
                       />
                       <p className="mt-4 max-w-[5.75rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
