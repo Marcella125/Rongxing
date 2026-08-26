@@ -2949,7 +2949,7 @@ export function HomeSections() {
                       <article
                         key={objective.number}
                         className={cn(
-                          "relative grid origin-center grid-cols-[3.8rem_1px_minmax(0,1fr)] items-center gap-5 border-b border-[color:var(--color-border)]/75 py-3.5 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                          "relative grid origin-center grid-cols-[1px_3.8rem_minmax(0,1fr)] items-center gap-5 border-b border-[color:var(--color-border)]/75 py-3.5 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                           isActive
                             ? "translate-y-0 scale-100 opacity-100"
                             : isPast
@@ -2957,6 +2957,8 @@ export function HomeSections() {
                               : "translate-y-1.5 scale-[0.985] opacity-60"
                         )}
                       >
+                        <div className="h-[78%] w-px bg-[color:var(--color-border)]" />
+
                         <p
                           className={cn(
                             "origin-left font-serif text-[2.65rem] leading-none tracking-[-0.07em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
@@ -2967,8 +2969,6 @@ export function HomeSections() {
                         >
                           {objective.number}
                         </p>
-
-                        <div className="h-[78%] w-px bg-[color:var(--color-border)]" />
 
                         <div className="min-w-0">
                           <h3
@@ -3008,10 +3008,10 @@ export function HomeSections() {
                 </div>
               ) : (
                 <>
-                  <div className="absolute bottom-2 left-[3.6rem] top-2 w-px bg-[linear-gradient(180deg,transparent,rgba(197,160,98,0.28)_12%,rgba(197,160,98,0.2)_88%,transparent)] md:hidden" />
+                  <div className="absolute bottom-2 left-0 top-2 w-px bg-[linear-gradient(180deg,transparent,rgba(197,160,98,0.28)_12%,rgba(197,160,98,0.2)_88%,transparent)] md:hidden" />
                   <div
                     ref={objectivesProgressRef}
-                    className="absolute bottom-2 left-[3.6rem] top-2 w-px origin-top bg-[color:var(--color-gold-500)] shadow-[0_0_12px_rgba(197,160,98,0.32)] md:hidden"
+                    className="absolute bottom-2 left-0 top-2 w-px origin-top bg-[color:var(--color-gold-500)] shadow-[0_0_12px_rgba(197,160,98,0.32)] md:hidden"
                     style={{ transform: "scaleY(0)" }}
                   />
                   <div className="absolute bottom-0 right-[0.35rem] top-2 hidden w-px bg-[color:var(--color-navy-900)]/10 md:block" />
@@ -3024,15 +3024,15 @@ export function HomeSections() {
                     <article
                       key={objective.number}
                       className={cn(
-                        "js-objective-item relative grid grid-cols-[2.2rem_1px_minmax(0,1fr)] items-start gap-x-4 py-4 lg:hidden",
+                        "js-objective-item relative grid grid-cols-[1px_2.2rem_minmax(0,1fr)] items-start gap-x-4 py-4 lg:hidden",
                         index % 2 === 1 ? "lg:ml-12" : "lg:mr-12"
                       )}
                     >
+                      <span className="block h-full min-h-[6.5rem] w-px bg-transparent" />
+
                       <p className="js-objective-mobile-number font-serif text-[2rem] leading-[0.84] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
                         {objective.number}
                       </p>
-
-                      <span className="block h-full min-h-[6.5rem] w-px bg-transparent" />
 
                       <div className="min-w-0 pb-1 pr-1">
                         <h3 className="js-objective-mobile-title mobile-section-subheading max-w-[17rem] text-[0.78rem] leading-[1.22] tracking-[0.11em] text-[color:var(--color-navy-900)]">
@@ -3348,6 +3348,17 @@ export function HomeSections() {
         className="js-global-section relative overflow-hidden bg-[color:var(--color-navy-950)] text-white"
       >
         <div className="relative min-h-[25rem] sm:min-h-[31rem] lg:min-h-[42rem]">
+          <div className="pointer-events-none absolute inset-0 lg:hidden">
+            <Image
+              src={assetPath("/images/global mobile.png")}
+              alt="Global route map and container port representing outbound connections from China"
+              fill
+              sizes="100vw"
+              className="object-cover object-center opacity-[0.92] saturate-[0.82]"
+            />
+            <div className="absolute inset-0 bg-[rgba(7,28,61,0.34)] mix-blend-multiply" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,61,0.72)_0%,rgba(7,28,61,0.54)_58%,rgba(7,28,61,0.36)_100%)]" />
+          </div>
           <div className="js-global-image pointer-events-none absolute inset-y-0 left-0 hidden w-[52%] overflow-hidden lg:block xl:w-[54%]">
             <Image
               src={assetPath("/images/global mobile.png")}
@@ -3363,7 +3374,7 @@ export function HomeSections() {
           <div className="absolute inset-0 hidden lg:block lg:bg-[radial-gradient(circle_at_20%_34%,rgba(197,160,98,0.1),transparent_24%),linear-gradient(90deg,rgba(7,28,61,0.02)_0%,rgba(7,28,61,0.08)_42%,rgba(7,28,61,0.62)_58%,rgba(7,28,61,0.96)_78%,rgba(7,28,61,1)_100%)]" />
 
           <div className="relative z-10 mx-auto flex min-h-[25rem] w-full max-w-[var(--content-max)] items-center px-[var(--mobile-gutter)] py-8 sm:min-h-[31rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
-            <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] lg:translate-x-[0.3cm] xl:ml-[50%]">
+            <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] lg:translate-x-[0.4cm] xl:ml-[50%]">
               <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.86rem] lg:tracking-[0.24em]">GLOBAL REACH</p>
               <TextReveal forceMotion delay={0.08} distance={52}>
                 <h2 className="js-global-line mobile-section-heading text-white lg:text-[clamp(2.35rem,4.2vw,4.15rem)]">
@@ -3543,23 +3554,33 @@ export function HomeSections() {
         </Container>
       </section>
 
-      <section id="contact" className="mobile-section-pad relative overflow-hidden bg-[color:var(--color-surface)] lg:flex lg:min-h-[100svh] lg:items-center lg:py-0">
-        <Container className="relative w-full max-w-[var(--content-max)] lg:py-[clamp(3rem,6vh,4.5rem)]">
+      <section id="contact" className="mobile-section-pad relative overflow-hidden bg-[color:var(--color-navy-950)] lg:flex lg:min-h-[100svh] lg:items-center lg:bg-[color:var(--color-surface)] lg:py-0">
+        <div className="absolute inset-0 lg:hidden">
+          <Image
+            src={assetPath("/images/contact.png")}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[58%_50%]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,61,0.96)_0%,rgba(7,28,61,0.82)_54%,rgba(7,28,61,0.58)_100%)]" />
+        </div>
+        <Container className="relative z-10 w-full max-w-[var(--content-max)] lg:py-[clamp(3rem,6vh,4.5rem)]">
           <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] lg:gap-16">
             <div className="max-w-[42rem]">
               <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.86rem] lg:tracking-[0.24em]">LET&apos;S TALK BUSINESS</p>
               <TextReveal forceMotion delay={0.08} distance={58}>
-                <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
+                <h2 className="js-contact-line mobile-section-heading editorial-heading text-white lg:text-[color:var(--color-navy-900)]">
                   Ready To Start
                 </h2>
               </TextReveal>
               <TextReveal forceMotion delay={0.14} distance={58}>
-                <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
+                <h2 className="js-contact-line mobile-section-heading editorial-heading text-white lg:text-[color:var(--color-navy-900)]">
                   A Conversation?
                 </h2>
               </TextReveal>
               <TextReveal forceMotion delay={0.22} distance={24}>
-                <p className="mobile-section-copy mt-5 max-w-[21rem] text-[color:var(--color-slate-700)] lg:mt-6 lg:max-w-[34rem] lg:text-[1rem] lg:leading-8">
+                <p className="mobile-section-copy mt-5 max-w-[21rem] text-white/82 lg:mt-6 lg:max-w-[34rem] lg:text-[1rem] lg:leading-8 lg:text-[color:var(--color-slate-700)]">
                   Share your requirement with our team and let&apos;s explore the
                   right solution together.
                 </p>
