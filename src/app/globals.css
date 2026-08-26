@@ -61,6 +61,33 @@ a {
   display: none;
 }
 
+.navy-scrollbar {
+  -ms-overflow-style: auto;
+  scrollbar-color: var(--color-navy-900) transparent;
+  scrollbar-width: thin;
+}
+
+.navy-scrollbar::-webkit-scrollbar {
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+}
+
+.navy-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navy-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-navy-900);
+  border: 0.08rem solid transparent;
+  border-radius: 999px;
+  min-height: 3rem;
+}
+
+.navy-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-navy-950);
+}
+
 ::selection {
   background: rgba(181, 145, 70, 0.18);
 }

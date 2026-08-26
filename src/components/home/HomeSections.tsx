@@ -281,6 +281,66 @@ const detailedSolutions = [
   },
 ] as const;
 
+type ProjectGalleryImage = {
+  src: string;
+  alt: string;
+  position: string;
+};
+
+const projectOneGallery = [
+  {
+    src: "/images/pr 1 im 1.png",
+    alt: "Industrial equipment supply project detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 1 im 2.png",
+    alt: "Industrial equipment supply logistics detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 1 im 3.png",
+    alt: "Industrial equipment supply installation detail",
+    position: "50% 50%",
+  },
+] as const satisfies readonly ProjectGalleryImage[];
+
+const projectTwoGallery = [
+  {
+    src: "/images/pr 2 im 1.png",
+    alt: "Production line delivery project detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 2 im 2.png",
+    alt: "Production line delivery logistics detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 2 im 3.png",
+    alt: "Production line delivery installation detail",
+    position: "50% 50%",
+  },
+] as const satisfies readonly ProjectGalleryImage[];
+
+const projectThreeGallery = [
+  {
+    src: "/images/pr 3 im 1.png",
+    alt: "Factory installation project detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 3 im 2.png",
+    alt: "Factory installation commissioning detail",
+    position: "50% 50%",
+  },
+  {
+    src: "/images/pr 3 im 3.png",
+    alt: "Factory installation equipment detail",
+    position: "50% 50%",
+  },
+] as const satisfies readonly ProjectGalleryImage[];
+
 const projectCards = [
   {
     number: "01",
@@ -291,6 +351,7 @@ const projectCards = [
     imagePosition: "58% 50%",
     href: "/capabilities",
     icon: Factory,
+    gallery: projectOneGallery,
   },
   {
     number: "02",
@@ -301,6 +362,7 @@ const projectCards = [
     imagePosition: "58% 50%",
     href: "/products",
     icon: ContainerIcon,
+    gallery: projectTwoGallery,
   },
   {
     number: "03",
@@ -311,6 +373,7 @@ const projectCards = [
     imagePosition: "58% 50%",
     href: "/contact",
     icon: ClipboardCheck,
+    gallery: projectThreeGallery,
   },
 ] satisfies readonly {
   number: string;
@@ -321,6 +384,7 @@ const projectCards = [
   imagePosition: string;
   href: string;
   icon: LucideIcon;
+  gallery?: readonly ProjectGalleryImage[];
 }[];
 
 const getProjectFacts = (project: (typeof projectCards)[number]) => [
@@ -429,6 +493,12 @@ const getDetailUrl = ({
 
   url.hash = hash;
   return url;
+};
+
+const scrollToHash = (hash: string) => {
+  const target = document.getElementById(hash.replace(/^#/, ""));
+
+  target?.scrollIntoView({ block: "start", behavior: "auto" });
 };
 
 function CountUpStatValue({
@@ -1439,6 +1509,7 @@ function FeaturedProjectShowcase({
   onRouteAnimationComplete: () => void;
 }) {
   const projectFacts = getProjectFacts(project);
+  const gallery = project.gallery ?? projectGallery;
 
   return (
     <article className="relative bg-[#f8f4ef] text-[color:var(--color-navy-900)]">
@@ -1550,14 +1621,11 @@ function FeaturedProjectShowcase({
 
       <section className="mt-12">
         <p className="section-label">PROJECT GALLERY</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-[1.2fr_0.9fr_0.9fr]">
-          {projectGallery.map((image, index) => (
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {gallery.map((image) => (
             <div
               key={image.src}
-              className={cn(
-                "relative overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_14px_34px_rgba(11,31,59,0.08)]",
-                index === 0 ? "h-[16rem] md:h-[18rem]" : "h-[13rem] md:h-[18rem]"
-              )}
+              className="relative h-[14rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_14px_34px_rgba(11,31,59,0.08)] md:h-[18rem]"
             >
               <Image
                 src={assetPath(image.src)}
@@ -1739,6 +1807,7 @@ export function HomeSections() {
     setActiveMobileDetailedIndex(null);
     setActiveProjectIndex(null);
     window.history.replaceState(null, "", getDetailUrl({ hash: fallbackHash }));
+    window.requestAnimationFrame(() => scrollToHash(fallbackHash));
   }, []);
 
   const resetSolutionDragOffset = () => {
@@ -3102,7 +3171,7 @@ export function HomeSections() {
 
       {activeMobileDetailedSolution ? (
         <div
-          className="fixed inset-0 z-[120] overflow-y-auto bg-[color:var(--color-surface)] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
+          className="navy-scrollbar fixed inset-0 z-[120] overflow-y-auto bg-[color:var(--color-surface)] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
           role="dialog"
           aria-modal="true"
           aria-label={`${activeMobileDetailedSolution.title} details`}
@@ -3312,7 +3381,7 @@ export function HomeSections() {
 
       {activeProject ? (
         <div
-          className="fixed inset-0 z-[120] overflow-y-auto bg-[#f8f4ef] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
+          className="navy-scrollbar fixed inset-0 z-[120] overflow-y-auto bg-[#f8f4ef] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
           role="dialog"
           aria-modal="true"
           aria-label={`${activeProject.title} project details`}
