@@ -264,16 +264,16 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
-              src={assetPath("/images/mobile home.png?v=20260824")}
+              src={assetPath("/images/home.png")}
               alt="Container port and vehicle representing China-based international trade"
               fill
               priority
               unoptimized
               sizes="100vw"
-              className="js-hero-mobile-image object-cover object-center lg:hidden"
+              className="js-hero-mobile-image object-cover object-[66%_50%] lg:hidden"
             />
             <Image
-              src={assetPath("/images/home-full-f2f6fcf3.png?v=20260824")}
+              src={assetPath("/images/home.png")}
               alt="Guangzhou skyline and waterfront representing modern China and international business"
               fill
               priority
@@ -281,11 +281,10 @@ export function HeroSection() {
               sizes="100vw"
               className="js-hero-desktop-image hidden object-cover object-[80%_50%] sm:object-[79%_50%] lg:block lg:object-[72%_50%]"
             />
-            <div className="js-hero-desktop-overlay absolute inset-0 bg-[linear-gradient(96deg,rgba(3,20,39,0.96)_0%,rgba(3,20,39,0.84)_28%,rgba(3,20,39,0.48)_62%,rgba(3,20,39,0.52)_100%)] lg:bg-[linear-gradient(95deg,rgba(3,20,39,0.94)_0%,rgba(3,20,39,0.72)_38%,rgba(3,20,39,0.32)_68%,rgba(3,20,39,0.56)_100%)]" />
-            <div className="navy-grid absolute inset-0 opacity-50" />
-          </div>
+            <div className="js-hero-desktop-overlay absolute inset-0 bg-[linear-gradient(96deg,rgba(7,28,61,0.98)_0%,rgba(7,28,61,0.9)_42%,rgba(7,28,61,0.5)_74%,rgba(7,28,61,0.32)_100%)] lg:bg-[linear-gradient(95deg,rgba(7,28,61,0.94)_0%,rgba(7,28,61,0.72)_38%,rgba(7,28,61,0.32)_68%,rgba(7,28,61,0.56)_100%)]" />
+        </div>
 
-          <div className="relative flex w-full max-w-full flex-1 px-[var(--mobile-gutter)] pb-[clamp(1.7rem,6vw,2.3rem)] pt-[clamp(6.1rem,18vw,7.8rem)] lg:mx-auto lg:max-w-[var(--content-max)] lg:px-8 lg:pb-6 lg:pt-[7.25rem] xl:pt-[7.75rem]">
+          <div className="relative flex w-full max-w-full flex-1 px-[var(--mobile-gutter)] pb-[clamp(1.7rem,6vw,2.3rem)] pt-[clamp(5.8rem,17vw,7rem)] lg:mx-auto lg:max-w-[var(--content-max)] lg:px-8 lg:pb-6 lg:pt-[7.25rem] xl:pt-[7.75rem]">
             <div className="flex w-full items-start lg:items-end">
               <div className="w-full max-w-full lg:max-w-[44rem]">
                 <div className="w-full max-w-full lg:hidden">
@@ -327,16 +326,16 @@ export function HeroSection() {
                     technologies, services, and opportunities in China.
                   </p>
 
-                  <div className="mt-[clamp(1.8rem,6.4vw,2.3rem)] flex w-full max-w-[39rem] flex-col items-start gap-2.5">
+                  <div className="mt-[clamp(1.9rem,6.8vw,2.45rem)] flex w-full max-w-[39rem] flex-col items-start gap-3">
                     <div className="js-hero-mobile-btn max-w-full">
                       <CtaLink
                         href="/#solutions"
                         icon={
                           <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                         }
-                        className="!min-h-[2.75rem] w-[9.75rem] max-w-full !justify-start whitespace-nowrap !gap-2 border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] text-[color:var(--color-navy-950)]"
+                        className="!min-h-[3.05rem] w-[11.25rem] max-w-full !justify-start whitespace-nowrap !gap-2.5 border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] !px-4 !py-2.5 !text-[0.62rem] !tracking-[0.1em] text-[color:var(--color-navy-950)]"
                       >
-                        Our Solutions
+                        Our Services
                       </CtaLink>
                     </div>
                     <div className="js-hero-mobile-btn max-w-full">
@@ -346,7 +345,7 @@ export function HeroSection() {
                         icon={
                           <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                         }
-                        className="!min-h-[2.75rem] w-[9.75rem] max-w-full !justify-start whitespace-nowrap !gap-2 border-[color:var(--color-gold-500)]/72 bg-transparent !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] !text-white hover:!text-[color:var(--color-navy-950)]"
+                        className="!min-h-[3.05rem] w-[11.25rem] max-w-full !justify-start whitespace-nowrap !gap-2.5 border-[color:var(--color-gold-500)]/72 bg-transparent !px-4 !py-2.5 !text-[0.62rem] !tracking-[0.1em] !text-white hover:!text-[color:var(--color-navy-950)]"
                       >
                         Talk To Us
                       </CtaLink>
@@ -401,7 +400,7 @@ export function HeroSection() {
                       }
                       className="w-[13.25rem]"
                     >
-                      Our Solutions
+                      Our Services
                     </CtaLink>
                   </div>
                   <div className="js-hero-btn">

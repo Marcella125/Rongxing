@@ -124,7 +124,7 @@ export function Footer({ onePage = false }: FooterProps) {
           sizes="100vw"
           className="footer-bg-image hidden object-cover object-center opacity-28 lg:block"
         />
-        <div className="footer-bg-overlay absolute inset-0 bg-[rgba(3,20,39,0.9)]" />
+        <div className="footer-bg-overlay absolute inset-0 bg-[rgba(7,28,61,0.9)]" />
       </div>
 
       <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
@@ -203,7 +203,7 @@ export function Footer({ onePage = false }: FooterProps) {
                 )
               }
             >
-              <span className="section-label">Solutions</span>
+              <span className="section-label">Services</span>
               <ChevronDown
                 className={cn(
                   "h-4 w-4 text-[color:var(--color-gold-500)] transition-transform duration-300",
@@ -211,7 +211,7 @@ export function Footer({ onePage = false }: FooterProps) {
                 )}
               />
             </button>
-            <p className="section-label hidden lg:block">Solutions</p>
+            <p className="section-label hidden lg:block">Services</p>
             <ul
               className={cn(
                 "grid overflow-hidden px-4 transition-[max-height,opacity,padding] duration-300 lg:mt-5 lg:max-h-none lg:max-w-[15rem] lg:space-y-3 lg:overflow-visible lg:px-0 lg:opacity-100",

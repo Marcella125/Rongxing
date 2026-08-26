@@ -176,7 +176,8 @@ const solutionCards = [
     title: "Commercial Sourcing",
     description:
       "Direct access to manufacturers, competitive pricing, quality products and efficient execution.",
-    image: "/images/home-full-f2f6fcf3.png?v=20260824",
+    image: "/images/service 1.png",
+    imagePosition: "58% 50%",
     icon: SourcingMark,
   },
   {
@@ -184,7 +185,8 @@ const solutionCards = [
     title: "Electric Vehicle Trading",
     description:
       "Flexible sourcing and export solutions from individual vehicles to large-scale international orders.",
-    image: "/images/home1.png",
+    image: "/images/service 2.png",
+    imagePosition: "58% 50%",
     icon: EvMark,
   },
   {
@@ -192,7 +194,8 @@ const solutionCards = [
     title: "International Brand Representation",
     description:
       "Connecting international brands with the right markets, partners, distributors and commercial opportunities.",
-    image: "/images/global.png",
+    image: "/images/service 3.png",
+    imagePosition: "45% 50%",
     icon: BrandMark,
   },
   {
@@ -200,7 +203,8 @@ const solutionCards = [
     title: "Industrial Solutions",
     description:
       "Production lines, machinery, equipment and integrated solutions for establishing and developing manufacturing operations.",
-    image: "/images/about-vision-a698b154.png?v=20260824",
+    image: "/images/service 4.png",
+    imagePosition: "50% 50%",
     icon: IndustrialMark,
   },
 ] as const;
@@ -220,7 +224,7 @@ const detailedSolutions = [
       "Quality Products",
       "Fast Execution",
     ],
-    image: "/images/home-full-f2f6fcf3.png?v=20260824",
+    image: "/images/service 1.png",
   },
   {
     number: "02",
@@ -239,7 +243,7 @@ const detailedSolutions = [
       "International shipping solutions",
       "Support throughout the purchasing and export process",
     ],
-    image: "/images/home1.png",
+    image: "/images/service 2.png",
   },
   {
     number: "03",
@@ -256,7 +260,7 @@ const detailedSolutions = [
       "Commercial agreement support",
       "Market development guidance",
     ],
-    image: "/images/global.png",
+    image: "/images/service 3.png",
   },
   {
     number: "04",
@@ -273,7 +277,7 @@ const detailedSolutions = [
       "Integrated industrial solutions",
       "Strategic partnership and investment models",
     ],
-    image: "/images/about-vision-a698b154.png?v=20260824",
+    image: "/images/service 4.png",
   },
 ] as const;
 
@@ -283,8 +287,8 @@ const projectCards = [
     title: "Industrial Equipment Supply",
     route: "Guangzhou, China to Saudi Arabia",
     category: "Industrial Solutions",
-    image: "/images/home-full-f2f6fcf3.png",
-    imagePosition: "63% 52%",
+    image: "/images/project 1.png",
+    imagePosition: "58% 50%",
     href: "/capabilities",
     icon: Factory,
   },
@@ -293,8 +297,8 @@ const projectCards = [
     title: "Complete Production Line Delivery",
     route: "Guangzhou, China to United Arab Emirates",
     category: "Turnkey Solutions",
-    image: "/images/contact.png",
-    imagePosition: "66% 48%",
+    image: "/images/project 2.png",
+    imagePosition: "58% 50%",
     href: "/products",
     icon: ContainerIcon,
   },
@@ -303,7 +307,7 @@ const projectCards = [
     title: "Factory Installation & Commissioning",
     route: "Guangzhou, China to Egypt",
     category: "Project Management",
-    image: "/images/about-vision-a698b154.png?v=20260824",
+    image: "/images/project 3.png",
     imagePosition: "58% 50%",
     href: "/contact",
     icon: ClipboardCheck,
@@ -686,7 +690,7 @@ function SolutionCapabilityCard({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(0,0,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
+        "group h-full overflow-hidden rounded-[0.45rem] border border-white/10 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(0,0,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
         className
       )}
     >
@@ -697,30 +701,31 @@ function SolutionCapabilityCard({
           fill
           sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+          style={{ objectPosition: item.imagePosition }}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0)_54%,rgba(7,28,61,0.24)_100%)]" />
       </div>
 
-      <div className="flex min-h-[13rem] flex-col justify-between px-5 py-5 xl:min-h-[14rem] xl:px-6">
-        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3">
+      <div className="grid h-[13rem] grid-rows-[3rem_minmax(0,1fr)_2.25rem] px-5 py-5 xl:h-[14rem] xl:px-6">
+        <div className="grid h-[2.7rem] grid-cols-[3.15rem_minmax(0,1fr)] items-start gap-3.5">
           <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white">
+          <h3 className="max-w-[22ch] pt-0.5 text-[0.86rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white [text-wrap:balance] xl:text-[0.9rem]">
             {item.title}
           </h3>
         </div>
 
-        <p className="mobile-section-copy mt-3 text-[0.86rem] leading-6 text-white/72">
+        <p className="mobile-section-copy pt-1.5 text-[0.86rem] leading-6 text-white/72">
           {item.description}
         </p>
 
-        <div className="mt-5 flex items-end justify-between gap-3">
+        <div className="flex items-end justify-between gap-3 self-end">
           <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
             <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
-            <span>Solution</span>
+            <span>Service</span>
           </div>
-          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)]">
             <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </div>
@@ -741,7 +746,7 @@ function MobileSolutionCapabilityCard({
   return (
     <button
       type="button"
-      className="group w-full overflow-hidden border border-white/12 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+      className="group w-full overflow-hidden rounded-[0.45rem] border border-white/12 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
       onClick={onSelect}
     >
       <div className="relative aspect-[1.85/1] w-full overflow-hidden bg-white/5">
@@ -751,30 +756,31 @@ function MobileSolutionCapabilityCard({
           fill
           sizes="100vw"
           className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+          style={{ objectPosition: item.imagePosition }}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0)_54%,rgba(7,28,61,0.24)_100%)]" />
       </div>
 
-      <div className="flex min-h-[10.5rem] flex-col justify-between px-4 py-4">
-        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3">
-          <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
+      <div className="grid h-[11.25rem] grid-rows-[2.9rem_minmax(0,1fr)_2.25rem] px-4 py-4">
+        <div className="grid h-[2.65rem] grid-cols-[2.8rem_minmax(0,1fr)] items-start gap-3">
+          <span className="font-serif text-[1.8rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white">
+          <h3 className="max-w-[24ch] pt-0.5 text-[0.78rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white [text-wrap:balance]">
             {item.title}
           </h3>
         </div>
 
-        <p className="mt-3 text-[0.86rem] leading-6 text-white/72">
+        <p className="pt-1 text-[0.8rem] leading-[1.55] text-white/72">
           {item.description}
         </p>
 
-        <div className="mt-4 flex items-end justify-between gap-3">
+        <div className="flex items-end justify-between gap-3 self-end">
           <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
             <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
-            <span>Solution</span>
+            <span>Service</span>
           </div>
-          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)]">
             <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </div>
@@ -1018,7 +1024,7 @@ function DetailedSolutionCard({
           </div>
         </div>
 
-        <div className="relative min-h-full overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)]">
+        <div className="relative min-h-full overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(7,28,61,0.14)]">
           <Image
             src={assetPath(solution.image)}
             alt={`${solution.title} visual`}
@@ -1026,7 +1032,7 @@ function DetailedSolutionCard({
             sizes="(min-width: 1024px) 52vw, 100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.02),rgba(3,20,39,0.16))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0.02),rgba(7,28,61,0.16))]" />
         </div>
       </article>
     );
@@ -1043,7 +1049,7 @@ function DetailedSolutionCard({
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.04),rgba(3,20,39,0.28))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0.04),rgba(7,28,61,0.28))]" />
         </div>
 
         <div className="mt-6 grid grid-cols-[3.45rem_1px_minmax(0,1fr)] items-start gap-4">
@@ -1227,7 +1233,7 @@ function ProjectShowcaseCard({
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(11,31,59,0.13)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(3,20,39,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] lg:rounded-[0.45rem]"
+      className="group w-full overflow-hidden rounded-[0.45rem] bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(11,31,59,0.13)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(7,28,61,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
     >
       <div className="relative aspect-[1.85/1] w-full overflow-hidden bg-[color:var(--color-navy-950)]/8 sm:aspect-[2.15/1] lg:aspect-[1.75/1]">
         <Image
@@ -1238,7 +1244,7 @@ function ProjectShowcaseCard({
           className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
           style={{ objectPosition: project.imagePosition }}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0)_54%,rgba(7,28,61,0.24)_100%)]" />
       </div>
 
       <div className="flex min-h-[10.5rem] flex-col justify-between bg-[color:var(--color-navy-950)] px-4 py-4 sm:min-h-[9.5rem] sm:px-5 sm:py-4.5 lg:min-h-[11.5rem] lg:px-5 lg:py-5">
@@ -1261,7 +1267,7 @@ function ProjectShowcaseCard({
             <span>{project.category}</span>
           </div>
 
-          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)]">
             <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </div>
@@ -1485,7 +1491,7 @@ function FeaturedProjectShowcase({
           </div>
         </div>
 
-        <div className="relative order-first min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)] sm:min-h-[24rem] lg:order-none lg:h-full lg:min-h-0">
+        <div className="relative order-first min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(7,28,61,0.14)] sm:min-h-[24rem] lg:order-none lg:h-full lg:min-h-0">
           <Image
             src={assetPath(project.image)}
             alt={`${project.title} project`}
@@ -1494,7 +1500,7 @@ function FeaturedProjectShowcase({
             className="object-cover"
             style={{ objectPosition: "58% 50%" }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,39,0.24)_0%,rgba(3,20,39,0.04)_46%,rgba(3,20,39,0.14)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,61,0.24)_0%,rgba(7,28,61,0.04)_46%,rgba(7,28,61,0.14)_100%)]" />
         </div>
       </div>
 
@@ -1632,7 +1638,7 @@ function BackToTopButton() {
       title="Back to top"
       tabIndex={isVisible && !isMenuOpen ? 0 : -1}
       className={cn(
-        "group fixed bottom-5 right-5 z-[80] flex h-12 w-12 items-center justify-center rounded-full p-px shadow-[0_18px_46px_rgba(3,20,39,0.22)] transition duration-300 ease-out sm:bottom-7 sm:right-7 sm:h-14 sm:w-14",
+        "group fixed bottom-5 right-5 z-[80] flex h-12 w-12 items-center justify-center rounded-full p-px shadow-[0_18px_46px_rgba(7,28,61,0.22)] transition duration-300 ease-out sm:bottom-7 sm:right-7 sm:h-14 sm:w-14",
         isVisible && !isMenuOpen
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"
@@ -1646,7 +1652,7 @@ function BackToTopButton() {
       }
       onClick={handleBackToTop}
     >
-      <span className="flex h-full w-full items-center justify-center rounded-full border border-white/10 bg-[rgba(3,20,39,0.88)] text-[color:var(--color-gold-500)] backdrop-blur-xl transition duration-300 group-hover:bg-[color:var(--color-gold-500)] group-hover:text-[color:var(--color-navy-950)] group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-[color:var(--color-gold-500)]">
+      <span className="flex h-full w-full items-center justify-center rounded-full border border-white/10 bg-[rgba(7,28,61,0.88)] text-[color:var(--color-gold-500)] backdrop-blur-xl transition duration-300 group-hover:bg-[color:var(--color-gold-500)] group-hover:text-[color:var(--color-navy-950)] group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-[color:var(--color-gold-500)]">
         <ArrowUp
           className="h-4.5 w-4.5 transition duration-300 group-hover:-translate-y-0.5 sm:h-5 sm:w-5"
           strokeWidth={1.8}
@@ -2828,7 +2834,7 @@ export function HomeSections() {
                   sizes="(min-width: 1024px) 58vw, 100vw"
                   className="object-cover object-center lg:object-center"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.06)_0%,rgba(3,20,39,0.14)_58%,rgba(3,20,39,0.24)_100%)] lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.28)_0%,rgba(3,20,39,0.08)_40%,rgba(3,20,39,0.32)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0.06)_0%,rgba(7,28,61,0.14)_58%,rgba(7,28,61,0.24)_100%)] lg:bg-[linear-gradient(90deg,rgba(7,28,61,0.28)_0%,rgba(7,28,61,0.08)_40%,rgba(7,28,61,0.32)_100%)]" />
               </div>
             </div>
 
@@ -2872,7 +2878,7 @@ export function HomeSections() {
                 </TextReveal>
                 <TextReveal forceMotion className="hidden lg:block" distance={42}>
                   <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.75rem,5.2vw,3.65rem)]">
-                    Connecting China
+                    Connecting <span className="text-[color:var(--color-gold-500)]">China</span>
                   </h2>
                 </TextReveal>
                 <TextReveal
@@ -2881,8 +2887,8 @@ export function HomeSections() {
                   delay={0.1}
                   distance={42}
                 >
-                  <h2 className="js-vision-line mobile-section-heading text-[color:var(--color-gold-500)] lg:text-[clamp(2.85rem,5.35vw,3.65rem)]">
-                    With The World.
+                  <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.85rem,5.35vw,3.65rem)]">
+                    With The <span className="text-[color:var(--color-gold-500)]">World.</span>
                   </h2>
                 </TextReveal>
                 <Reveal forceMotion delay={0.2} distance={22}>
@@ -2918,7 +2924,7 @@ export function HomeSections() {
                   How We Think About
                 </h2>
                 <h2 className="hidden section-heading text-[color:var(--color-navy-900)] md:block">
-                  Long-Term Execution.
+                  Long-Term <span className="text-[color:var(--color-gold-500)]">Execution.</span>
                 </h2>
               </TextReveal>
               <Reveal forceMotion delay={0.14} distance={22}>
@@ -3051,11 +3057,11 @@ export function HomeSections() {
       >
         <Container className="max-w-[var(--content-max)]">
           <div className="max-w-[40rem]">
-            <p className="js-solutions-label section-label mb-3 md:mb-4">OUR SOLUTIONS</p>
+            <p className="js-solutions-label section-label mb-3 md:mb-4">Our Services</p>
             <TextReveal forceMotion distance={42}>
               <h2 className="mobile-section-heading text-white md:text-[clamp(2rem,3.5vw,3rem)] lg:text-[clamp(1.85rem,3.05vw,2.55rem)]">
                 <span className="block">One Partner.</span>
-                <span className="block">Four Core Capabilities.</span>
+                <span className="block"><span className="text-[color:var(--color-gold-500)]">Four</span> Core Capabilities.</span>
               </h2>
             </TextReveal>
             <Reveal forceMotion delay={0.14} distance={22}>
@@ -3130,7 +3136,7 @@ export function HomeSections() {
       {false && (
       <section
         ref={detailedSectionRef}
-        className="js-detailed-solutions-section surface-grid mobile-section-pad relative hidden overflow-hidden bg-white lg:block lg:h-screen lg:min-h-[36rem] lg:py-0"
+        className="js-detailed-solutions-section mobile-section-pad relative hidden overflow-hidden bg-white lg:block lg:h-screen lg:min-h-[36rem] lg:py-0"
       >
         <div className="absolute inset-0">
           <Image
@@ -3192,7 +3198,7 @@ export function HomeSections() {
                         className={cn(
                           "flex h-8 w-8 items-center justify-center rounded-full transition duration-300",
                           isActive
-                            ? "bg-[color:var(--color-navy-950)] text-[color:var(--color-gold-500)] shadow-[0_8px_18px_rgba(3,20,39,0.18)]"
+                            ? "bg-[color:var(--color-navy-950)] text-[color:var(--color-gold-500)] shadow-[0_8px_18px_rgba(7,28,61,0.18)]"
                             : "bg-[color:var(--color-navy-900)]/6 text-[color:var(--color-navy-900)]/58 group-hover:bg-[color:var(--color-navy-950)] group-hover:text-[color:var(--color-gold-500)]"
                         )}
                       >
@@ -3273,7 +3279,7 @@ export function HomeSections() {
               <p className="section-label mb-4 lg:mb-3">OUR PROJECTS</p>
               <TextReveal forceMotion distance={44}>
                 <h2 className="mobile-section-heading text-[color:var(--color-navy-900)] lg:text-[clamp(2.65rem,4.4vw,3.35rem)]">
-                  Trade In Motion.
+                  <span className="font-bold">Trade</span> In Motion.
                 </h2>
               </TextReveal>
               <Reveal forceMotion delay={0.12} distance={18}>
@@ -3370,8 +3376,8 @@ export function HomeSections() {
                 </h2>
               </TextReveal>
               <TextReveal forceMotion className="mt-0.5 lg:mt-1" delay={0.16} distance={52}>
-                <h2 className="js-global-line mobile-section-heading text-[color:var(--color-gold-500)] lg:text-[clamp(2.35rem,4.2vw,4.15rem)] lg:leading-[0.9]">
-                  To The World.
+                <h2 className="js-global-line mobile-section-heading text-white lg:text-[clamp(2.35rem,4.2vw,4.15rem)] lg:leading-[0.9]">
+                  <span className="text-[color:var(--color-gold-500)]">To The World.</span>
                 </h2>
               </TextReveal>
 
@@ -3400,7 +3406,7 @@ export function HomeSections() {
             <TextReveal forceMotion distance={38}>
               <h2 className="mobile-section-heading max-w-[18rem] text-[color:var(--color-navy-900)]">
                 Built To Make
-                <span className="block">Business In China</span>
+                <span className="block">Business In <span className="text-[color:var(--color-gold-500)]">China</span></span>
                 <span className="block">Simpler.</span>
               </h2>
             </TextReveal>
@@ -3445,7 +3451,7 @@ export function HomeSections() {
                   </TextReveal>
                   <TextReveal forceMotion className="relative z-10" delay={0.14} distance={44}>
                     <h2 className="js-why-line section-heading max-w-[26rem] text-[color:var(--color-navy-900)]">
-                      Business In China
+                      Business In <span className="text-[color:var(--color-gold-500)]">China</span>
                     </h2>
                   </TextReveal>
                   <TextReveal forceMotion className="relative z-10" delay={0.2} distance={44}>
@@ -3574,7 +3580,7 @@ export function HomeSections() {
                     }
                     className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
                   >
-                    Get a Quote
+                    Request a Quote
                   </CtaLink>
                 </div>
                   <div>

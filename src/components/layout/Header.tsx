@@ -172,7 +172,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300 ${
         isScrolled || isMobileMenuOpen
-          ? "border-white/15 bg-[rgba(3,20,39,0.94)] backdrop-blur-xl"
+          ? "border-transparent bg-[rgba(7,28,61,0.94)] backdrop-blur-xl"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -224,9 +224,9 @@ export function Header() {
             <Link
               href="/#contact"
               onClick={(event) => handleNavigationClick(event, "/#contact")}
-              className="inline-flex min-h-8 items-center border border-[color:var(--color-gold-500)] px-3 text-[0.64rem] font-semibold uppercase tracking-[0.12em] !text-white transition hover:bg-[color:var(--color-gold-500)] hover:!text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              className="inline-flex min-h-8 items-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-3 text-[0.64rem] font-semibold uppercase tracking-[0.12em] !text-[color:var(--color-navy-950)] transition hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
             >
-              Get a Quote
+              Request a Quote
             </Link>
           </div>
 
@@ -246,7 +246,7 @@ export function Header() {
       <div
         id="mobile-navigation"
         className={cn(
-          "fixed inset-0 z-[100] h-[100dvh] min-h-[100dvh] overflow-y-auto bg-[#031427] transition-opacity duration-200 lg:hidden",
+          "fixed inset-0 z-[100] h-[100dvh] min-h-[100dvh] overflow-y-auto bg-[#071c3d] transition-opacity duration-200 lg:hidden",
           isMobileMenuOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"

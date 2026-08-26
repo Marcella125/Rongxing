@@ -5,7 +5,6 @@ import { useEffect, useState, type PropsWithChildren } from "react";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { cn } from "@/utils/cn";
 
 function RefreshLoader() {
@@ -51,7 +50,6 @@ export function AppShell({ children }: PropsWithChildren) {
     return (
       <>
         <RefreshLoader />
-        <CustomCursor />
         {children}
       </>
     );
@@ -60,7 +58,6 @@ export function AppShell({ children }: PropsWithChildren) {
   return (
     <>
       <RefreshLoader />
-      <CustomCursor />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
