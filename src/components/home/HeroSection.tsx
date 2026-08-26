@@ -40,6 +40,11 @@ export function HeroSection() {
         opacity: 0,
         y: reducedMotion ? 8 : 18,
       });
+      gsap.set(".js-hero-mobile-accent", {
+        opacity: 0,
+        scaleX: reducedMotion ? 1 : 0,
+        transformOrigin: "left center",
+      });
       gsap.set(".js-hero-mobile-line", {
         yPercent: reducedMotion ? 28 : 88,
         opacity: 0,
@@ -54,6 +59,12 @@ export function HeroSection() {
           opacity: 1,
           y: 0,
           duration: reducedMotion ? 0.32 : 0.5,
+        })
+        .to(".js-hero-mobile-accent", {
+          opacity: 1,
+          scaleX: 1,
+          duration: reducedMotion ? 0.28 : 0.58,
+          ease: "power2.out",
         })
         .to(
           ".js-hero-mobile-line",
@@ -120,6 +131,11 @@ export function HeroSection() {
       opacity: 0,
       y: reducedMotion ? 10 : 24,
     });
+    gsap.set(".js-hero-accent", {
+      opacity: 0,
+      scaleX: reducedMotion ? 1 : 0,
+      transformOrigin: "left center",
+    });
     gsap.set(".js-hero-line", {
       yPercent: reducedMotion ? 40 : 118,
       opacity: reducedMotion ? 1 : 0,
@@ -161,6 +177,16 @@ export function HeroSection() {
         y: 0,
         duration: reducedMotion ? 0.42 : 0.7,
       }, "-=0.6")
+      .to(
+        ".js-hero-accent",
+        {
+          opacity: 1,
+          scaleX: 1,
+          duration: reducedMotion ? 0.32 : 0.68,
+          ease: "power2.out",
+        },
+        "-=0.42"
+      )
       .to(
         ".js-hero-line",
         {
@@ -244,7 +270,7 @@ export function HeroSection() {
             <div className="navy-grid absolute inset-0 opacity-50" />
           </div>
 
-          <div className="relative flex w-full max-w-full flex-1 px-[var(--mobile-gutter)] pb-[clamp(1.7rem,6vw,2.3rem)] pt-[clamp(6.1rem,18vw,7.8rem)] lg:mx-auto lg:max-w-[var(--content-max)] lg:px-8 lg:pb-10 lg:pt-[7.25rem] xl:pt-[7.75rem]">
+          <div className="relative flex w-full max-w-full flex-1 px-[var(--mobile-gutter)] pb-[clamp(1.7rem,6vw,2.3rem)] pt-[clamp(6.1rem,18vw,7.8rem)] lg:mx-auto lg:max-w-[var(--content-max)] lg:px-8 lg:pb-6 lg:pt-[7.25rem] xl:pt-[7.75rem]">
             <div className="flex w-full items-start lg:items-end">
               <div className="w-full max-w-full lg:max-w-[44rem]">
                 <div className="w-full max-w-full lg:hidden">
@@ -252,7 +278,7 @@ export function HeroSection() {
                     China-Based. Globally Connected.
                   </p>
 
-                  <div className="js-hero-mobile-eyebrow mb-[clamp(1.35rem,5vw,1.8rem)] h-[2px] w-[clamp(4rem,18vw,4.8rem)] bg-[color:var(--color-gold-500)]" />
+                  <div className="js-hero-mobile-accent mb-[clamp(1.35rem,5vw,1.8rem)] h-[2px] w-[clamp(4rem,18vw,4.8rem)] bg-[color:var(--color-gold-500)]" />
 
                   <div className="max-w-full overflow-hidden">
                     <div className="js-hero-mobile-line mobile-hero-line-1 max-w-full">
@@ -317,6 +343,8 @@ export function HeroSection() {
                 <p className="js-hero-eyebrow section-label mb-4 lg:mb-5">
                   China-Based. Globally Connected.
                 </p>
+
+                <div className="js-hero-accent mb-5 h-[2px] w-20 bg-[color:var(--color-gold-500)]" />
 
                 <div className="overflow-hidden">
                   <div className="js-hero-line desktop-hero-line-1">

@@ -176,7 +176,7 @@ export function Header() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <Container className="relative z-20 max-w-[var(--content-max)] py-4 lg:py-6">
+      <Container className="relative z-20 max-w-[var(--content-max)] py-4 lg:py-5">
         <div className="flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
           <Link
             href="/"
@@ -197,7 +197,7 @@ export function Header() {
                     aria-current={isActive ? "location" : undefined}
                     onClick={(event) => handleNavigationClick(event, item.href)}
                     className={cn(
-                      "relative inline-flex px-3 py-2 text-[0.74rem] font-semibold uppercase tracking-[0.14em] !text-white transition after:absolute after:bottom-0 after:left-3 after:right-3 after:h-px after:origin-center after:bg-[color:var(--color-gold-500)] after:transition-transform after:duration-300 hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
+                      "relative inline-flex px-2.5 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] !text-white transition after:absolute after:bottom-0 after:left-2.5 after:right-2.5 after:h-px after:origin-center after:bg-[color:var(--color-gold-500)] after:transition-transform after:duration-300 hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
                       isActive ? "after:scale-x-100" : "after:scale-x-0"
                     )}
                   >
@@ -211,25 +211,23 @@ export function Header() {
 
           <div
             aria-label="Language"
-            className="hidden items-center justify-end gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] !text-white lg:flex"
+            className="hidden items-center justify-end gap-4 text-[0.68rem] font-semibold uppercase tracking-[0.13em] !text-white lg:flex"
           >
             <button
               type="button"
-              aria-pressed={language === "en"}
-              onClick={() => setLanguage("en")}
-              className={language === "en" ? "text-[color:var(--color-gold-600)]" : "opacity-55 transition hover:opacity-100"}
+              aria-label={`Switch language to ${language === "en" ? "Chinese" : "English"}`}
+              onClick={() => setLanguage((current) => (current === "en" ? "zh" : "en"))}
+              className="min-w-8 text-right text-[color:var(--color-gold-600)] transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
             >
-              EN
+              {language === "en" ? "EN" : "中文"}
             </button>
-            <span aria-hidden="true" className="opacity-35">/</span>
-            <button
-              type="button"
-              aria-pressed={language === "zh"}
-              onClick={() => setLanguage("zh")}
-              className={language === "zh" ? "text-[color:var(--color-gold-600)]" : "opacity-55 transition hover:opacity-100"}
+            <Link
+              href="/#contact"
+              onClick={(event) => handleNavigationClick(event, "/#contact")}
+              className="inline-flex min-h-8 items-center border border-[color:var(--color-gold-500)] px-3 text-[0.64rem] font-semibold uppercase tracking-[0.12em] !text-white transition hover:bg-[color:var(--color-gold-500)] hover:!text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
             >
-              中文
-            </button>
+              Get a Quote
+            </Link>
           </div>
 
           <button

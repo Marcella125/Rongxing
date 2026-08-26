@@ -3,9 +3,26 @@
 import {
   ArrowRight,
   ArrowUp,
+  BadgeDollarSign,
+  Car,
+  CheckCircle2,
   ClipboardCheck,
   Container as ContainerIcon,
+  FileCheck2,
   Factory,
+  Gauge,
+  Globe2,
+  Handshake,
+  Map,
+  PackageCheck,
+  SearchCheck,
+  Settings,
+  ShieldCheck,
+  Ship,
+  Truck,
+  Users,
+  Wrench,
+  X,
   type LucideIcon,
 } from "lucide-react";
 import gsap from "gsap";
@@ -199,6 +216,7 @@ const detailedSolutions = [
       "Quality Products",
       "Fast Execution",
     ],
+    image: "/images/home-full-f2f6fcf3.png?v=20260824",
   },
   {
     number: "02",
@@ -217,6 +235,7 @@ const detailedSolutions = [
       "International shipping solutions",
       "Support throughout the purchasing and export process",
     ],
+    image: "/images/home1.png",
   },
   {
     number: "03",
@@ -233,6 +252,7 @@ const detailedSolutions = [
       "Commercial agreement support",
       "Market development guidance",
     ],
+    image: "/images/global.png",
   },
   {
     number: "04",
@@ -249,6 +269,7 @@ const detailedSolutions = [
       "Integrated industrial solutions",
       "Strategic partnership and investment models",
     ],
+    image: "/images/about-vision-a698b154.png?v=20260824",
   },
 ] as const;
 
@@ -294,8 +315,201 @@ const projectCards = [
   icon: LucideIcon;
 }[];
 
+const getProjectFacts = (project: (typeof projectCards)[number]) => [
+  { label: "Service", value: project.category, icon: Factory },
+  { label: "Market", value: project.route.split(" to ")[1] ?? project.route, icon: Globe2 },
+  { label: "Origin", value: project.route.split(" to ")[0] ?? "Guangzhou, China", icon: Map },
+  { label: "Scope", value: "Equipment Supply", icon: PackageCheck },
+] satisfies readonly {
+  label: string;
+  value: string;
+  icon: LucideIcon;
+}[];
+
+const projectRouteLocations = {
+  "Guangzhou, China": { x: 525, y: 133, label: "Guangzhou,\nChina" },
+  "Saudi Arabia": { x: 150, y: 171, label: "Saudi Arabia" },
+  "United Arab Emirates": { x: 177, y: 169, label: "United Arab Emirates" },
+  Egypt: { x: 112, y: 145, label: "Egypt" },
+  "Global Markets": { x: 330, y: 130, label: "Global Markets" },
+} as const;
+
+function getProjectRoute(route: string) {
+  const [originName, destinationName] = route.split(" to ");
+  const origin =
+    projectRouteLocations[
+      (originName as keyof typeof projectRouteLocations) ?? "Guangzhou, China"
+    ] ?? projectRouteLocations["Guangzhou, China"];
+  const destination =
+    projectRouteLocations[
+      (destinationName as keyof typeof projectRouteLocations) ?? "Global Markets"
+    ] ?? projectRouteLocations["Global Markets"];
+
+  return { origin, destination };
+}
+
+const projectDeliverables = [
+  {
+    title: "Quality Assurance",
+    text: "Strict quality control aligned with required standards.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Reliable Partnership",
+    text: "Coordinated with verified factories and trusted suppliers.",
+    icon: Handshake,
+  },
+  {
+    title: "On-Time Delivery",
+    text: "Shipment planning for efficient, timely execution.",
+    icon: Truck,
+  },
+  {
+    title: "Customer Focus",
+    text: "Tailored sourcing to match client requirements.",
+    icon: FileCheck2,
+  },
+] satisfies readonly {
+  title: string;
+  text: string;
+  icon: LucideIcon;
+}[];
+
+const projectGallery = [
+  {
+    src: "/images/about-vision-a698b154.png?v=20260824",
+    alt: "Industrial manufacturing equipment",
+    position: "58% 50%",
+  },
+  {
+    src: "/images/home-full-f2f6fcf3.png",
+    alt: "Logistics and container shipment",
+    position: "62% 52%",
+  },
+  {
+    src: "/images/contact.png",
+    alt: "Industrial facility equipment",
+    position: "58% 48%",
+  },
+] as const;
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
+
+const getDetailUrl = ({
+  projectNumber,
+  solutionNumber,
+  hash,
+}: {
+  projectNumber?: string;
+  solutionNumber?: string;
+  hash: string;
+}) => {
+  const url = new URL(window.location.href);
+
+  if (projectNumber) {
+    url.searchParams.set("project", projectNumber);
+  } else {
+    url.searchParams.delete("project");
+  }
+
+  if (solutionNumber) {
+    url.searchParams.set("solution", solutionNumber);
+  } else {
+    url.searchParams.delete("solution");
+  }
+
+  url.hash = hash;
+  return url;
+};
+
+function CountUpStatValue({
+  value,
+  className,
+}: {
+  value: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [displayValue, setDisplayValue] = useState("0");
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) {
+      return;
+    }
+
+    const match = value.match(/^([\d,]+)(.*)$/);
+
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const target = Number(match[1].replace(/,/g, ""));
+    const suffix = match[2] ?? "";
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    let frameId = 0;
+    let hasAnimated = false;
+
+    const formatValue = (current: number) =>
+      `${Math.round(current).toLocaleString()}${suffix}`;
+
+    const runAnimation = () => {
+      if (hasAnimated) {
+        return;
+      }
+
+      hasAnimated = true;
+
+      if (reducedMotion) {
+        setDisplayValue(formatValue(target));
+        return;
+      }
+
+      const startedAt = performance.now();
+      const duration = 1250;
+
+      const tick = (now: number) => {
+        const progress = clamp((now - startedAt) / duration, 0, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        setDisplayValue(formatValue(target * easedProgress));
+
+        if (progress < 1) {
+          frameId = window.requestAnimationFrame(tick);
+        }
+      };
+
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          runAnimation();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [value]);
+
+  return (
+    <span ref={ref} className={className}>
+      {displayValue}
+    </span>
+  );
+}
 
 const getDesktopCardScrollDistance = () =>
   Math.max(window.innerHeight * 1.05, 820);
@@ -420,10 +634,10 @@ function SectionTitle({
   return (
     <div className="max-w-[46rem]">
       <p className="section-label mb-4">{label}</p>
-      <TextReveal forceMotion distance={48}>
+      <TextReveal forceMotion className="pb-2 -mb-2" distance={48}>
         <h2
           className={cn(
-            "mobile-section-heading section-heading",
+            "mobile-section-heading section-heading lg:text-[clamp(2.25rem,3.8vw,3.45rem)] lg:leading-[1]",
             dark ? "text-white" : "text-[color:var(--color-navy-900)]"
           )}
         >
@@ -449,52 +663,62 @@ function SectionTitle({
 function SolutionCapabilityCard({
   item,
   className,
+  onSelect,
 }: {
   item: (typeof solutionCards)[number];
   className?: string;
+  onSelect?: () => void;
 }) {
   const Icon = item.icon;
 
   return (
-    <article
+    <button
+      type="button"
+      onClick={onSelect}
       className={cn(
-        "group navy-grid relative overflow-hidden border border-white/10 px-6 py-6 transition duration-300 hover:bg-white/[0.045] md:min-h-[14.75rem] md:px-7 md:py-7 xl:min-h-[15.5rem] xl:px-8",
+        "group relative overflow-hidden border border-white/10 px-6 py-6 text-left transition duration-300 hover:bg-white/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] md:min-h-[17.5rem] md:px-8 md:py-8 xl:min-h-[19rem] xl:px-10 xl:py-9",
         className
       )}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.12),transparent_40%)] opacity-0 transition duration-300 group-hover:opacity-100" />
       <div className="relative flex h-full flex-col">
         <div className="flex items-start justify-between gap-4">
-          <span className="mobile-section-subheading text-[0.92rem] text-[color:var(--color-gold-500)] lg:font-semibold lg:tracking-[0.18em]">
+          <span className="font-serif text-[1.45rem] leading-none tracking-[-0.04em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
           <Icon
             className="h-6 w-6 text-[color:var(--color-gold-500)]/88 sm:h-6 sm:w-6"
           />
         </div>
-        <h3 className="mt-5 max-w-[16ch] text-[1.08rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.14rem]">
+        <h3 className="mt-7 max-w-[16ch] text-[1.08rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.14rem]">
           {item.title}
         </h3>
-        <p className="mobile-section-copy mt-4 max-w-[18rem] text-white/68 sm:text-[0.9rem]">
+        <p className="mobile-section-copy mt-5 max-w-[18rem] text-white/68 sm:text-[0.9rem]">
           {item.description}
         </p>
-        <div className="mt-auto pt-7">
+        <div className="mt-auto pt-9">
           <ArrowRight className="h-4.5 w-4.5 text-[color:var(--color-gold-500)] transition duration-300 group-hover:translate-x-1" />
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 
 function MobileSolutionCapabilityCard({
   item,
+  onSelect,
 }: {
   item: (typeof solutionCards)[number];
+  onSelect?: () => void;
 }) {
   const Icon = item.icon;
 
   return (
-    <article className="mobile-card-surface mobile-card-surface-dark relative flex h-[16.5rem] flex-col overflow-hidden border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_34%,rgba(255,255,255,0.008)_100%)] px-5 py-5">
+    <button
+      type="button"
+      className="mobile-card-surface mobile-card-surface-dark relative flex h-[16.5rem] w-full flex-col overflow-hidden border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_34%,rgba(255,255,255,0.008)_100%)] px-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+      onClick={onSelect}
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_92%_8%,rgba(197,160,98,0.18),transparent_34%)]" />
       <div className="absolute inset-x-5 top-0 h-px bg-[linear-gradient(90deg,rgba(197,160,98,0),rgba(197,160,98,0.64),rgba(197,160,98,0))]" />
       <div className="absolute inset-0 navy-grid opacity-20" />
@@ -520,8 +744,152 @@ function MobileSolutionCapabilityCard({
           </span>
         </div>
       </div>
-    </article>
+    </button>
   );
+}
+
+function getHighlightIcon(highlight: string): LucideIcon {
+  const normalized = highlight.toLowerCase();
+
+  if (normalized.includes("factory") || normalized.includes("manufacturer")) {
+    return Factory;
+  }
+
+  if (normalized.includes("pricing")) {
+    return BadgeDollarSign;
+  }
+
+  if (normalized.includes("quality")) {
+    return ShieldCheck;
+  }
+
+  if (normalized.includes("fast") || normalized.includes("processing")) {
+    return ArrowRight;
+  }
+
+  if (normalized.includes("vehicle") || normalized.includes("ev")) {
+    return Car;
+  }
+
+  if (normalized.includes("order") || normalized.includes("quantit")) {
+    return PackageCheck;
+  }
+
+  if (normalized.includes("shipping")) {
+    return Ship;
+  }
+
+  if (normalized.includes("support")) {
+    return Users;
+  }
+
+  if (normalized.includes("market assessment")) {
+    return SearchCheck;
+  }
+
+  if (normalized.includes("partner") || normalized.includes("distributor")) {
+    return Handshake;
+  }
+
+  if (normalized.includes("agreement")) {
+    return FileCheck2;
+  }
+
+  if (normalized.includes("market development")) {
+    return Globe2;
+  }
+
+  if (normalized.includes("production")) {
+    return Factory;
+  }
+
+  if (normalized.includes("machinery") || normalized.includes("equipment")) {
+    return Wrench;
+  }
+
+  if (normalized.includes("integrated")) {
+    return Settings;
+  }
+
+  if (normalized.includes("investment")) {
+    return Map;
+  }
+
+  if (normalized.includes("delivery")) {
+    return Truck;
+  }
+
+  return CheckCircle2;
+}
+
+function getHighlightDescription(highlight: string) {
+  const normalized = highlight.toLowerCase();
+
+  if (normalized.includes("factory") || normalized.includes("manufacturer")) {
+    return "Work directly with trusted manufacturers.";
+  }
+
+  if (normalized.includes("pricing")) {
+    return "Get clear options and competitive value.";
+  }
+
+  if (normalized.includes("quality")) {
+    return "Products aligned with required standards.";
+  }
+
+  if (normalized.includes("fast") || normalized.includes("processing")) {
+    return "Efficient processes for faster execution.";
+  }
+
+  if (normalized.includes("vehicle") || normalized.includes("ev")) {
+    return "Access reliable vehicle sourcing channels.";
+  }
+
+  if (normalized.includes("order") || normalized.includes("quantit")) {
+    return "Support for small and large order scales.";
+  }
+
+  if (normalized.includes("shipping")) {
+    return "Coordinate export and delivery requirements.";
+  }
+
+  if (normalized.includes("support")) {
+    return "Guidance throughout the sourcing process.";
+  }
+
+  if (normalized.includes("market assessment")) {
+    return "Evaluate fit, demand, and commercial route.";
+  }
+
+  if (normalized.includes("partner") || normalized.includes("distributor")) {
+    return "Find suitable partners and local channels.";
+  }
+
+  if (normalized.includes("agreement")) {
+    return "Support clear commercial agreement steps.";
+  }
+
+  if (normalized.includes("market development")) {
+    return "Build practical paths for market growth.";
+  }
+
+  if (normalized.includes("production")) {
+    return "Source complete lines for production needs.";
+  }
+
+  if (normalized.includes("machinery") || normalized.includes("equipment")) {
+    return "Identify suitable machines and equipment.";
+  }
+
+  if (normalized.includes("integrated")) {
+    return "Connect multiple requirements into one plan.";
+  }
+
+  if (normalized.includes("investment")) {
+    return "Structure opportunities around project goals.";
+  }
+
+  return "Focused support for the requirement.";
 }
 
 function DetailedSolutionCard({
@@ -542,6 +910,155 @@ function DetailedSolutionCard({
     ? solution.highlights
     : solution.highlights.slice(0, 2);
   const canToggle = Boolean(onToggle);
+
+  if (desktop) {
+    const desktopHighlights = solution.highlights.slice(0, 4);
+
+    return (
+      <article
+        data-detailed-active-card
+        className="grid w-full items-stretch gap-10 lg:min-h-[clamp(34rem,78vh,42rem)] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] xl:gap-14"
+      >
+        <div className="flex min-w-0 flex-col">
+          <div className="grid grid-cols-[4.4rem_1px_minmax(0,1fr)] items-start gap-5">
+            <span
+              data-detailed-card-number
+              className="font-serif text-[4.4rem] font-bold leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)]"
+            >
+              {solution.number}
+            </span>
+            <span className="h-[3.75rem] w-px bg-[color:var(--color-gold-500)]/55" />
+            <h3
+              data-detailed-card-title
+              className="pt-1 text-[1.45rem] font-bold uppercase leading-[1.04] tracking-[0.02em] text-[color:var(--color-navy-900)] xl:text-[1.55rem]"
+            >
+              {solution.title}
+            </h3>
+          </div>
+
+          <p
+            data-detailed-card-statement
+            className="mt-5 text-[0.92rem] font-bold uppercase leading-[1.4] tracking-[0.06em] text-[color:var(--color-gold-600)]"
+          >
+            {solution.statement}
+          </p>
+
+          <div className="mt-3 space-y-4">
+            {solution.description.map((paragraph) => (
+              <p
+                data-detailed-card-copy
+                key={paragraph}
+                className="max-w-[35rem] text-[0.9rem] font-medium leading-[1.55] text-[color:var(--color-navy-900)]/88"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <div className="mt-7 grid gap-4">
+            {desktopHighlights.map((highlight) => {
+              const HighlightIcon = getHighlightIcon(highlight);
+
+              return (
+                <div
+                  data-detailed-card-highlight
+                  key={highlight}
+                  className="grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-5 py-1"
+                >
+                  <HighlightIcon
+                    className="h-8 w-8 text-[color:var(--color-gold-600)]"
+                    strokeWidth={1.55}
+                  />
+                  <div>
+                    <p className="text-[0.74rem] font-bold uppercase leading-[1.25] tracking-[0.08em] text-[color:var(--color-navy-900)]">
+                      {highlight}
+                    </p>
+                    <p className="mt-0.5 text-[0.74rem] leading-[1.35] text-[color:var(--color-slate-700)]">
+                      {getHighlightDescription(highlight)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="relative min-h-full overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)]">
+          <Image
+            src={assetPath(solution.image)}
+            alt={`${solution.title} visual`}
+            fill
+            sizes="(min-width: 1024px) 52vw, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.02),rgba(3,20,39,0.16))]" />
+        </div>
+      </article>
+    );
+  }
+
+  if (!canToggle) {
+    return (
+      <article className="w-full">
+        <div className="relative h-[12.5rem] w-full overflow-hidden border border-[color:var(--color-gold-500)]/20 bg-[color:var(--color-navy-950)]/8">
+          <Image
+            src={assetPath(solution.image)}
+            alt={`${solution.title} visual`}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0.04),rgba(3,20,39,0.28))]" />
+        </div>
+
+        <div className="mt-6 grid grid-cols-[3.45rem_1px_minmax(0,1fr)] items-start gap-4">
+          <span className="shrink-0 font-serif text-[3.4rem] font-bold leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
+            {solution.number}
+          </span>
+          <span className="h-[3.15rem] w-px bg-[color:var(--color-gold-500)]/55" />
+          <h3 className="min-w-0 pt-1 text-[1.24rem] font-bold uppercase leading-[1.06] tracking-[0.02em] text-[color:var(--color-navy-900)]">
+            {solution.title}
+          </h3>
+        </div>
+
+        <p className="mt-4 text-[0.72rem] font-semibold uppercase leading-[1.5] tracking-[0.18em] text-[color:var(--color-gold-500)]">
+          {solution.statement}
+        </p>
+
+        <div className="mt-5 space-y-3.5">
+          {solution.description.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="text-[0.94rem] leading-[1.75] text-[color:var(--color-slate-700)]"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <div className="mt-7 grid gap-4 pb-2">
+          {solution.highlights.map((highlight) => {
+            const HighlightIcon = getHighlightIcon(highlight);
+
+            return (
+              <div
+                key={highlight}
+                className="grid grid-cols-[1.35rem_minmax(0,1fr)] items-start gap-3 py-1"
+              >
+                <HighlightIcon
+                  className="mt-0.5 h-4 w-4 text-[color:var(--color-gold-500)]"
+                  strokeWidth={1.8}
+                />
+                <p className="text-[0.82rem] leading-[1.45] text-[color:var(--color-navy-900)]">
+                  {highlight}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article
@@ -664,13 +1181,19 @@ function DetailedSolutionCard({
 
 function ProjectShowcaseCard({
   project,
+  onSelect,
 }: {
   project: (typeof projectCards)[number];
+  onSelect: () => void;
 }) {
   const ProjectIcon = project.icon;
 
   return (
-    <article className="mobile-card-surface mobile-card-surface-dark group relative min-h-[15.5rem] overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)] lg:rounded-[0.45rem] lg:border-white/12 lg:shadow-[0_18px_46px_rgba(3,20,39,0.14)]">
+    <button
+      type="button"
+      onClick={onSelect}
+      className="mobile-card-surface mobile-card-surface-dark group relative min-h-[15.5rem] w-full overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_54px_rgba(3,20,39,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)] lg:rounded-[0.45rem] lg:border-white/12 lg:shadow-[0_18px_46px_rgba(3,20,39,0.14)]"
+    >
       <Image
         src={assetPath(project.image)}
         alt={`${project.title} project`}
@@ -716,6 +1239,305 @@ function ProjectShowcaseCard({
           </span>
         </div>
       </div>
+    </button>
+  );
+}
+
+function ProjectRouteMap({
+  project,
+  animate,
+  onAnimationComplete,
+}: {
+  project: (typeof projectCards)[number];
+  animate: boolean;
+  onAnimationComplete: () => void;
+}) {
+  const { origin, destination } = getProjectRoute(project.route);
+  const controlX = (origin.x + destination.x) / 2;
+  const controlY = Math.min(origin.y, destination.y) - 86;
+  const routePath = `M ${origin.x} ${origin.y} Q ${controlX} ${controlY} ${destination.x} ${destination.y}`;
+
+  return (
+    <div
+      className={cn(
+        "project-route-map mt-9 overflow-hidden py-1",
+        animate ? "is-animating" : "is-complete"
+      )}
+    >
+      <svg
+        viewBox="0 0 640 250"
+        className="h-[10.5rem] w-full max-w-full sm:h-[12rem] lg:h-[13.75rem] xl:h-[14.5rem]"
+        role="img"
+        aria-label={`${origin.label} to ${destination.label} route`}
+      >
+        <defs>
+          <pattern
+            id="project-route-dot-pattern"
+            width="5.2"
+            height="5.2"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="1.25" cy="1.25" r="0.82" fill="currentColor" />
+          </pattern>
+        </defs>
+
+        <g className="project-route-map-silhouette">
+          <path
+            d="M18 91 42 71 72 72 92 55 126 60 145 82 133 108 151 133 129 168 91 164 72 139 45 140 28 121Z"
+            fill="url(#project-route-dot-pattern)"
+          />
+          <path
+            d="M192 30 251 18 336 24 402 21 493 30 585 45 613 74 588 102 526 104 501 126 458 119 430 142 389 134 348 149 309 137 274 151 236 129 198 122 181 87Z"
+            fill="url(#project-route-dot-pattern)"
+          />
+          <path
+            d="M276 133 324 141 351 174 336 222 295 229 264 198 248 159Z"
+            fill="url(#project-route-dot-pattern)"
+          />
+          <path
+            d="M388 139 435 148 465 174 448 210 410 205 383 177Z"
+            fill="url(#project-route-dot-pattern)"
+          />
+          <path
+            d="M510 126 548 134 571 160 556 191 520 185 497 154Z"
+            fill="url(#project-route-dot-pattern)"
+          />
+        </g>
+
+        <path
+          className="project-route-trail"
+          d={routePath}
+          fill="none"
+          pathLength="1"
+          stroke="var(--color-gold-500)"
+          strokeDasharray="0.012 0.038"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+        />
+        <path
+          className="project-route-line"
+          d={routePath}
+          fill="none"
+          pathLength="1"
+          stroke="var(--color-gold-500)"
+          strokeWidth="2.35"
+          strokeLinecap="round"
+          onAnimationEnd={onAnimationComplete}
+        />
+
+        <g className="project-route-plane">
+          <animateMotion
+            dur="2.35s"
+            begin={animate ? "0.78s" : "indefinite"}
+            fill="freeze"
+            rotate="auto"
+            path={routePath}
+          />
+          <path
+            d="M0 -3.6 10.5 0 0 3.6 2.4 0 0 -3.6Z"
+            fill="var(--color-gold-500)"
+          />
+        </g>
+
+        <g className="project-route-origin">
+          <circle cx={origin.x} cy={origin.y} r="6.2" fill="var(--color-gold-500)" />
+          <circle
+            className="project-route-pulse"
+            cx={origin.x}
+            cy={origin.y}
+            r="11"
+            fill="none"
+            stroke="var(--color-gold-500)"
+            strokeWidth="1.6"
+          />
+        </g>
+
+        <g className="project-route-destination">
+          <circle
+            cx={destination.x}
+            cy={destination.y}
+            r="6.2"
+            fill="var(--color-gold-500)"
+          />
+          <circle
+            className="project-route-pulse"
+            cx={destination.x}
+            cy={destination.y}
+            r="11"
+            fill="none"
+            stroke="var(--color-gold-500)"
+            strokeWidth="1.6"
+          />
+        </g>
+
+        <g className="project-route-origin-label">
+          <text
+            x={origin.x + 15}
+            y={origin.y - 13}
+            className="project-route-label"
+            textAnchor="start"
+          >
+            <tspan x={origin.x + 15} dy="0">Guangzhou,</tspan>
+            <tspan x={origin.x + 15} dy="13">China</tspan>
+          </text>
+        </g>
+        <g className="project-route-destination-label">
+          <text
+            x={destination.x - 14}
+            y={destination.y - 4}
+            className="project-route-label"
+            textAnchor="end"
+          >
+            {destination.label}
+          </text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function FeaturedProjectShowcase({
+  project,
+  animateRoute,
+  onRouteAnimationComplete,
+}: {
+  project: (typeof projectCards)[number];
+  animateRoute: boolean;
+  onRouteAnimationComplete: () => void;
+}) {
+  const projectFacts = getProjectFacts(project);
+
+  return (
+    <article className="relative bg-[#f8f4ef] text-[color:var(--color-navy-900)]">
+      <div className="grid gap-8 lg:min-h-[clamp(23rem,48vh,29rem)] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] lg:items-stretch xl:gap-14">
+        <div className="flex min-w-0 flex-col">
+          <div>
+            <div className="grid grid-cols-[3.45rem_1px_minmax(0,1fr)] items-start gap-4 lg:grid-cols-[4.4rem_1px_minmax(0,1fr)] lg:gap-5">
+              <span className="font-serif text-[3.4rem] font-bold leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)] lg:text-[4.4rem]">
+                {project.number}
+              </span>
+              <span className="h-[3.15rem] w-px bg-[color:var(--color-gold-500)]/55 lg:h-[3.75rem]" />
+              <h3 className="pt-1 text-[1.24rem] font-bold uppercase leading-[1.06] tracking-[0.02em] text-[color:var(--color-navy-900)] lg:text-[1.45rem] xl:text-[1.55rem]">
+                {project.title}
+              </h3>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <ProjectRouteMap
+              key={project.number}
+              project={project}
+              animate={animateRoute}
+              onAnimationComplete={onRouteAnimationComplete}
+            />
+          </div>
+
+          <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5">
+            {projectFacts.map((fact) => {
+              const FactIcon = fact.icon;
+
+              return (
+                <div
+                  key={fact.label}
+                  className="grid grid-cols-[2.9rem_minmax(0,1fr)] items-center gap-5 py-1"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center bg-[color:var(--color-navy-950)] text-[color:var(--color-gold-500)]">
+                    <FactIcon className="h-5 w-5" strokeWidth={1.65} />
+                  </span>
+                  <span>
+                    <p className="text-[0.66rem] font-bold uppercase tracking-[0.14em] text-[color:var(--color-gold-600)]">
+                      {fact.label}
+                    </p>
+                    <p className="mt-1 text-[0.84rem] leading-5 text-[color:var(--color-navy-900)]/86">
+                      {fact.value}
+                    </p>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="relative min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)] sm:min-h-[24rem] lg:h-full lg:min-h-0">
+          <Image
+            src={assetPath(project.image)}
+            alt={`${project.title} project`}
+            fill
+            sizes="(min-width: 1024px) 56vw, 100vw"
+            className="object-cover"
+            style={{ objectPosition: "58% 50%" }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,20,39,0.24)_0%,rgba(3,20,39,0.04)_46%,rgba(3,20,39,0.14)_100%)]" />
+        </div>
+      </div>
+
+      <div className="mt-12 grid gap-10 lg:grid-cols-[0.46fr_0.54fr] lg:gap-14">
+        <section>
+          <p className="section-label">PROJECT OVERVIEW</p>
+          <div className="mt-5 space-y-4">
+            <p className="max-w-[35rem] text-[0.9rem] font-medium leading-[1.55] text-[color:var(--color-navy-900)]/88">
+              We successfully supplied a wide range of industrial equipment from
+              trusted manufacturers in Guangzhou to a leading company in Saudi
+              Arabia.
+            </p>
+            <p className="max-w-[35rem] text-[0.9rem] font-medium leading-[1.55] text-[color:var(--color-navy-900)]/88">
+              The project required careful product selection, quality control,
+              and logistics coordination to support reliable delivery and
+              compliance with local requirements.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <p className="section-label">WHAT WE DELIVERED</p>
+          <div className="mt-5 grid gap-4">
+            {projectDeliverables.map((item) => {
+              const DeliveryIcon = item.icon;
+
+              return (
+                <div key={item.title} className="grid grid-cols-[2.6rem_minmax(0,1fr)] gap-4">
+                  <DeliveryIcon
+                    className="mt-1 h-8 w-8 text-[color:var(--color-gold-600)]"
+                    strokeWidth={1.55}
+                  />
+                  <div>
+                    <h4 className="text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[color:var(--color-navy-900)]">
+                      {item.title}
+                    </h4>
+                    <p className="mt-1 text-[0.88rem] leading-6 text-[color:var(--color-slate-700)]">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      <section className="mt-12">
+        <p className="section-label">PROJECT GALLERY</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-[1.2fr_0.9fr_0.9fr]">
+          {projectGallery.map((image, index) => (
+            <div
+              key={image.src}
+              className={cn(
+                "relative overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_14px_34px_rgba(11,31,59,0.08)]",
+                index === 0 ? "h-[16rem] md:h-[18rem]" : "h-[13rem] md:h-[18rem]"
+              )}
+            >
+              <Image
+                src={assetPath(image.src)}
+                alt={image.alt}
+                fill
+                sizes="(min-width: 768px) 30vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: image.position }}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
     </article>
   );
 }
@@ -830,11 +1652,61 @@ export function HomeSections() {
   const [isSolutionDragging, setIsSolutionDragging] = useState(false);
   const [objectivesDesktopIndex, setObjectivesDesktopIndex] = useState(0);
   const [detailedDesktopIndex, setDetailedDesktopIndex] = useState(0);
+  const [activeMobileDetailedIndex, setActiveMobileDetailedIndex] = useState<
+    number | null
+  >(null);
+  const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(
+    null
+  );
   const [expandedDetailedMobileCards, setExpandedDetailedMobileCards] = useState<
     Record<string, boolean>
   >({});
 
   const activeSolutionIndex = solutionCarouselIndex;
+  const activeMobileDetailedSolution =
+    activeMobileDetailedIndex === null
+      ? null
+      : detailedSolutions[activeMobileDetailedIndex] ?? null;
+  const activeProject =
+    activeProjectIndex === null ? null : projectCards[activeProjectIndex] ?? null;
+
+  const openSolutionDetail = useCallback((index: number) => {
+    const solution = detailedSolutions[index];
+
+    if (!solution) {
+      return;
+    }
+
+    setActiveProjectIndex(null);
+    setActiveMobileDetailedIndex(index);
+    window.history.pushState(
+      null,
+      "",
+      getDetailUrl({ solutionNumber: solution.number, hash: "#solutions" })
+    );
+  }, []);
+
+  const openProjectDetail = useCallback((index: number) => {
+    const project = projectCards[index];
+
+    if (!project) {
+      return;
+    }
+
+    setActiveMobileDetailedIndex(null);
+    setActiveProjectIndex(index);
+    window.history.pushState(
+      null,
+      "",
+      getDetailUrl({ projectNumber: project.number, hash: "#projects" })
+    );
+  }, []);
+
+  const closeDetailOverlay = useCallback((fallbackHash: string) => {
+    setActiveMobileDetailedIndex(null);
+    setActiveProjectIndex(null);
+    window.history.replaceState(null, "", getDetailUrl({ hash: fallbackHash }));
+  }, []);
 
   const resetSolutionDragOffset = () => {
     solutionsCarouselRef.current?.style.setProperty("--solution-drag-offset", "0px");
@@ -862,6 +1734,8 @@ export function HomeSections() {
       return;
     }
 
+    setDetailedDesktopIndex(targetIndex);
+
     const trigger = ScrollTrigger.getById(detailedSolutionsScrollTriggerId);
     const section = detailedSectionRef.current;
 
@@ -871,12 +1745,14 @@ export function HomeSections() {
 
     const segmentDistance =
       (trigger.end - trigger.start) / detailedSolutions.length;
-    const targetY = trigger.start + segmentDistance * targetIndex + 2;
+    const targetY =
+      trigger.start + segmentDistance * targetIndex + segmentDistance * 0.5;
 
     window.scrollTo({
       top: targetY,
-      behavior: prefersReducedMotion ? "auto" : "smooth",
+      behavior: "auto",
     });
+    ScrollTrigger.update();
   };
 
   const toggleDetailedMobileCard = (number: string) => {
@@ -885,6 +1761,53 @@ export function HomeSections() {
       [number]: !current[number],
     }));
   };
+
+  useEffect(() => {
+    const syncDetailFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const projectNumber = params.get("project");
+      const solutionNumber = params.get("solution");
+      const projectIndex = projectNumber
+        ? projectCards.findIndex((project) => project.number === projectNumber)
+        : -1;
+      const solutionIndex =
+        !projectNumber && solutionNumber
+          ? detailedSolutions.findIndex(
+              (solution) => solution.number === solutionNumber
+            )
+          : -1;
+
+      setActiveProjectIndex(projectIndex >= 0 ? projectIndex : null);
+      setActiveMobileDetailedIndex(solutionIndex >= 0 ? solutionIndex : null);
+    };
+
+    syncDetailFromUrl();
+    window.addEventListener("popstate", syncDetailFromUrl);
+
+    return () => {
+      window.removeEventListener("popstate", syncDetailFromUrl);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (activeMobileDetailedIndex === null && activeProjectIndex === null) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeDetailOverlay(activeProjectIndex === null ? "#solutions" : "#projects");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeMobileDetailedIndex, activeProjectIndex, closeDetailOverlay]);
 
   const finishSolutionDrag = () => {
     if (!solutionIsDraggingRef.current) {
@@ -1237,6 +2160,28 @@ export function HomeSections() {
       lineDuration: 0.76,
     });
 
+    const aboutStats = gsap.utils.toArray<HTMLElement>(".js-about-stat");
+
+    if (aboutStats.length > 0) {
+      gsap.set(aboutStats, {
+        opacity: 0,
+        y: reducedMotion ? 8 : 18,
+      });
+
+      gsap.to(aboutStats, {
+        opacity: 1,
+        y: 0,
+        duration: reducedMotion ? 0.36 : 0.68,
+        stagger: reducedMotion ? 0.06 : 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".js-about-section",
+          start: "top 62%",
+          once: true,
+        },
+      });
+    }
+
     if (!reducedMotion) {
       gsap.fromTo(
         ".js-vision-image",
@@ -1414,12 +2359,6 @@ export function HomeSections() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         fastScrollEnd: false,
-        snap: {
-          snapTo: 1 / detailedSolutions.length,
-          duration: { min: 0.18, max: 0.32 },
-          delay: 0.04,
-          ease: "power2.out",
-        },
         onEnter: () => setDetailedDesktopIndex(0),
         onEnterBack: () =>
           setDetailedDesktopIndex(detailedSolutions.length - 1),
@@ -1584,7 +2523,6 @@ export function HomeSections() {
 
     const number = card.querySelector<HTMLElement>("[data-detailed-card-number]");
     const title = card.querySelector<HTMLElement>("[data-detailed-card-title]");
-    const line = card.querySelector<HTMLElement>("[data-detailed-card-line]");
     const statement = card.querySelector<HTMLElement>(
       "[data-detailed-card-statement]"
     );
@@ -1618,7 +2556,6 @@ export function HomeSections() {
         opacity: 0,
         y: 18,
       });
-      gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
 
       const tl = gsap.timeline({ defaults: { overwrite: true } });
 
@@ -1665,15 +2602,6 @@ export function HomeSections() {
             ease: "power3.out",
           },
           0.14
-        )
-        .to(
-          line,
-          {
-            scaleX: 1,
-            duration: 0.64,
-            ease: "power4.out",
-          },
-          0.2
         )
         .to(
           statement,
@@ -1723,8 +2651,7 @@ export function HomeSections() {
         <Container className="w-full max-w-[var(--content-max)] px-[var(--mobile-gutter)] sm:px-6 lg:block lg:px-8">
           <div className="grid w-full gap-[clamp(1.6rem,5vw,2.5rem)] lg:grid-cols-2 lg:items-stretch lg:gap-12 xl:gap-16">
             <div className="relative flex h-full max-w-[33rem] flex-col pt-1 lg:pt-6">
-              <div className="pointer-events-none absolute left-[-1.25rem] top-[4.2rem] hidden h-[16rem] w-px bg-[linear-gradient(180deg,rgba(197,160,98,0.18),rgba(197,160,98,0))] lg:block" />
-              <p className="js-about-label section-label mb-[clamp(1rem,4vw,1.75rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em]">RONG XING</p>
+              <p className="js-about-label section-label mb-[clamp(1rem,4vw,1.75rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em] lg:text-[0.9rem]">ABOUT RONG XING</p>
               <div className="flex flex-1 flex-col justify-between">
                 <div>
                   <div className="lg:hidden">
@@ -1767,7 +2694,7 @@ export function HomeSections() {
             <div className="flex h-full max-w-[33rem] lg:-ml-12 lg:translate-x-[2.2cm] lg:justify-self-start lg:pt-6 xl:-ml-14">
               <div className="flex h-full w-full flex-col justify-between">
                 <div>
-                  <p className="js-about-side-label section-label mb-[clamp(1.1rem,4vw,1.4rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em]">WHAT WE DO</p>
+                  <p className="js-about-side-label section-label mb-[clamp(1.1rem,4vw,1.4rem)] text-[clamp(0.78rem,3vw,0.9rem)] tracking-[0.24em] lg:text-[0.9rem]">WHAT WE DO</p>
                   <Reveal forceMotion className="lg:hidden" delay={0.12} distance={22}>
                     <p className="prose-copy mobile-section-copy max-w-[20rem] sm:max-w-[24rem]">
                       From sourcing a single product to establishing complete
@@ -1777,6 +2704,31 @@ export function HomeSections() {
                       resources in China.
                     </p>
                   </Reveal>
+                  <div className="mt-6 grid max-w-[20rem] grid-cols-2 gap-3 lg:hidden">
+                    {[
+                      ["22+", "Years of China-based operations"],
+                      ["800+", "Supplier and factory contacts"],
+                      ["120+", "Sourcing and trade projects"],
+                      ["15+", "Markets connected through China"],
+                    ].map(([value, label], index) => (
+                      <Reveal
+                        key={value}
+                        forceMotion
+                        delay={0.16 + index * 0.08}
+                        distance={18}
+                      >
+                        <div className="border-l-2 border-[color:var(--color-gold-500)] bg-white/34 py-2.5 pl-3 pr-2">
+                          <CountUpStatValue
+                            value={value}
+                            className="block text-[1.32rem] font-semibold leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
+                          />
+                          <p className="mt-2 text-[0.64rem] font-medium leading-4 text-[color:var(--color-slate-700)]">
+                            {label}
+                          </p>
+                        </div>
+                      </Reveal>
+                    ))}
+                  </div>
                   <p className="js-about-copy prose-copy hidden max-w-[20rem] sm:max-w-[24rem] lg:block lg:max-w-[31rem] lg:text-[clamp(0.98rem,1.2vw,1.08rem)] lg:leading-[1.9]">
                     From sourcing a single product to establishing complete
                     industrial operations,
@@ -1786,14 +2738,45 @@ export function HomeSections() {
                   </p>
                 </div>
 
-                <div className="js-about-support mt-[clamp(1.9rem,7vw,2.6rem)] hidden max-w-[19.5rem] border-t border-[color:var(--color-gold-500)]/18 pt-[clamp(1rem,3.5vw,1.2rem)] sm:max-w-[24rem] sm:mt-0 lg:block lg:max-w-[26rem]">
-                  <p className="text-[clamp(0.76rem,3vw,0.84rem)] font-medium uppercase leading-[1.95] tracking-[0.28em] text-[color:var(--color-slate-700)]/86">
-                    Built around your requirements.
-                    <br />
-                    <span className="text-[color:var(--color-gold-500)] drop-shadow-[0_0_8px_rgba(197,160,98,0.12)]">
-                      Connected through China.
-                    </span>
-                  </p>
+                <div className="js-about-support mt-[clamp(1.9rem,7vw,2.6rem)] hidden w-[min(31rem,100%)] border-t border-[color:var(--color-gold-500)]/14 pt-[clamp(1rem,3vw,1.2rem)] sm:mt-0 lg:block">
+                  <div className="grid grid-cols-4 gap-3">
+                    <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
+                      <CountUpStatValue
+                        value="22+"
+                        className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
+                      />
+                      <p className="mt-4 max-w-[5.75rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
+                        Years of China-based operations
+                      </p>
+                    </div>
+                    <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
+                      <CountUpStatValue
+                        value="800+"
+                        className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
+                      />
+                      <p className="mt-4 max-w-[5.9rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
+                        Supplier and factory contacts
+                      </p>
+                    </div>
+                    <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
+                      <CountUpStatValue
+                        value="120+"
+                        className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
+                      />
+                      <p className="mt-4 max-w-[5.9rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
+                        Sourcing and trade projects
+                      </p>
+                    </div>
+                    <div className="js-about-stat border-l-2 border-[color:var(--color-gold-500)] pl-3">
+                      <CountUpStatValue
+                        value="15+"
+                        className="block text-[1.72rem] font-semibold uppercase leading-none tracking-[-0.03em] text-[color:var(--color-navy-900)]"
+                      />
+                      <p className="mt-4 max-w-[5.75rem] text-[0.76rem] font-medium leading-6 text-[color:var(--color-navy-900)]">
+                        Markets connected through China
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1820,7 +2803,7 @@ export function HomeSections() {
 
             <div className="relative bg-[color:var(--color-navy-950)] py-[clamp(1.7rem,5.6vw,2.3rem)] lg:min-h-[37rem] lg:bg-transparent lg:px-0 lg:py-0 lg:pl-10 xl:pl-14">
               <div className="relative flex h-full flex-col justify-center lg:min-h-[37rem] lg:p-1">
-                <p className="js-vision-label section-label mb-[clamp(0.8rem,2.8vw,1rem)] text-[clamp(0.74rem,2.7vw,0.82rem)] tracking-[0.24em]">OUR VISION</p>
+                <p className="js-vision-label section-label mb-[clamp(0.8rem,2.8vw,1rem)] text-[clamp(0.74rem,2.7vw,0.82rem)] tracking-[0.24em] lg:text-[0.86rem]">OUR VISION</p>
                 <TextReveal forceMotion className="lg:hidden" distance={42}>
                   <h2 className="js-vision-line mobile-section-heading text-white lg:text-[clamp(2.75rem,5.2vw,3.65rem)]">
                     Connecting
@@ -2033,7 +3016,7 @@ export function HomeSections() {
 
       <section
         id="solutions"
-        className="scroll-mt-[5.75rem] bg-[color:var(--color-navy-950)] py-[clamp(2.25rem,6.5vw,3rem)] text-white md:py-[clamp(3.4rem,4.6vw,5.4rem)]"
+        className="flex min-h-[100svh] scroll-mt-[5.75rem] items-center bg-[color:var(--color-navy-950)] py-[clamp(2.25rem,6.5vw,3rem)] text-white md:block md:min-h-0 md:py-[clamp(3.4rem,4.6vw,5.4rem)]"
       >
         <Container className="max-w-[var(--content-max)]">
           <div className="max-w-[40rem]">
@@ -2051,81 +3034,72 @@ export function HomeSections() {
             </Reveal>
           </div>
 
-          <div
-            className="mt-6 md:hidden"
-            ref={solutionsCarouselRef}
-            style={
-              {
-                "--solution-card-gap": "0.85rem",
-                "--solution-slide-width": "100%",
-                "--solution-drag-offset": "0px",
-              } as CSSProperties
-            }
-          >
-            <div className="overflow-hidden">
-              <div
-                className="flex gap-[var(--solution-card-gap)] will-change-transform"
-                style={{
-                  transform: `translate3d(calc(-${solutionCarouselIndex * 100}% - ${solutionCarouselIndex * 0.85}rem + var(--solution-drag-offset)), 0, 0)`,
-                  transition:
-                    isSolutionDragging
-                      ? "none"
-                      : "transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1)",
-                  touchAction: "pan-y",
-                }}
-                onPointerDown={handleSolutionPointerDown}
-                onPointerMove={handleSolutionPointerMove}
-                onPointerUp={finishSolutionDrag}
-                onPointerCancel={finishSolutionDrag}
+          <div className="mt-6 grid gap-3 md:hidden">
+            {solutionCards.map((item, index) => (
+              <Reveal
+                key={item.number}
+                forceMotion
+                delay={index * 0.08}
+                distance={28}
               >
-                {solutionCards.map((item) => (
-                  <div
-                    key={item.number}
-                    className="shrink-0"
-                    style={{ width: "var(--solution-slide-width)" }}
-                  >
-                    <MobileSolutionCapabilityCard item={item} />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-4 flex items-center justify-center">
-              <div className="flex items-center gap-2">
-                {solutionCards.map((item, index) => (
-                  <button
-                    key={item.number}
-                    type="button"
-                    aria-label={`Go to solution ${item.number}`}
-                    aria-pressed={activeSolutionIndex === index}
-                    className={cn(
-                      "h-2 w-2 rounded-full border transition",
-                      activeSolutionIndex === index
-                        ? "border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)]"
-                        : "border-white/28 bg-transparent"
-                    )}
-                    onClick={() => jumpToSolution(index)}
-                  />
-                ))}
-              </div>
-            </div>
+                <MobileSolutionCapabilityCard
+                  item={item}
+                  onSelect={() => openSolutionDetail(index)}
+                />
+              </Reveal>
+            ))}
           </div>
 
           <div className="mt-8 hidden gap-4 md:mt-10 md:grid md:grid-cols-2 xl:grid-cols-4">
-            {solutionCards.map((item) => (
+            {solutionCards.map((item, index) => (
               <SolutionCapabilityCard
                 key={item.number}
                 item={item}
                 className="js-reveal-scale"
+                onSelect={() => openSolutionDetail(index)}
               />
             ))}
           </div>
         </Container>
       </section>
 
+      {activeMobileDetailedSolution ? (
+        <div
+          className="fixed inset-0 z-[120] overflow-y-auto bg-[color:var(--color-surface)] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeMobileDetailedSolution.title} details`}
+        >
+          <div className="lg:mx-auto lg:flex lg:min-h-full lg:w-full lg:max-w-[86rem] lg:flex-col">
+            <div className="-mx-[var(--mobile-gutter)] flex items-center justify-between bg-[color:var(--color-surface)] px-[var(--mobile-gutter)] py-3 lg:mx-0 lg:px-0">
+              <p className="section-label text-[0.66rem] tracking-[0.2em] lg:text-[0.86rem]">
+                Detailed Solution
+              </p>
+              <button
+                type="button"
+                aria-label="Close detailed solution"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/42 text-[color:var(--color-navy-900)] transition hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+                onClick={() => closeDetailOverlay("#solutions")}
+              >
+                <X className="h-4 w-4" strokeWidth={1.8} />
+              </button>
+            </div>
+
+            <div className="py-5 lg:flex lg:flex-1 lg:items-center lg:justify-center lg:py-4">
+              <DetailedSolutionCard
+                key={activeMobileDetailedSolution.number}
+                solution={activeMobileDetailedSolution}
+                desktop={!isMobileViewport}
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {false && (
       <section
         ref={detailedSectionRef}
-        className="js-detailed-solutions-section surface-grid mobile-section-pad relative overflow-hidden bg-white lg:h-screen lg:min-h-[36rem] lg:py-0"
+        className="js-detailed-solutions-section surface-grid mobile-section-pad relative hidden overflow-hidden bg-white lg:block lg:h-screen lg:min-h-[36rem] lg:py-0"
       >
         <div className="absolute inset-0">
           <Image
@@ -2148,48 +3122,76 @@ export function HomeSections() {
                 subtitle="A four-part business platform designed to move from inquiry to execution with precision."
               />
 
-              <div className="mt-8 hidden max-w-[33rem] lg:block">
-                <div className="h-px w-full bg-[color:var(--color-border-strong)]" />
-                <div className="divide-y divide-[color:var(--color-border)]">
-                  {detailedSolutions.map((solution, index) => (
+              <div className="mt-10 hidden max-w-[32rem] lg:block">
+                <div className="space-y-2">
+                  {detailedSolutions.map((solution, index) => {
+                    const isActive = detailedDesktopIndex === index;
+                    const Icon = solutionCards[index]?.icon ?? SourcingMark;
+
+                    return (
                     <button
                       type="button"
                       key={solution.number}
                       className={cn(
-                        "grid w-full grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-4 py-3 text-left transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
-                        detailedDesktopIndex === index
-                          ? "text-[color:var(--color-navy-900)]"
-                          : "text-[color:var(--color-slate-600)] hover:text-[color:var(--color-navy-900)]"
+                        "group relative grid h-[4rem] w-full grid-cols-[2.35rem_2.75rem_minmax(0,1fr)_1.25rem] items-center gap-3 overflow-hidden rounded-[0.38rem] px-4 text-left transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+                        isActive
+                          ? "bg-white text-[color:var(--color-navy-900)] shadow-[0_14px_34px_rgba(11,31,59,0.08)]"
+                          : "border-b border-[color:var(--color-border)] text-[color:var(--color-slate-600)] hover:bg-white/58 hover:text-[color:var(--color-navy-900)]"
                       )}
                       onClick={() => jumpToDetailedSolution(index)}
                     >
                       <span
+                        aria-hidden="true"
                         className={cn(
-                          "font-serif text-[1.55rem] leading-none tracking-[-0.06em] transition duration-300",
-                          detailedDesktopIndex === index
+                          "absolute left-0 top-0 h-full w-1 rounded-l-[0.38rem] bg-[color:var(--color-gold-500)] transition-opacity duration-300",
+                          isActive ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          "font-serif text-[1.35rem] leading-none tracking-[-0.06em] transition duration-300",
+                          isActive
                             ? "text-[color:var(--color-gold-500)]"
-                            : "text-[color:var(--color-navy-900)]/28"
+                            : "text-[color:var(--color-navy-900)]/28 group-hover:text-[color:var(--color-gold-500)]/74"
                         )}
                       >
                         {solution.number}
                       </span>
-                      <div className="min-w-0">
-                        <p className="truncate text-[0.76rem] font-semibold uppercase tracking-[0.16em]">
+                      <span
+                        className={cn(
+                          "flex h-8 w-8 items-center justify-center rounded-full transition duration-300",
+                          isActive
+                            ? "bg-[color:var(--color-navy-950)] text-[color:var(--color-gold-500)] shadow-[0_8px_18px_rgba(3,20,39,0.18)]"
+                            : "bg-[color:var(--color-navy-900)]/6 text-[color:var(--color-navy-900)]/58 group-hover:bg-[color:var(--color-navy-950)] group-hover:text-[color:var(--color-gold-500)]"
+                        )}
+                      >
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="line-clamp-2 block text-[0.64rem] font-semibold uppercase leading-[1.25] tracking-[0.13em]">
                           {solution.title}
-                        </p>
-                        <div className="mt-2 h-px overflow-hidden bg-[color:var(--color-border)]">
-                          <div
+                        </span>
+                        <span className="mt-1.5 block h-px overflow-hidden bg-transparent">
+                          <span
                             className={cn(
-                              "h-full origin-left bg-[color:var(--color-gold-500)] transition duration-500",
-                              detailedDesktopIndex === index
-                                ? "scale-x-100"
-                                : "scale-x-0"
+                              "block h-full w-[6.5rem] origin-left bg-[color:var(--color-gold-500)] transition duration-500",
+                              isActive ? "scale-x-100" : "scale-x-0"
                             )}
                           />
-                        </div>
-                      </div>
+                        </span>
+                      </span>
+                      <ArrowRight
+                        className={cn(
+                          "h-3.5 w-3.5 transition duration-300",
+                          isActive
+                            ? "text-[color:var(--color-navy-900)]"
+                            : "text-[color:var(--color-slate-600)] group-hover:translate-x-1 group-hover:text-[color:var(--color-gold-500)]"
+                        )}
+                        strokeWidth={1.8}
+                      />
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -2228,6 +3230,7 @@ export function HomeSections() {
           </div>
         </Container>
       </section>
+      )}
 
       <section
         id="projects"
@@ -2260,12 +3263,48 @@ export function HomeSections() {
                 delay={index * 0.08}
                 distance={26}
               >
-                <ProjectShowcaseCard project={project} />
+                <ProjectShowcaseCard
+                  project={project}
+                  onSelect={() => openProjectDetail(index)}
+                />
               </Reveal>
             ))}
           </div>
         </Container>
       </section>
+
+      {activeProject ? (
+        <div
+          className="fixed inset-0 z-[120] overflow-y-auto bg-[#f8f4ef] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeProject.title} project details`}
+        >
+          <div className="mx-auto w-full max-w-[86rem]">
+            <div className="-mx-[var(--mobile-gutter)] flex items-center justify-between bg-[#f8f4ef] px-[var(--mobile-gutter)] py-3 lg:mx-0 lg:px-0">
+              <p className="section-label text-[0.66rem] tracking-[0.2em] lg:text-[0.86rem]">
+                Our Projects
+              </p>
+              <button
+                type="button"
+                aria-label="Close project details"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/42 text-[color:var(--color-navy-900)] transition hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+                onClick={() => closeDetailOverlay("#projects")}
+              >
+                <X className="h-4 w-4" strokeWidth={1.8} />
+              </button>
+            </div>
+
+            <div className="py-6 lg:py-8">
+              <FeaturedProjectShowcase
+                project={activeProject}
+                animateRoute={!prefersReducedMotion}
+                onRouteAnimationComplete={() => undefined}
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <section
         id="global-reach"
@@ -2293,7 +3332,7 @@ export function HomeSections() {
 
           <div className="relative z-10 mx-auto flex min-h-[25rem] w-full max-w-[var(--content-max)] items-center px-[var(--mobile-gutter)] py-8 sm:min-h-[31rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
             <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
-              <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">GLOBAL REACH</p>
+              <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.86rem] lg:tracking-[0.24em]">GLOBAL REACH</p>
               <TextReveal forceMotion delay={0.08} distance={52}>
                 <h2 className="js-global-line mobile-section-heading text-white lg:text-[clamp(2.35rem,4.2vw,4.15rem)]">
                   From China.
@@ -2476,7 +3515,7 @@ export function HomeSections() {
         <Container className="relative w-full max-w-[var(--content-max)] lg:py-[clamp(3rem,6vh,4.5rem)]">
           <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)] lg:gap-16">
             <div className="max-w-[42rem]">
-              <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.72rem] lg:tracking-[0.28em]">LET&apos;S TALK BUSINESS</p>
+              <p className="section-label mb-4 text-[0.68rem] tracking-[0.22em] lg:mb-5 lg:text-[0.86rem] lg:tracking-[0.24em]">LET&apos;S TALK BUSINESS</p>
               <TextReveal forceMotion delay={0.08} distance={58}>
                 <h2 className="js-contact-line mobile-section-heading editorial-heading text-[color:var(--color-navy-900)]">
                   Ready To Start
@@ -2504,7 +3543,7 @@ export function HomeSections() {
                     }
                     className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
                   >
-                    Start An Inquiry
+                    Get a Quote
                   </CtaLink>
                 </div>
                   <div>
