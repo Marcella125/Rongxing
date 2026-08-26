@@ -176,6 +176,7 @@ const solutionCards = [
     title: "Commercial Sourcing",
     description:
       "Direct access to manufacturers, competitive pricing, quality products and efficient execution.",
+    image: "/images/home-full-f2f6fcf3.png?v=20260824",
     icon: SourcingMark,
   },
   {
@@ -183,6 +184,7 @@ const solutionCards = [
     title: "Electric Vehicle Trading",
     description:
       "Flexible sourcing and export solutions from individual vehicles to large-scale international orders.",
+    image: "/images/home1.png",
     icon: EvMark,
   },
   {
@@ -190,6 +192,7 @@ const solutionCards = [
     title: "International Brand Representation",
     description:
       "Connecting international brands with the right markets, partners, distributors and commercial opportunities.",
+    image: "/images/global.png",
     icon: BrandMark,
   },
   {
@@ -197,6 +200,7 @@ const solutionCards = [
     title: "Industrial Solutions",
     description:
       "Production lines, machinery, equipment and integrated solutions for establishing and developing manufacturing operations.",
+    image: "/images/about-vision-a698b154.png?v=20260824",
     icon: IndustrialMark,
   },
 ] as const;
@@ -682,28 +686,43 @@ function SolutionCapabilityCard({
       type="button"
       onClick={onSelect}
       className={cn(
-        "group relative overflow-hidden border border-white/10 px-6 py-6 text-left transition duration-300 hover:bg-white/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] md:min-h-[17.5rem] md:px-8 md:py-8 xl:min-h-[19rem] xl:px-10 xl:py-9",
+        "group overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(0,0,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]",
         className
       )}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,98,0.12),transparent_40%)] opacity-0 transition duration-300 group-hover:opacity-100" />
-      <div className="relative flex h-full flex-col">
-        <div className="flex items-start justify-between gap-4">
-          <span className="font-serif text-[1.45rem] leading-none tracking-[-0.04em] text-[color:var(--color-gold-500)]">
+      <div className="relative aspect-[1.75/1] w-full overflow-hidden bg-white/5 xl:aspect-[1.55/1]">
+        <Image
+          src={assetPath(item.image)}
+          alt={`${item.title} solution`}
+          fill
+          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+          className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
+      </div>
+
+      <div className="flex min-h-[13rem] flex-col justify-between px-5 py-5 xl:min-h-[14rem] xl:px-6">
+        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3">
+          <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <Icon
-            className="h-6 w-6 text-[color:var(--color-gold-500)]/88 sm:h-6 sm:w-6"
-          />
+          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white">
+            {item.title}
+          </h3>
         </div>
-        <h3 className="mt-7 max-w-[16ch] text-[1.08rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.14rem]">
-          {item.title}
-        </h3>
-        <p className="mobile-section-copy mt-5 max-w-[18rem] text-white/68 sm:text-[0.9rem]">
+
+        <p className="mobile-section-copy mt-3 text-[0.86rem] leading-6 text-white/72">
           {item.description}
         </p>
-        <div className="mt-auto pt-9">
-          <ArrowRight className="h-4.5 w-4.5 text-[color:var(--color-gold-500)] transition duration-300 group-hover:translate-x-1" />
+
+        <div className="mt-5 flex items-end justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
+            <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
+            <span>Solution</span>
+          </div>
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
         </div>
       </div>
     </button>
@@ -722,31 +741,41 @@ function MobileSolutionCapabilityCard({
   return (
     <button
       type="button"
-      className="mobile-card-surface mobile-card-surface-dark relative flex h-[16.5rem] w-full flex-col overflow-hidden border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,0.075)_0%,rgba(255,255,255,0.025)_34%,rgba(255,255,255,0.008)_100%)] px-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+      className="group w-full overflow-hidden border border-white/12 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
       onClick={onSelect}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_92%_8%,rgba(197,160,98,0.18),transparent_34%)]" />
-      <div className="absolute inset-x-5 top-0 h-px bg-[linear-gradient(90deg,rgba(197,160,98,0),rgba(197,160,98,0.64),rgba(197,160,98,0))]" />
-      <div className="absolute inset-0 navy-grid opacity-20" />
-      <div className="relative flex h-full flex-col">
-        <div className="flex items-start justify-between gap-4">
-          <span className="font-serif text-[1.45rem] leading-none tracking-[-0.04em] text-[color:var(--color-gold-500)]">
+      <div className="relative aspect-[1.85/1] w-full overflow-hidden bg-white/5">
+        <Image
+          src={assetPath(item.image)}
+          alt={`${item.title} solution`}
+          fill
+          sizes="100vw"
+          className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
+      </div>
+
+      <div className="flex min-h-[10.5rem] flex-col justify-between px-4 py-4">
+        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3">
+          <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <Icon
-            className="h-6.5 w-6.5 text-[color:var(--color-gold-500)]/86"
-            strokeWidth={1.7}
-          />
+          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white">
+            {item.title}
+          </h3>
         </div>
-        <h3 className="mt-4 max-w-[16ch] text-[0.9rem] font-semibold uppercase leading-[1.12] tracking-[0.08em] text-white">
-          {item.title}
-        </h3>
-        <p className="mt-3 max-w-[18.5rem] text-[0.88rem] leading-[1.65] text-white/72">
+
+        <p className="mt-3 text-[0.86rem] leading-6 text-white/72">
           {item.description}
         </p>
-        <div className="mt-auto pt-3">
-          <span className="inline-flex h-7 w-7 items-center justify-center text-[color:var(--color-gold-500)]">
-            <ArrowRight className="h-[18px] w-[18px]" strokeWidth={2} />
+
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
+            <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
+            <span>Solution</span>
+          </div>
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
+            <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </div>
       </div>
@@ -1198,49 +1227,41 @@ function ProjectShowcaseCard({
     <button
       type="button"
       onClick={onSelect}
-      className="mobile-card-surface mobile-card-surface-dark group relative min-h-[15.5rem] w-full overflow-hidden border border-white/10 bg-[color:var(--color-navy-950)] text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_54px_rgba(3,20,39,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] sm:min-h-[13.5rem] lg:min-h-[clamp(22rem,46vh,28rem)] lg:rounded-[0.45rem] lg:border-white/12 lg:shadow-[0_18px_46px_rgba(3,20,39,0.14)]"
+      className="group w-full overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(11,31,59,0.13)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(3,20,39,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] lg:rounded-[0.45rem]"
     >
-      <Image
-        src={assetPath(project.image)}
-        alt={`${project.title} project`}
-        fill
-        sizes="(min-width: 1024px) 28rem, 100vw"
-        className="hidden object-cover transition duration-700 ease-out group-hover:scale-[1.035] lg:block"
-        style={{ objectPosition: project.imagePosition }}
-      />
-      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(3,20,39,0.95)_0%,rgba(3,20,39,0.86)_28%,rgba(3,20,39,0.47)_54%,rgba(3,20,39,0.1)_100%)] lg:block lg:bg-[linear-gradient(180deg,rgba(3,20,39,0.34)_0%,rgba(3,20,39,0.78)_48%,rgba(3,20,39,0.96)_100%)]" />
-      <div className="absolute inset-0 hidden bg-[linear-gradient(180deg,rgba(3,20,39,0.08)_0%,rgba(3,20,39,0.2)_100%)] lg:block lg:bg-[linear-gradient(90deg,rgba(3,20,39,0.48)_0%,rgba(3,20,39,0.12)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0)_42%),linear-gradient(180deg,rgba(197,160,98,0.08)_0%,rgba(197,160,98,0)_58%)] lg:hidden" />
-      <div
-        className="pointer-events-none absolute bottom-5 right-5 z-20 text-[color:var(--color-gold-500)] lg:hidden"
-      >
-        <ProjectIcon className="h-8 w-8" strokeWidth={1.65} />
+      <div className="relative aspect-[1.85/1] w-full overflow-hidden bg-[color:var(--color-navy-950)]/8 sm:aspect-[2.15/1] lg:aspect-[1.75/1]">
+        <Image
+          src={assetPath(project.image)}
+          alt={`${project.title} project`}
+          fill
+          sizes="(min-width: 1024px) 28rem, 100vw"
+          className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+          style={{ objectPosition: project.imagePosition }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,20,39,0)_54%,rgba(3,20,39,0.24)_100%)]" />
       </div>
 
-      <div className="relative z-10 flex min-h-[15.5rem] flex-col justify-between px-5 py-5 sm:min-h-[13.5rem] sm:px-7 sm:py-6 lg:min-h-[clamp(22rem,46vh,28rem)] lg:px-6 lg:py-6 xl:px-7">
-        <div className="flex items-center gap-4">
-          <span className="font-serif text-[2rem] leading-none tracking-[-0.05em] text-[color:var(--color-gold-500)] sm:text-[2.35rem] lg:text-[2rem]">
+      <div className="flex min-h-[10.5rem] flex-col justify-between bg-[color:var(--color-navy-950)] px-4 py-4 sm:min-h-[9.5rem] sm:px-5 sm:py-4.5 lg:min-h-[11.5rem] lg:px-5 lg:py-5">
+        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3 sm:grid-cols-[2.9rem_minmax(0,1fr)]">
+          <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)] sm:text-[2.2rem]">
             {project.number}
           </span>
-        </div>
-
-        <div className="max-w-[28rem] lg:mt-auto lg:pt-16">
-          <h3 className="text-[1.05rem] font-semibold uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[1.18rem] lg:text-[1.02rem]">
+          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white sm:text-[0.98rem] lg:text-[0.92rem]">
             {project.title}
           </h3>
-          <p className="mobile-section-copy mt-2 font-medium text-white/78 lg:text-[0.82rem] lg:leading-5">
-            {project.route}
-          </p>
         </div>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:mt-6 lg:flex-col lg:items-start">
+        <p className="mobile-section-copy mt-3 font-medium text-white/72 lg:text-[0.8rem] lg:leading-5">
+          {project.route}
+        </p>
+
+        <div className="mt-4 flex items-end justify-between gap-3">
           <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
-            <VerifiedMark className="h-4.5 w-4.5" />
+            <ProjectIcon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
             <span>{project.category}</span>
           </div>
 
-          <span className="inline-flex min-h-10 w-fit items-center justify-center gap-2 border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-4 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.22)] lg:min-h-9 lg:px-4">
-            Read More
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)] shadow-[0_10px_26px_rgba(197,160,98,0.2)]">
             <ArrowRight className="h-3.5 w-3.5" />
           </span>
         </div>
@@ -1422,7 +1443,7 @@ function FeaturedProjectShowcase({
               <span className="font-serif text-[3.4rem] font-bold leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)] lg:text-[4.4rem]">
                 {project.number}
               </span>
-              <span className="h-[3.15rem] w-px bg-[color:var(--color-gold-500)]/55 lg:h-[3.75rem]" />
+              <span className="h-auto self-stretch w-px bg-[color:var(--color-gold-500)]/55" />
               <h3 className="pt-1 text-[1.24rem] font-bold uppercase leading-[1.06] tracking-[0.02em] text-[color:var(--color-navy-900)] lg:text-[1.45rem] xl:text-[1.55rem]">
                 {project.title}
               </h3>
@@ -1464,7 +1485,7 @@ function FeaturedProjectShowcase({
           </div>
         </div>
 
-        <div className="relative min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)] sm:min-h-[24rem] lg:h-full lg:min-h-0">
+        <div className="relative order-first min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(3,20,39,0.14)] sm:min-h-[24rem] lg:order-none lg:h-full lg:min-h-0">
           <Image
             src={assetPath(project.image)}
             alt={`${project.title} project`}
