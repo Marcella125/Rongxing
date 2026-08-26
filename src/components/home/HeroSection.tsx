@@ -264,7 +264,7 @@ export function HeroSection() {
         >
           <div className="js-hero-image absolute inset-0 h-full w-full max-w-full will-change-transform">
             <Image
-              src={assetPath("/images/home.png")}
+              src={assetPath("/images/mobile home.png")}
               alt="Container port and vehicle representing China-based international trade"
               fill
               priority

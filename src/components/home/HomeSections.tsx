@@ -3345,30 +3345,25 @@ export function HomeSections() {
 
       <section
         id="global-reach"
-        className="js-global-section relative overflow-hidden bg-[#f6f2ed] text-[color:var(--color-navy-900)] lg:text-white"
+        className="js-global-section relative overflow-hidden bg-[color:var(--color-navy-950)] text-white"
       >
         <div className="relative min-h-[25rem] sm:min-h-[31rem] lg:min-h-[42rem]">
-          <div className="js-global-image absolute inset-0">
+          <div className="js-global-image pointer-events-none absolute inset-y-0 left-0 hidden w-[52%] overflow-hidden lg:block xl:w-[54%]">
             <Image
               src={assetPath("/images/global mobile.png")}
-              alt="Light global trade route map and container port"
+              alt="Global route map and container port representing outbound connections from China"
               fill
-              sizes="100vw"
-              className="object-cover object-center lg:hidden"
+              sizes="54vw"
+              className="object-cover object-left opacity-62 saturate-[0.72]"
             />
-            <Image
-              src={assetPath("/images/global.png")}
-              alt="Global route map representing outbound connections from China"
-              fill
-              sizes="100vw"
-              className="hidden object-cover object-[20%_48%] opacity-95 lg:block"
-            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,61,0.18)_0%,rgba(7,28,61,0.34)_58%,rgba(7,28,61,0.9)_100%)]" />
+            <div className="absolute inset-0 bg-[rgba(7,28,61,0.2)] mix-blend-color" />
           </div>
 
-          <div className="absolute inset-0 hidden lg:block lg:bg-[radial-gradient(circle_at_18%_32%,rgba(197,160,98,0.08),transparent_24%),linear-gradient(90deg,rgba(2,13,29,0.12)_0%,rgba(2,13,29,0.06)_18%,rgba(2,13,29,0.2)_42%,rgba(2,13,29,0.58)_66%,rgba(2,13,29,0.88)_100%)]" />
+          <div className="absolute inset-0 hidden lg:block lg:bg-[radial-gradient(circle_at_20%_34%,rgba(197,160,98,0.1),transparent_24%),linear-gradient(90deg,rgba(7,28,61,0.02)_0%,rgba(7,28,61,0.08)_42%,rgba(7,28,61,0.62)_58%,rgba(7,28,61,0.96)_78%,rgba(7,28,61,1)_100%)]" />
 
           <div className="relative z-10 mx-auto flex min-h-[25rem] w-full max-w-[var(--content-max)] items-center px-[var(--mobile-gutter)] py-8 sm:min-h-[31rem] sm:px-6 sm:py-10 lg:min-h-[42rem] lg:items-center lg:px-8 lg:py-12">
-            <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] xl:ml-[50%]">
+            <div className="max-w-[19rem] lg:ml-[47%] lg:max-w-[34rem] lg:translate-x-[0.3cm] xl:ml-[50%]">
               <p className="section-label mb-4 text-[0.68rem] tracking-[0.2em] lg:mb-5 lg:text-[0.86rem] lg:tracking-[0.24em]">GLOBAL REACH</p>
               <TextReveal forceMotion delay={0.08} distance={52}>
                 <h2 className="js-global-line mobile-section-heading text-white lg:text-[clamp(2.35rem,4.2vw,4.15rem)]">
@@ -3382,7 +3377,7 @@ export function HomeSections() {
               </TextReveal>
 
               <TextReveal forceMotion delay={0.24} distance={24}>
-                <p className="mobile-section-copy mt-5 max-w-[17.5rem] text-white/88 lg:mt-6 lg:max-w-[30rem] lg:text-[1rem] lg:font-normal lg:leading-8 lg:text-white/74">
+                <p className="mobile-section-copy mt-5 max-w-[17.5rem] text-white/82 lg:mt-6 lg:max-w-[30rem] lg:text-[1rem] lg:font-normal lg:leading-8 lg:text-white/74">
                   Connecting international businesses with manufacturers,
                   suppliers, technologies, services, and opportunities across
                   China.
