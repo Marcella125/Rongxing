@@ -103,16 +103,16 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Gallery image viewer"
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(7,28,61,0.92)] px-3 py-4 text-white sm:px-6 lg:px-16"
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(3,10,24,0.96)] px-3 py-4 text-white sm:px-6 lg:px-16"
           onClick={() => setActiveIndex(null)}
         >
           <button
             type="button"
             aria-label="Close image viewer"
-            className="absolute right-3 top-3 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/22 bg-white/10 text-white transition hover:bg-white hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] sm:right-5 sm:top-5"
+            className="absolute right-3 top-3 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(7,28,61,0.12)] bg-white text-[color:var(--color-navy-950)] shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition hover:bg-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] sm:right-5 sm:top-5"
             onClick={() => setActiveIndex(null)}
           >
-            <X className="h-5 w-5" strokeWidth={1.8} />
+            <X className="h-4 w-4" strokeWidth={2.25} />
           </button>
 
           <button
