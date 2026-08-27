@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 import { assetPath } from "@/lib/paths";
+import { Container } from "@/components/ui/Container";
 import { cn } from "@/utils/cn";
 
 export type GalleryImage = {
@@ -106,14 +107,18 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
           className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(3,10,24,0.96)] px-3 py-4 text-white sm:px-6 lg:px-16"
           onClick={() => setActiveIndex(null)}
         >
-          <button
-            type="button"
-            aria-label="Close image viewer"
-            className="absolute right-3 top-3 z-20 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(7,28,61,0.12)] bg-white text-[color:var(--color-navy-950)] shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition hover:bg-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] sm:right-5 sm:top-5"
-            onClick={() => setActiveIndex(null)}
-          >
-            <X className="h-4 w-4" strokeWidth={2.25} />
-          </button>
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-20">
+            <Container className="flex max-w-[var(--content-max)] justify-end pt-7 lg:pt-11">
+              <button
+                type="button"
+                aria-label="Close image viewer"
+                className="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(7,28,61,0.12)] bg-white text-[color:var(--color-navy-950)] shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition hover:bg-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+                onClick={() => setActiveIndex(null)}
+              >
+                <X className="h-4 w-4" strokeWidth={2.25} />
+              </button>
+            </Container>
+          </div>
 
           <button
             type="button"

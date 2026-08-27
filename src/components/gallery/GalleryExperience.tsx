@@ -132,6 +132,21 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
 
       <section className="relative overflow-hidden bg-[#f8f4ef] pb-8 pt-3 sm:pb-10 sm:pt-4 lg:pb-12 lg:pt-4">
         <Container className="max-w-[var(--content-max)]">
+          <div className="mb-3 lg:hidden">
+            <div className="flex min-h-12 items-center justify-between gap-3 rounded-[0.3rem] bg-[color:var(--color-navy-950)] px-3.5 py-2 text-white shadow-[0_8px_18px_rgba(7,28,61,0.12)]">
+              <p className="min-w-0 flex-1 text-[0.7rem] font-medium leading-[1.35] text-white/86">
+                Quality, trust, and long-term partnerships.
+              </p>
+              <button
+                type="button"
+                className="inline-flex min-h-8 shrink-0 items-center justify-center gap-1.5 rounded-[0.2rem] bg-[color:var(--color-gold-500)] px-3.5 text-[0.56rem] font-semibold uppercase tracking-[0.08em] text-[color:var(--color-navy-950)] transition hover:bg-[color:var(--color-gold-600)]"
+              >
+                Work With Us
+                <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
+              </button>
+            </div>
+          </div>
+
           <div className="mb-4 lg:hidden">
             <details className="group relative">
               <summary className="flex h-11 cursor-pointer list-none items-center justify-between rounded-[0.25rem] border border-[rgba(197,160,98,0.5)] bg-white px-4 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-navy-950)] shadow-[0_10px_24px_rgba(7,28,61,0.08)] outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]/35 [&::-webkit-details-marker]:hidden">
@@ -210,27 +225,6 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
           </div>
 
           <GalleryLightboxGrid images={galleryImages} />
-
-          <div className="mt-2.5 lg:hidden">
-            <div className="flex min-h-[4.4rem] flex-col items-start gap-4 rounded-[0.35rem] bg-[color:var(--color-navy-950)] px-4 py-3 text-white shadow-[0_12px_30px_rgba(7,28,61,0.15)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
-              <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-[0.25rem] border border-[color:var(--color-gold-500)]/50 bg-white/5 text-[color:var(--color-gold-500)]">
-                  <Camera className="h-5 w-5" strokeWidth={1.7} />
-                </span>
-                <p className="max-w-[28rem] text-[0.76rem] font-medium leading-5 text-white/88 sm:text-[0.86rem]">
-                  Every photo reflects our commitment to quality, trust, and
-                  long-term partnerships.
-                </p>
-              </div>
-              <button
-                type="button"
-                className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-[0.2rem] bg-[color:var(--color-gold-500)] px-5 text-[0.64rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--color-navy-950)] transition hover:bg-[color:var(--color-gold-600)]"
-              >
-                Work With Us
-                <ArrowRight className="h-4 w-4" strokeWidth={1.8} />
-              </button>
-            </div>
-          </div>
         </Container>
       </section>
     </main>
