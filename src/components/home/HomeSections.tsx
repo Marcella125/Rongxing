@@ -175,7 +175,7 @@ const solutionCards = [
     title: "Commercial Sourcing",
     description:
       "Direct access to manufacturers, competitive pricing, quality products and efficient execution.",
-    image: "/images/service 1.png",
+    image: "/images/service 1.webp",
     imagePosition: "58% 50%",
     icon: SourcingMark,
   },
@@ -184,7 +184,7 @@ const solutionCards = [
     title: "Electric Vehicle Trading",
     description:
       "Flexible sourcing and export solutions from individual vehicles to large-scale international orders.",
-    image: "/images/service 2.png",
+    image: "/images/service 2.webp",
     imagePosition: "58% 50%",
     icon: EvMark,
   },
@@ -193,7 +193,7 @@ const solutionCards = [
     title: "International Brand Representation",
     description:
       "Connecting international brands with the right markets, partners, distributors and commercial opportunities.",
-    image: "/images/service 3.png",
+    image: "/images/service 3.webp",
     imagePosition: "45% 50%",
     icon: BrandMark,
   },
@@ -202,7 +202,7 @@ const solutionCards = [
     title: "Industrial Solutions",
     description:
       "Production lines, machinery, equipment and integrated solutions for establishing and developing manufacturing operations.",
-    image: "/images/service 4.png",
+    image: "/images/service 4.webp",
     imagePosition: "50% 50%",
     icon: IndustrialMark,
   },
@@ -223,7 +223,7 @@ const detailedSolutions = [
       "Quality Products",
       "Fast Execution",
     ],
-    image: "/images/service 1.png",
+    image: "/images/service 1.webp",
   },
   {
     number: "02",
@@ -242,7 +242,7 @@ const detailedSolutions = [
       "International shipping solutions",
       "Support throughout the purchasing and export process",
     ],
-    image: "/images/service 2.png",
+    image: "/images/service 2.webp",
   },
   {
     number: "03",
@@ -259,7 +259,7 @@ const detailedSolutions = [
       "Commercial agreement support",
       "Market development guidance",
     ],
-    image: "/images/service 3.png",
+    image: "/images/service 3.webp",
   },
   {
     number: "04",
@@ -276,7 +276,7 @@ const detailedSolutions = [
       "Integrated industrial solutions",
       "Strategic partnership and investment models",
     ],
-    image: "/images/service 4.png",
+    image: "/images/service 4.webp",
   },
 ] as const;
 
@@ -289,25 +289,25 @@ type GalleryPhoto = {
 
 const galleryPhotos = [
   {
-    src: "/images/pr 1 im 1.png",
+    src: "/images/pr 1 im 1.webp",
     alt: "Rong Xing sourcing and inspection operations",
     position: "50% 50%",
     className: "lg:col-span-5 lg:row-span-2",
   },
   {
-    src: "/images/pr 2 im 1.png",
+    src: "/images/pr 2 im 1.webp",
     alt: "Manufacturing and supplier coordination in China",
     position: "50% 50%",
     className: "lg:col-span-4",
   },
   {
-    src: "/images/pr 3 im 2.png",
+    src: "/images/pr 3 im 2.webp",
     alt: "Factory equipment review and technical inspection",
     position: "50% 50%",
     className: "lg:col-span-3",
   },
   {
-    src: "/images/project 2.png",
+    src: "/images/project 2.webp",
     alt: "International trade and logistics preparation",
     position: "58% 50%",
     className: "lg:col-span-7",
@@ -2362,7 +2362,7 @@ export function HomeSections() {
             <div className="js-image-mask relative left-1/2 aspect-[1.32/1] w-screen -ml-[50vw] overflow-hidden sm:aspect-[1.55/1] lg:left-auto lg:ml-0 lg:min-h-[37rem] lg:w-auto lg:aspect-auto">
               <div className="js-vision-image absolute inset-0">
                 <Image
-                  src={assetPath("/images/about.png")}
+                  src={assetPath("/images/about.webp")}
                   alt="Modern Guangzhou skyline and commercial district"
                   fill
                   unoptimized
@@ -2953,7 +2953,7 @@ export function HomeSections() {
         <div className="relative min-h-[25rem] sm:min-h-[31rem] lg:min-h-[42rem]">
           <div className="pointer-events-none absolute inset-0 lg:hidden">
             <Image
-              src={assetPath("/images/global mobile.png")}
+              src={assetPath("/images/global mobile.webp")}
               alt="Global route map and container port representing outbound connections from China"
               fill
               sizes="100vw"
@@ -2964,7 +2964,7 @@ export function HomeSections() {
           </div>
           <div className="js-global-image pointer-events-none absolute inset-y-0 left-0 hidden w-[52%] overflow-hidden lg:block xl:w-[54%]">
             <Image
-              src={assetPath("/images/global mobile.png")}
+              src={assetPath("/images/global mobile.webp")}
               alt="Global route map and container port representing outbound connections from China"
               fill
               sizes="54vw"
@@ -3160,7 +3160,7 @@ export function HomeSections() {
       <section id="contact" className="mobile-section-pad relative overflow-hidden bg-[color:var(--color-navy-950)] lg:flex lg:min-h-[100svh] lg:items-center lg:bg-[color:var(--color-surface)] lg:py-0">
         <div className="absolute inset-0 lg:hidden">
           <Image
-            src={assetPath("/images/contact.png")}
+            src={assetPath("/images/contact.webp")}
             alt=""
             fill
             sizes="100vw"
@@ -3222,7 +3222,7 @@ export function HomeSections() {
 
             <div className="relative hidden h-[min(70vh,42rem)] min-h-[32rem] overflow-hidden lg:block">
               <Image
-                src={assetPath("/images/contact.png")}
+                src={assetPath("/images/contact.webp")}
                 alt="Guangzhou waterfront and industrial skyline"
                 fill
                 sizes="(min-width: 1024px) 52vw, 0vw"
