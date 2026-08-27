@@ -10,11 +10,10 @@ import {
   Users,
   Warehouse,
 } from "lucide-react";
-import Image from "next/image";
 import type { ReactNode } from "react";
 
+import { GalleryLightboxGrid } from "@/components/gallery/GalleryLightboxGrid";
 import { Container } from "@/components/ui/Container";
-import { assetPath } from "@/lib/paths";
 import { getPageContent } from "@/services/content.service";
 import { cn } from "@/utils/cn";
 
@@ -210,30 +209,7 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
             })}
           </div>
 
-          <div className="grid auto-rows-[10.5rem] gap-2 sm:auto-rows-[13rem] lg:grid-cols-12 lg:auto-rows-[6.25rem] lg:gap-2.5">
-            {galleryImages.map((image, index) => (
-              <figure
-                key={image.src}
-                className={cn(
-                  "group relative overflow-hidden rounded-[0.35rem] bg-[color:var(--color-navy-950)] shadow-[0_10px_28px_rgba(7,28,61,0.12)]",
-                  image.className
-                )}
-              >
-                <Image
-                  src={assetPath(image.src)}
-                  alt={image.alt}
-                  fill
-                  sizes={
-                    index === 0
-                      ? "(min-width: 1024px) 58vw, 100vw"
-                      : "(min-width: 1024px) 38vw, 100vw"
-                  }
-                  className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
-                  style={{ objectPosition: image.position }}
-                />
-              </figure>
-            ))}
-          </div>
+          <GalleryLightboxGrid images={galleryImages} />
 
           <div className="mt-2.5 lg:hidden">
             <div className="flex min-h-[4.4rem] flex-col items-start gap-4 rounded-[0.35rem] bg-[color:var(--color-navy-950)] px-4 py-3 text-white shadow-[0_12px_30px_rgba(7,28,61,0.15)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
