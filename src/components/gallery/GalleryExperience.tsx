@@ -93,7 +93,7 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
             {closeControl}
           </div>
 
-          <div className="grid gap-6 pb-6 pt-3 sm:pb-7 sm:pt-4 lg:grid-cols-[minmax(0,0.5fr)_minmax(24rem,0.5fr)] lg:items-end lg:gap-10 lg:pb-8 lg:pt-4">
+          <div className="grid gap-6 pb-3 pt-3 sm:pb-4 sm:pt-4 lg:grid-cols-[minmax(0,0.5fr)_minmax(24rem,0.5fr)] lg:items-end lg:gap-10 lg:pb-8 lg:pt-4">
             <div className="max-w-[42rem]">
               <h1 className="text-[clamp(1.55rem,6.55vw,2.1rem)] font-semibold uppercase leading-[0.96] tracking-[0em] text-[color:var(--color-navy-900)] sm:text-[2.8rem] lg:text-[clamp(2.65rem,4.4vw,3.35rem)]">
                 <span className="block whitespace-nowrap">Real Moments.</span>
@@ -130,13 +130,15 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-[#f8f4ef] pb-8 pt-3 sm:pb-10 sm:pt-4 lg:pb-12 lg:pt-4">
+      <section className="relative overflow-hidden bg-[#f8f4ef] pb-8 pt-0 sm:pb-10 sm:pt-1 lg:pb-12 lg:pt-4">
         <Container className="max-w-[var(--content-max)]">
           <div className="mb-3 lg:hidden">
             <div className="flex min-h-12 items-center justify-between gap-3 rounded-[0.3rem] bg-[color:var(--color-navy-950)] px-3.5 py-2 text-white shadow-[0_8px_18px_rgba(7,28,61,0.12)]">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center text-[color:var(--color-gold-500)]">
+                <Camera className="h-4 w-4" strokeWidth={1.7} />
+              </span>
               <p className="min-w-0 flex-1 text-[0.66rem] font-medium leading-[1.35] text-white/86">
-                Every photo reflects our commitment to quality, trust, and
-                long-term partnerships.
+                Quality. Trust. Lasting partnerships.
               </p>
               <button
                 type="button"

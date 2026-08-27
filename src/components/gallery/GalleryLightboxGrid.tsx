@@ -44,8 +44,20 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
       return;
     }
 
+    const galleryShell = document.querySelector<HTMLElement>(
+      "[data-gallery-shell]",
+    );
+    const galleryShellScrollTop = galleryShell?.scrollTop ?? 0;
+    const previousGalleryShellOverflow = galleryShell?.style.overflow;
     const previousOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    if (galleryShell) {
+      galleryShell.style.overflow = "hidden";
+    }
+
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -64,7 +76,13 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      if (galleryShell) {
+        galleryShell.style.overflow = previousGalleryShellOverflow ?? "";
+        galleryShell.scrollTop = galleryShellScrollTop;
+      }
+
       document.body.style.overflow = previousOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [activeIndex, showNext, showPrevious]);
@@ -104,7 +122,7 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Gallery image viewer"
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(3,10,24,0.96)] px-3 py-4 text-white sm:px-6 lg:px-16"
+          className="fixed inset-0 z-[120] flex touch-none items-center justify-center overscroll-contain bg-[rgba(3,10,24,0.96)] px-3 py-4 text-white sm:px-6 lg:px-16"
           onClick={() => setActiveIndex(null)}
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 z-20">
@@ -133,7 +151,7 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
           </button>
 
           <div
-            className="relative h-[78vh] w-full max-w-[78rem] touch-pan-y"
+            className="relative h-[78vh] w-full max-w-[78rem] touch-pan-y overscroll-contain"
             onClick={(event) => event.stopPropagation()}
             onTouchStart={(event) => {
               const touch = event.changedTouches[0];

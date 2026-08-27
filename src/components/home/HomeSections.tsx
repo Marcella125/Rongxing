@@ -2362,7 +2362,7 @@ export function HomeSections() {
             <div className="js-image-mask relative left-1/2 aspect-[1.32/1] w-screen -ml-[50vw] overflow-hidden sm:aspect-[1.55/1] lg:left-auto lg:ml-0 lg:min-h-[37rem] lg:w-auto lg:aspect-auto">
               <div className="js-vision-image absolute inset-0">
                 <Image
-                  src={assetPath("/images/about-vision-a698b154.png?v=20260824")}
+                  src={assetPath("/images/about.png")}
                   alt="Modern Guangzhou skyline and commercial district"
                   fill
                   unoptimized
