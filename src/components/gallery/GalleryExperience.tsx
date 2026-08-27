@@ -134,8 +134,9 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
         <Container className="max-w-[var(--content-max)]">
           <div className="mb-3 lg:hidden">
             <div className="flex min-h-12 items-center justify-between gap-3 rounded-[0.3rem] bg-[color:var(--color-navy-950)] px-3.5 py-2 text-white shadow-[0_8px_18px_rgba(7,28,61,0.12)]">
-              <p className="min-w-0 flex-1 text-[0.7rem] font-medium leading-[1.35] text-white/86">
-                Quality, trust, and long-term partnerships.
+              <p className="min-w-0 flex-1 text-[0.66rem] font-medium leading-[1.35] text-white/86">
+                Every photo reflects our commitment to quality, trust, and
+                long-term partnerships.
               </p>
               <button
                 type="button"
