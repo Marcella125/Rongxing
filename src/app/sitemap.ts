@@ -8,6 +8,7 @@ const routes = [
   "/",
   "/company",
   "/capabilities",
+  "/gallery",
   "/markets",
   "/products",
   "/news",

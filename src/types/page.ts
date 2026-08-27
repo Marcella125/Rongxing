@@ -4,6 +4,7 @@ export type SitePageKey =
   | "products"
   | "markets"
   | "capabilities"
+  | "gallery"
   | "news"
   | "contact";
 

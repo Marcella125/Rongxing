@@ -3,7 +3,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const fallbackScript = `
 (function () {
   var basePath = ${JSON.stringify(basePath)};
-  var routes = ["capabilities", "company", "contact", "markets", "news", "products"];
+  var routes = ["capabilities", "company", "contact", "gallery", "markets", "news", "products"];
   var path = window.location.pathname;
   var relativePath = basePath && path.indexOf(basePath) === 0
     ? path.slice(basePath.length)

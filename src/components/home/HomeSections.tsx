@@ -6,8 +6,6 @@ import {
   BadgeDollarSign,
   Car,
   CheckCircle2,
-  ClipboardCheck,
-  Container as ContainerIcon,
   FileCheck2,
   Factory,
   Gauge,
@@ -40,6 +38,7 @@ import {
   type SVGProps,
 } from "react";
 
+import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
 import { assetPath } from "@/lib/paths";
 import { Reveal, TextReveal } from "@/components/motion/Reveal";
@@ -281,209 +280,51 @@ const detailedSolutions = [
   },
 ] as const;
 
-type ProjectGalleryImage = {
+type GalleryPhoto = {
   src: string;
   alt: string;
   position: string;
+  className: string;
 };
 
-const projectOneGallery = [
+const galleryPhotos = [
   {
     src: "/images/pr 1 im 1.png",
-    alt: "Industrial equipment supply project detail",
+    alt: "Rong Xing sourcing and inspection operations",
     position: "50% 50%",
+    className: "lg:col-span-5 lg:row-span-2",
   },
-  {
-    src: "/images/pr 1 im 2.png",
-    alt: "Industrial equipment supply logistics detail",
-    position: "50% 50%",
-  },
-  {
-    src: "/images/pr 1 im 3.png",
-    alt: "Industrial equipment supply installation detail",
-    position: "50% 50%",
-  },
-] as const satisfies readonly ProjectGalleryImage[];
-
-const projectTwoGallery = [
   {
     src: "/images/pr 2 im 1.png",
-    alt: "Production line delivery project detail",
+    alt: "Manufacturing and supplier coordination in China",
     position: "50% 50%",
-  },
-  {
-    src: "/images/pr 2 im 2.png",
-    alt: "Production line delivery logistics detail",
-    position: "50% 50%",
-  },
-  {
-    src: "/images/pr 2 im 3.png",
-    alt: "Production line delivery installation detail",
-    position: "50% 50%",
-  },
-] as const satisfies readonly ProjectGalleryImage[];
-
-const projectThreeGallery = [
-  {
-    src: "/images/pr 3 im 1.png",
-    alt: "Factory installation project detail",
-    position: "50% 50%",
+    className: "lg:col-span-4",
   },
   {
     src: "/images/pr 3 im 2.png",
-    alt: "Factory installation commissioning detail",
+    alt: "Factory equipment review and technical inspection",
     position: "50% 50%",
+    className: "lg:col-span-3",
   },
   {
-    src: "/images/pr 3 im 3.png",
-    alt: "Factory installation equipment detail",
-    position: "50% 50%",
-  },
-] as const satisfies readonly ProjectGalleryImage[];
-
-const projectCards = [
-  {
-    number: "01",
-    title: "Industrial Equipment Supply",
-    route: "Guangzhou, China to Saudi Arabia",
-    category: "Industrial Solutions",
-    image: "/images/project 1.png",
-    imagePosition: "58% 50%",
-    href: "/capabilities",
-    icon: Factory,
-    gallery: projectOneGallery,
-  },
-  {
-    number: "02",
-    title: "Complete Production Line Delivery",
-    route: "Guangzhou, China to United Arab Emirates",
-    category: "Turnkey Solutions",
-    image: "/images/project 2.png",
-    imagePosition: "58% 50%",
-    href: "/products",
-    icon: ContainerIcon,
-    gallery: projectTwoGallery,
-  },
-  {
-    number: "03",
-    title: "Factory Installation & Commissioning",
-    route: "Guangzhou, China to Egypt",
-    category: "Project Management",
-    image: "/images/project 3.png",
-    imagePosition: "58% 50%",
-    href: "/contact",
-    icon: ClipboardCheck,
-    gallery: projectThreeGallery,
-  },
-] satisfies readonly {
-  number: string;
-  title: string;
-  route: string;
-  category: string;
-  image: string;
-  imagePosition: string;
-  href: string;
-  icon: LucideIcon;
-  gallery?: readonly ProjectGalleryImage[];
-}[];
-
-const getProjectFacts = (project: (typeof projectCards)[number]) => [
-  { label: "Service", value: project.category, icon: Factory },
-  { label: "Market", value: project.route.split(" to ")[1] ?? project.route, icon: Globe2 },
-  { label: "Origin", value: project.route.split(" to ")[0] ?? "Guangzhou, China", icon: Map },
-  { label: "Scope", value: "Equipment Supply", icon: PackageCheck },
-] satisfies readonly {
-  label: string;
-  value: string;
-  icon: LucideIcon;
-}[];
-
-const projectRouteLocations = {
-  "Guangzhou, China": { x: 525, y: 133, label: "Guangzhou,\nChina" },
-  "Saudi Arabia": { x: 150, y: 171, label: "Saudi Arabia" },
-  "United Arab Emirates": { x: 177, y: 169, label: "United Arab Emirates" },
-  Egypt: { x: 112, y: 145, label: "Egypt" },
-  "Global Markets": { x: 330, y: 130, label: "Global Markets" },
-} as const;
-
-function getProjectRoute(route: string) {
-  const [originName, destinationName] = route.split(" to ");
-  const origin =
-    projectRouteLocations[
-      (originName as keyof typeof projectRouteLocations) ?? "Guangzhou, China"
-    ] ?? projectRouteLocations["Guangzhou, China"];
-  const destination =
-    projectRouteLocations[
-      (destinationName as keyof typeof projectRouteLocations) ?? "Global Markets"
-    ] ?? projectRouteLocations["Global Markets"];
-
-  return { origin, destination };
-}
-
-const projectDeliverables = [
-  {
-    title: "Quality Assurance",
-    text: "Strict quality control aligned with required standards.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Reliable Partnership",
-    text: "Coordinated with verified factories and trusted suppliers.",
-    icon: Handshake,
-  },
-  {
-    title: "On-Time Delivery",
-    text: "Shipment planning for efficient, timely execution.",
-    icon: Truck,
-  },
-  {
-    title: "Customer Focus",
-    text: "Tailored sourcing to match client requirements.",
-    icon: FileCheck2,
-  },
-] satisfies readonly {
-  title: string;
-  text: string;
-  icon: LucideIcon;
-}[];
-
-const projectGallery = [
-  {
-    src: "/images/about-vision-a698b154.png?v=20260824",
-    alt: "Industrial manufacturing equipment",
+    src: "/images/project 2.png",
+    alt: "International trade and logistics preparation",
     position: "58% 50%",
+    className: "lg:col-span-7",
   },
-  {
-    src: "/images/home-full-f2f6fcf3.png",
-    alt: "Logistics and container shipment",
-    position: "62% 52%",
-  },
-  {
-    src: "/images/contact.png",
-    alt: "Industrial facility equipment",
-    position: "58% 48%",
-  },
-] as const;
+] as const satisfies readonly GalleryPhoto[];
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 const getDetailUrl = ({
-  projectNumber,
   solutionNumber,
   hash,
 }: {
-  projectNumber?: string;
   solutionNumber?: string;
   hash: string;
 }) => {
   const url = new URL(window.location.href);
-
-  if (projectNumber) {
-    url.searchParams.set("project", projectNumber);
-  } else {
-    url.searchParams.delete("project");
-  }
 
   if (solutionNumber) {
     url.searchParams.set("solution", solutionNumber);
@@ -1290,359 +1131,6 @@ function DetailedSolutionCard({
   );
 }
 
-function ProjectShowcaseCard({
-  project,
-  onSelect,
-}: {
-  project: (typeof projectCards)[number];
-  onSelect: () => void;
-}) {
-  const ProjectIcon = project.icon;
-
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="group w-full overflow-hidden rounded-[0.45rem] bg-[color:var(--color-navy-950)] text-left shadow-[0_18px_44px_rgba(11,31,59,0.13)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_58px_rgba(7,28,61,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
-    >
-      <div className="relative aspect-[1.85/1] w-full overflow-hidden bg-[color:var(--color-navy-950)]/8 sm:aspect-[2.15/1] lg:aspect-[1.75/1]">
-        <Image
-          src={assetPath(project.image)}
-          alt={`${project.title} project`}
-          fill
-          sizes="(min-width: 1024px) 28rem, 100vw"
-          className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
-          style={{ objectPosition: project.imagePosition }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0)_54%,rgba(7,28,61,0.24)_100%)]" />
-      </div>
-
-      <div className="flex min-h-[10.5rem] flex-col justify-between bg-[color:var(--color-navy-950)] px-4 py-4 sm:min-h-[9.5rem] sm:px-5 sm:py-4.5 lg:min-h-[11.5rem] lg:px-5 lg:py-5">
-        <div className="grid grid-cols-[2.55rem_minmax(0,1fr)] items-start gap-3 sm:grid-cols-[2.9rem_minmax(0,1fr)]">
-          <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)] sm:text-[2.2rem]">
-            {project.number}
-          </span>
-          <h3 className="pt-0.5 text-[0.9rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white sm:text-[0.98rem] lg:text-[0.92rem]">
-            {project.title}
-          </h3>
-        </div>
-
-        <p className="mobile-section-copy mt-3 font-medium text-white/72 lg:text-[0.8rem] lg:leading-5">
-          {project.route}
-        </p>
-
-        <div className="mt-4 flex items-end justify-between gap-3">
-          <div className="flex items-center gap-2.5 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-gold-500)]">
-            <ProjectIcon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.65} />
-            <span>{project.category}</span>
-          </div>
-
-          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] text-[color:var(--color-navy-950)]">
-            <ArrowRight className="h-3.5 w-3.5" />
-          </span>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-function ProjectRouteMap({
-  project,
-  animate,
-  onAnimationComplete,
-}: {
-  project: (typeof projectCards)[number];
-  animate: boolean;
-  onAnimationComplete: () => void;
-}) {
-  const { origin, destination } = getProjectRoute(project.route);
-  const controlX = (origin.x + destination.x) / 2;
-  const controlY = Math.min(origin.y, destination.y) - 86;
-  const routePath = `M ${origin.x} ${origin.y} Q ${controlX} ${controlY} ${destination.x} ${destination.y}`;
-
-  return (
-    <div
-      className={cn(
-        "project-route-map mt-9 overflow-hidden py-1",
-        animate ? "is-animating" : "is-complete"
-      )}
-    >
-      <svg
-        viewBox="0 0 640 250"
-        className="h-[10.5rem] w-full max-w-full sm:h-[12rem] lg:h-[13.75rem] xl:h-[14.5rem]"
-        role="img"
-        aria-label={`${origin.label} to ${destination.label} route`}
-      >
-        <defs>
-          <pattern
-            id="project-route-dot-pattern"
-            width="5.2"
-            height="5.2"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1.25" cy="1.25" r="0.82" fill="currentColor" />
-          </pattern>
-        </defs>
-
-        <g className="project-route-map-silhouette">
-          <path
-            d="M18 91 42 71 72 72 92 55 126 60 145 82 133 108 151 133 129 168 91 164 72 139 45 140 28 121Z"
-            fill="url(#project-route-dot-pattern)"
-          />
-          <path
-            d="M192 30 251 18 336 24 402 21 493 30 585 45 613 74 588 102 526 104 501 126 458 119 430 142 389 134 348 149 309 137 274 151 236 129 198 122 181 87Z"
-            fill="url(#project-route-dot-pattern)"
-          />
-          <path
-            d="M276 133 324 141 351 174 336 222 295 229 264 198 248 159Z"
-            fill="url(#project-route-dot-pattern)"
-          />
-          <path
-            d="M388 139 435 148 465 174 448 210 410 205 383 177Z"
-            fill="url(#project-route-dot-pattern)"
-          />
-          <path
-            d="M510 126 548 134 571 160 556 191 520 185 497 154Z"
-            fill="url(#project-route-dot-pattern)"
-          />
-        </g>
-
-        <path
-          className="project-route-trail"
-          d={routePath}
-          fill="none"
-          pathLength="1"
-          stroke="var(--color-gold-500)"
-          strokeDasharray="0.012 0.038"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-        />
-        <path
-          className="project-route-line"
-          d={routePath}
-          fill="none"
-          pathLength="1"
-          stroke="var(--color-gold-500)"
-          strokeWidth="2.35"
-          strokeLinecap="round"
-          onAnimationEnd={onAnimationComplete}
-        />
-
-        <g className="project-route-plane">
-          <animateMotion
-            dur="2.35s"
-            begin={animate ? "0.78s" : "indefinite"}
-            fill="freeze"
-            rotate="auto"
-            path={routePath}
-          />
-          <path
-            d="M0 -3.6 10.5 0 0 3.6 2.4 0 0 -3.6Z"
-            fill="var(--color-gold-500)"
-          />
-        </g>
-
-        <g className="project-route-origin">
-          <circle cx={origin.x} cy={origin.y} r="6.2" fill="var(--color-gold-500)" />
-          <circle
-            className="project-route-pulse"
-            cx={origin.x}
-            cy={origin.y}
-            r="11"
-            fill="none"
-            stroke="var(--color-gold-500)"
-            strokeWidth="1.6"
-          />
-        </g>
-
-        <g className="project-route-destination">
-          <circle
-            cx={destination.x}
-            cy={destination.y}
-            r="6.2"
-            fill="var(--color-gold-500)"
-          />
-          <circle
-            className="project-route-pulse"
-            cx={destination.x}
-            cy={destination.y}
-            r="11"
-            fill="none"
-            stroke="var(--color-gold-500)"
-            strokeWidth="1.6"
-          />
-        </g>
-
-        <g className="project-route-origin-label">
-          <text
-            x={origin.x + 15}
-            y={origin.y - 13}
-            className="project-route-label"
-            textAnchor="start"
-          >
-            <tspan x={origin.x + 15} dy="0">Guangzhou,</tspan>
-            <tspan x={origin.x + 15} dy="13">China</tspan>
-          </text>
-        </g>
-        <g className="project-route-destination-label">
-          <text
-            x={destination.x - 14}
-            y={destination.y - 4}
-            className="project-route-label"
-            textAnchor="end"
-          >
-            {destination.label}
-          </text>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function FeaturedProjectShowcase({
-  project,
-  animateRoute,
-  onRouteAnimationComplete,
-}: {
-  project: (typeof projectCards)[number];
-  animateRoute: boolean;
-  onRouteAnimationComplete: () => void;
-}) {
-  const projectFacts = getProjectFacts(project);
-  const gallery = project.gallery ?? projectGallery;
-
-  return (
-    <article className="relative bg-[#f8f4ef] text-[color:var(--color-navy-900)]">
-      <div className="grid gap-8 lg:min-h-[clamp(23rem,48vh,29rem)] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] lg:items-stretch xl:gap-14">
-        <div className="flex min-w-0 flex-col">
-          <div>
-            <div className="grid grid-cols-[3.45rem_1px_minmax(0,1fr)] items-start gap-4 lg:grid-cols-[4.4rem_1px_minmax(0,1fr)] lg:gap-5">
-              <span className="font-serif text-[3.4rem] font-bold leading-[0.86] tracking-[-0.08em] text-[color:var(--color-gold-500)] lg:text-[4.4rem]">
-                {project.number}
-              </span>
-              <span className="h-auto self-stretch w-px bg-[color:var(--color-gold-500)]/55" />
-              <h3 className="pt-1 text-[1.24rem] font-bold uppercase leading-[1.06] tracking-[0.02em] text-[color:var(--color-navy-900)] lg:text-[1.45rem] xl:text-[1.55rem]">
-                {project.title}
-              </h3>
-            </div>
-          </div>
-
-          <div className="hidden lg:block">
-            <ProjectRouteMap
-              key={project.number}
-              project={project}
-              animate={animateRoute}
-              onAnimationComplete={onRouteAnimationComplete}
-            />
-          </div>
-
-          <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5">
-            {projectFacts.map((fact) => {
-              const FactIcon = fact.icon;
-
-              return (
-                <div
-                  key={fact.label}
-                  className="grid grid-cols-[2.9rem_minmax(0,1fr)] items-center gap-5 py-1"
-                >
-                  <span className="flex h-11 w-11 items-center justify-center bg-[color:var(--color-navy-950)] text-[color:var(--color-gold-500)]">
-                    <FactIcon className="h-5 w-5" strokeWidth={1.65} />
-                  </span>
-                  <span>
-                    <p className="text-[0.66rem] font-bold uppercase tracking-[0.14em] text-[color:var(--color-gold-600)]">
-                      {fact.label}
-                    </p>
-                    <p className="mt-1 text-[0.84rem] leading-5 text-[color:var(--color-navy-900)]/86">
-                      {fact.value}
-                    </p>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="relative order-first min-h-[18rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_22px_52px_rgba(7,28,61,0.14)] sm:min-h-[24rem] lg:order-none lg:h-full lg:min-h-0">
-          <Image
-            src={assetPath(project.image)}
-            alt={`${project.title} project`}
-            fill
-            sizes="(min-width: 1024px) 56vw, 100vw"
-            className="object-cover"
-            style={{ objectPosition: "58% 50%" }}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,28,61,0.24)_0%,rgba(7,28,61,0.04)_46%,rgba(7,28,61,0.14)_100%)]" />
-        </div>
-      </div>
-
-      <div className="mt-12 grid gap-10 lg:grid-cols-[0.46fr_0.54fr] lg:gap-14">
-        <section>
-          <p className="section-label">PROJECT OVERVIEW</p>
-          <div className="mt-5 space-y-4">
-            <p className="max-w-[35rem] text-[0.9rem] font-medium leading-[1.55] text-[color:var(--color-navy-900)]/88">
-              We successfully supplied a wide range of industrial equipment from
-              trusted manufacturers in Guangzhou to a leading company in Saudi
-              Arabia.
-            </p>
-            <p className="max-w-[35rem] text-[0.9rem] font-medium leading-[1.55] text-[color:var(--color-navy-900)]/88">
-              The project required careful product selection, quality control,
-              and logistics coordination to support reliable delivery and
-              compliance with local requirements.
-            </p>
-          </div>
-        </section>
-
-        <section>
-          <p className="section-label">WHAT WE DELIVERED</p>
-          <div className="mt-5 grid gap-4">
-            {projectDeliverables.map((item) => {
-              const DeliveryIcon = item.icon;
-
-              return (
-                <div key={item.title} className="grid grid-cols-[2.6rem_minmax(0,1fr)] gap-4">
-                  <DeliveryIcon
-                    className="mt-1 h-8 w-8 text-[color:var(--color-gold-600)]"
-                    strokeWidth={1.55}
-                  />
-                  <div>
-                    <h4 className="text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[color:var(--color-navy-900)]">
-                      {item.title}
-                    </h4>
-                    <p className="mt-1 text-[0.88rem] leading-6 text-[color:var(--color-slate-700)]">
-                      {item.text}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      </div>
-
-      <section className="mt-12">
-        <p className="section-label">PROJECT GALLERY</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {gallery.map((image) => (
-            <div
-              key={image.src}
-              className="relative h-[14rem] overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)]/8 shadow-[0_14px_34px_rgba(11,31,59,0.08)] md:h-[18rem]"
-            >
-              <Image
-                src={assetPath(image.src)}
-                alt={image.alt}
-                fill
-                sizes="(min-width: 768px) 30vw, 100vw"
-                className="object-cover"
-                style={{ objectPosition: image.position }}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-    </article>
-  );
-}
-
 function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -1756,9 +1244,7 @@ export function HomeSections() {
   const [activeMobileDetailedIndex, setActiveMobileDetailedIndex] = useState<
     number | null
   >(null);
-  const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(
-    null
-  );
+  const [isGalleryOverlayOpen, setIsGalleryOverlayOpen] = useState(false);
   const [expandedDetailedMobileCards, setExpandedDetailedMobileCards] = useState<
     Record<string, boolean>
   >({});
@@ -1768,8 +1254,6 @@ export function HomeSections() {
     activeMobileDetailedIndex === null
       ? null
       : detailedSolutions[activeMobileDetailedIndex] ?? null;
-  const activeProject =
-    activeProjectIndex === null ? null : projectCards[activeProjectIndex] ?? null;
 
   const openSolutionDetail = useCallback((index: number) => {
     const solution = detailedSolutions[index];
@@ -1778,7 +1262,6 @@ export function HomeSections() {
       return;
     }
 
-    setActiveProjectIndex(null);
     setActiveMobileDetailedIndex(index);
     window.history.pushState(
       null,
@@ -1787,25 +1270,8 @@ export function HomeSections() {
     );
   }, []);
 
-  const openProjectDetail = useCallback((index: number) => {
-    const project = projectCards[index];
-
-    if (!project) {
-      return;
-    }
-
-    setActiveMobileDetailedIndex(null);
-    setActiveProjectIndex(index);
-    window.history.pushState(
-      null,
-      "",
-      getDetailUrl({ projectNumber: project.number, hash: "#projects" })
-    );
-  }, []);
-
   const closeDetailOverlay = useCallback((fallbackHash: string) => {
     setActiveMobileDetailedIndex(null);
-    setActiveProjectIndex(null);
     window.history.replaceState(null, "", getDetailUrl({ hash: fallbackHash }));
     window.requestAnimationFrame(() => scrollToHash(fallbackHash));
   }, []);
@@ -1867,19 +1333,14 @@ export function HomeSections() {
   useEffect(() => {
     const syncDetailFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
-      const projectNumber = params.get("project");
       const solutionNumber = params.get("solution");
-      const projectIndex = projectNumber
-        ? projectCards.findIndex((project) => project.number === projectNumber)
-        : -1;
       const solutionIndex =
-        !projectNumber && solutionNumber
+        solutionNumber
           ? detailedSolutions.findIndex(
               (solution) => solution.number === solutionNumber
             )
           : -1;
 
-      setActiveProjectIndex(projectIndex >= 0 ? projectIndex : null);
       setActiveMobileDetailedIndex(solutionIndex >= 0 ? solutionIndex : null);
     };
 
@@ -1892,13 +1353,18 @@ export function HomeSections() {
   }, []);
 
   useEffect(() => {
-    if (activeMobileDetailedIndex === null && activeProjectIndex === null) {
+    if (activeMobileDetailedIndex === null && !isGalleryOverlayOpen) {
       return;
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeDetailOverlay(activeProjectIndex === null ? "#solutions" : "#projects");
+        if (isGalleryOverlayOpen) {
+          setIsGalleryOverlayOpen(false);
+          return;
+        }
+
+        closeDetailOverlay("#solutions");
       }
     };
 
@@ -1909,7 +1375,7 @@ export function HomeSections() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeMobileDetailedIndex, activeProjectIndex, closeDetailOverlay]);
+  }, [activeMobileDetailedIndex, closeDetailOverlay, isGalleryOverlayOpen]);
 
   const finishSolutionDrag = () => {
     if (!solutionIsDraggingRef.current) {
@@ -2407,7 +1873,7 @@ export function HomeSections() {
       const trigger = ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        // Match the per-item scroll distance used by Detailed Solutions.
+        // Match the per-item scroll distance used by Detailed Services.
         end: () =>
           `+=${Math.max(window.innerHeight * 0.6, 450) * objectiveCount}`,
         pin: section,
@@ -3179,11 +2645,11 @@ export function HomeSections() {
           <div className="lg:mx-auto lg:flex lg:min-h-full lg:w-full lg:max-w-[86rem] lg:flex-col">
             <div className="-mx-[var(--mobile-gutter)] flex items-center justify-between bg-[color:var(--color-surface)] px-[var(--mobile-gutter)] py-3 lg:mx-0 lg:px-0">
               <p className="section-label text-[0.66rem] tracking-[0.2em] lg:text-[0.86rem]">
-                Detailed Solution
+                Detailed Service
               </p>
               <button
                 type="button"
-                aria-label="Close detailed solution"
+                aria-label="Close detailed service"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/42 text-[color:var(--color-navy-900)] transition hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
                 onClick={() => closeDetailOverlay("#solutions")}
               >
@@ -3223,7 +2689,7 @@ export function HomeSections() {
           <div className="grid w-full gap-10 lg:mx-auto lg:max-w-[88rem] lg:translate-y-[clamp(1.5rem,4vh,3rem)] lg:grid-cols-[minmax(0,0.43fr)_minmax(0,0.57fr)] lg:items-center lg:gap-14">
             <div className="lg:self-center">
               <SectionTitle
-                label="DETAILED SOLUTIONS"
+                label="DETAILED SERVICES"
                 title="Built To Match The Scale Of The Requirement."
                 subtitle="A four-part business platform designed to move from inquiry to execution with precision."
               />
@@ -3339,77 +2805,145 @@ export function HomeSections() {
       )}
 
       <section
-        id="projects"
-        className="mobile-section-pad relative overflow-hidden bg-[#f8f4ef] lg:flex lg:min-h-screen lg:items-center lg:py-[clamp(2rem,4vh,3rem)]"
+        id="gallery"
+        className="mobile-section-pad relative overflow-hidden bg-[#f8f4ef] lg:pb-[clamp(3.5rem,6vh,4.75rem)] lg:pt-[clamp(2rem,4vh,3rem)]"
       >
         <Container className="relative z-10 max-w-[var(--content-max)]">
-          <div className="mb-8 flex flex-col gap-6 sm:mb-10 lg:mb-[clamp(1.2rem,2.8vh,2rem)] lg:flex-row lg:items-start lg:justify-between">
+          <div className="mb-7 flex flex-col gap-5 sm:mb-9 lg:mb-[clamp(1.3rem,3vh,2.2rem)] lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-[37rem]">
-              <p className="section-label mb-4 lg:mb-3">OUR PROJECTS</p>
+              <p className="section-label mb-3 lg:mb-3">OUR GALLERY</p>
               <TextReveal forceMotion distance={44}>
                 <h2 className="mobile-section-heading text-[color:var(--color-navy-900)] lg:text-[clamp(2.65rem,4.4vw,3.35rem)]">
-                  <span className="font-bold">Trade</span> In Motion.
+                  <span className="block">
+                    See{" "}
+                    <span className="text-[color:var(--color-gold-500)]">
+                      Rong Xing
+                    </span>
+                  </span>{" "}
+                  <span className="block">In Action</span>
                 </h2>
               </TextReveal>
               <Reveal forceMotion delay={0.12} distance={18}>
                 <p className="mobile-section-copy mt-5 max-w-[33rem] text-[color:var(--color-slate-700)] lg:mt-4 lg:max-w-[31rem] lg:text-[0.92rem] lg:leading-6">
-                  A selection of projects, partnerships, shipments, and sourcing
-                  operations delivered across industries and markets.
+                  A look at our operations, partnerships, sourcing, inspections,
+                  and global trade.
                 </p>
               </Reveal>
             </div>
 
+            <Reveal
+              forceMotion
+              delay={0.16}
+              distance={18}
+              className="hidden lg:block"
+            >
+              <button
+                type="button"
+                onClick={() => setIsGalleryOverlayOpen(true)}
+                className="group inline-flex min-h-[2.85rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-none border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-4 py-2.5 text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-[color:var(--color-navy-950)] transition duration-300 hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 lg:min-h-12 lg:px-5 lg:py-3 lg:text-[0.68rem] lg:tracking-[0.16em]"
+              >
+                View Full Gallery
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+            </Reveal>
           </div>
 
-          <div className="grid gap-3 sm:gap-3.5 lg:grid-cols-3 lg:gap-4">
-            {projectCards.map((project, index) => (
+          <div className="relative mx-auto mb-6 h-[23.5rem] max-w-[22rem] sm:h-[29rem] sm:max-w-[28rem] lg:hidden">
+            <span
+              aria-hidden="true"
+              className="absolute left-0 top-0 z-10 h-[7rem] w-[3rem] border-l border-t border-[color:var(--color-gold-500)]"
+            />
+            <Reveal
+              forceMotion
+              distance={22}
+              className="absolute left-3 right-5 top-3 h-[13rem] overflow-hidden bg-[color:var(--color-navy-950)] shadow-[0_18px_42px_rgba(7,28,61,0.16)] sm:h-[16.5rem]"
+            >
+              <Image
+                src={assetPath(galleryPhotos[0].src)}
+                alt={galleryPhotos[0].alt}
+                fill
+                sizes="(min-width: 640px) 27rem, 92vw"
+                className="object-cover"
+                style={{ objectPosition: galleryPhotos[0].position }}
+              />
+            </Reveal>
+            <Reveal
+              forceMotion
+              delay={0.08}
+              distance={22}
+              className="absolute bottom-3 left-[3.5rem] right-3 h-[11.75rem] overflow-hidden border-[5px] border-[#f8f4ef] bg-[color:var(--color-navy-950)] shadow-[0_20px_46px_rgba(7,28,61,0.18)] sm:h-[14rem] sm:border-[6px]"
+            >
+              <Image
+                src={assetPath(galleryPhotos[1].src)}
+                alt={galleryPhotos[1].alt}
+                fill
+                sizes="(min-width: 640px) 24rem, 78vw"
+                className="object-cover"
+                style={{ objectPosition: galleryPhotos[1].position }}
+              />
+            </Reveal>
+            <span
+              aria-hidden="true"
+              className="absolute bottom-0 right-0 z-10 h-[3.25rem] w-[4.25rem] border-b border-r border-[color:var(--color-gold-500)]"
+            />
+          </div>
+
+          <Reveal forceMotion delay={0.16} distance={18} className="lg:hidden">
+            <button
+              type="button"
+              onClick={() => setIsGalleryOverlayOpen(true)}
+              className="group inline-flex min-h-[2.9rem] items-center justify-center gap-2.5 rounded-none border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-5 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--color-navy-950)] transition duration-300 hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2"
+            >
+              View Full Gallery
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </Reveal>
+
+          <div className="hidden auto-rows-[12.5rem] gap-3 sm:auto-rows-[15rem] lg:grid lg:grid-cols-12 lg:auto-rows-[12.25rem] lg:gap-4">
+            {galleryPhotos.map((photo, index) => (
               <Reveal
                 forceMotion
-                key={project.number}
+                key={photo.src}
                 delay={index * 0.08}
                 distance={26}
+                className={cn(
+                  "group relative overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)] shadow-[0_18px_44px_rgba(11,31,59,0.12)]",
+                  photo.className,
+                  index > 1 && "hidden lg:block"
+                )}
               >
-                <ProjectShowcaseCard
-                  project={project}
-                  onSelect={() => openProjectDetail(index)}
+                <Image
+                  src={assetPath(photo.src)}
+                  alt={photo.alt}
+                  fill
+                  sizes={
+                    index === 0
+                      ? "(min-width: 1024px) 42vw, 100vw"
+                      : "(min-width: 1024px) 35vw, 100vw"
+                  }
+                  className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+                  style={{ objectPosition: photo.position }}
                 />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,28,61,0.03)_0%,rgba(7,28,61,0.18)_100%)]" />
               </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      {activeProject ? (
-        <div
-          className="navy-scrollbar fixed inset-0 z-[120] overflow-y-auto bg-[#f8f4ef] px-[var(--mobile-gutter)] pb-6 pt-4 text-[color:var(--color-navy-900)] lg:px-10 lg:py-8"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${activeProject.title} project details`}
-        >
-          <div className="mx-auto w-full max-w-[86rem]">
-            <div className="-mx-[var(--mobile-gutter)] flex items-center justify-between bg-[#f8f4ef] px-[var(--mobile-gutter)] py-3 lg:mx-0 lg:px-0">
-              <p className="section-label text-[0.66rem] tracking-[0.2em] lg:text-[0.86rem]">
-                Our Projects
-              </p>
-              <button
-                type="button"
-                aria-label="Close project details"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/42 text-[color:var(--color-navy-900)] transition hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
-                onClick={() => closeDetailOverlay("#projects")}
-              >
-                <X className="h-4 w-4" strokeWidth={1.8} />
-              </button>
-            </div>
-
-            <div className="py-6 lg:py-8">
-              <FeaturedProjectShowcase
-                project={activeProject}
-                animateRoute={!prefersReducedMotion}
-                onRouteAnimationComplete={() => undefined}
-              />
-            </div>
-          </div>
-        </div>
+      {isGalleryOverlayOpen ? (
+        <GalleryExperience
+          closeControl={
+            <button
+              type="button"
+              aria-label="Close gallery"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-gold-500)]/42 text-[color:var(--color-navy-900)] transition hover:bg-[color:var(--color-gold-500)] hover:text-[color:var(--color-navy-950)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              onClick={() => setIsGalleryOverlayOpen(false)}
+            >
+              <X className="h-4 w-4" strokeWidth={1.8} />
+            </button>
+          }
+        />
       ) : null}
 
       <section

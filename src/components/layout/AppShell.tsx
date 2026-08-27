@@ -45,8 +45,9 @@ function RefreshLoader() {
 export function AppShell({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isGalleryPage = pathname === "/gallery" || pathname === "/gallery/";
 
-  if (isHomePage) {
+  if (isHomePage || isGalleryPage) {
     return (
       <>
         <RefreshLoader />

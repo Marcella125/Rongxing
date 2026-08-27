@@ -48,6 +48,14 @@ export const sitePages: Record<SitePageKey, SitePageContent> = {
       "Commercial sourcing, EV trading, brand representation, and industrial solutions from RONG XING.",
     eyebrow: "Our Solutions",
   },
+  gallery: {
+    key: "gallery",
+    path: "/gallery",
+    title: "Gallery",
+    description:
+      "A look at RONG XING operations, partnerships, sourcing, inspections, and global trade.",
+    eyebrow: "Our Gallery",
+  },
   news: {
     key: "news",
     path: "/news",
