@@ -1,21 +1,9 @@
-import {
-  ArrowRight,
-  Camera,
-  ChevronDown,
-  Factory,
-  Grid2X2,
-  Handshake,
-  ShieldCheck,
-  Truck,
-  Users,
-  Warehouse,
-} from "lucide-react";
+import { ArrowRight, Camera } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { GalleryLightboxGrid } from "@/components/gallery/GalleryLightboxGrid";
 import { Container } from "@/components/ui/Container";
 import { getPageContent } from "@/services/content.service";
-import { cn } from "@/utils/cn";
 
 type GalleryExperienceProps = {
   closeControl: ReactNode;
@@ -60,16 +48,6 @@ const galleryImages = [
     position: "50% 50%",
     className: "lg:col-span-6 lg:row-span-2",
   },
-] as const;
-
-const galleryFilters = [
-  { label: "All", icon: Grid2X2, active: true },
-  { label: "Factory Visits", icon: Factory, active: false },
-  { label: "Inspections", icon: ShieldCheck, active: false },
-  { label: "Shipments", icon: Truck, active: false },
-  { label: "Warehouse", icon: Warehouse, active: false },
-  { label: "Exhibitions", icon: Users, active: false },
-  { label: "Meetings", icon: Handshake, active: false },
 ] as const;
 
 export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
@@ -142,83 +120,6 @@ export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
                 <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
               </button>
             </div>
-          </div>
-
-          <div className="mb-4 lg:hidden">
-            <details className="group relative">
-              <summary className="flex h-11 cursor-pointer list-none items-center justify-between rounded-[0.25rem] border border-[rgba(197,160,98,0.5)] bg-white px-4 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-navy-950)] shadow-[0_10px_24px_rgba(7,28,61,0.08)] outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]/35 [&::-webkit-details-marker]:hidden">
-                <span className="flex items-center gap-2.5">
-                  <Grid2X2
-                    className="h-4 w-4 text-[color:var(--color-gold-600)]"
-                    strokeWidth={1.75}
-                  />
-                  All
-                </span>
-                <ChevronDown
-                  className="h-4 w-4 text-[color:var(--color-navy-900)] transition-transform duration-200 group-open:rotate-180"
-                  strokeWidth={1.8}
-                />
-              </summary>
-              <div className="absolute left-0 right-0 top-[calc(100%+0.45rem)] z-30 overflow-hidden rounded-[0.35rem] border border-[rgba(197,160,98,0.34)] bg-white shadow-[0_18px_38px_rgba(7,28,61,0.16)]">
-                {galleryFilters.map((filter) => {
-                  const Icon = filter.icon;
-
-                  return (
-                    <button
-                      type="button"
-                      key={filter.label}
-                      className={cn(
-                        "flex h-11 w-full items-center gap-3 px-4 text-left text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition",
-                        filter.active
-                          ? "bg-[color:var(--color-navy-950)] text-white"
-                          : "text-[color:var(--color-navy-900)] hover:bg-[#f8f4ef]"
-                      )}
-                    >
-                      <Icon
-                        className={cn(
-                          "h-4 w-4",
-                          filter.active
-                            ? "text-[color:var(--color-gold-500)]"
-                            : "text-[color:var(--color-gold-600)]"
-                        )}
-                        strokeWidth={1.75}
-                      />
-                      {filter.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </details>
-          </div>
-
-          <div className="mb-4 hidden gap-2 sm:gap-3 lg:grid lg:grid-cols-7">
-            {galleryFilters.map((filter) => {
-              const Icon = filter.icon;
-
-              return (
-                <button
-                  type="button"
-                  key={filter.label}
-                  className={cn(
-                    "inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-[0.25rem] border px-5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] transition",
-                    filter.active
-                      ? "border-[color:var(--color-navy-950)] bg-[color:var(--color-navy-950)] text-white shadow-[0_10px_24px_rgba(7,28,61,0.16)]"
-                      : "border-[rgba(197,160,98,0.34)] bg-white/54 text-[color:var(--color-navy-900)] hover:border-[color:var(--color-gold-500)] hover:bg-white"
-                  )}
-                >
-                  <Icon
-                    className={cn(
-                      "h-4 w-4",
-                      filter.active
-                        ? "text-[color:var(--color-gold-500)]"
-                        : "text-[color:var(--color-gold-600)]"
-                    )}
-                    strokeWidth={1.75}
-                  />
-                  {filter.label}
-                </button>
-              );
-            })}
           </div>
 
           <GalleryLightboxGrid images={galleryImages} />
