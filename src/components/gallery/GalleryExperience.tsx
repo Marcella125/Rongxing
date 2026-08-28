@@ -25,46 +25,40 @@ const pageContent = getPageContent("gallery");
 
 const galleryImages = [
   {
-    src: "/images/pr 1 im 1.webp",
-    alt: "RONG XING sourcing and inspection operations",
+    src: "/Rong Xing Gallery Images/img 1.jpeg",
+    alt: "RONG XING business operations and partner coordination",
     position: "50% 50%",
     className: "lg:col-span-3 lg:row-span-2",
   },
   {
-    src: "/images/pr 2 im 1.webp",
-    alt: "Manufacturing supplier coordination in China",
+    src: "/Rong Xing Gallery Images/img 2.jpeg",
+    alt: "RONG XING trade and logistics preparation",
     position: "50% 50%",
     className: "lg:col-span-3 lg:row-span-2",
   },
   {
-    src: "/images/project 2.webp",
-    alt: "International trade and logistics preparation",
-    position: "58% 50%",
+    src: "/Rong Xing Gallery Images/img 3.jpeg",
+    alt: "RONG XING factory and supplier inspection",
+    position: "50% 50%",
     className: "lg:col-span-4 lg:row-span-2",
   },
   {
-    src: "/images/pr 2 im 2.webp",
-    alt: "RONG XING supplier meeting and operational review",
+    src: "/Rong Xing Gallery Images/img 4.jpeg",
+    alt: "RONG XING site visit and operational review",
     position: "50% 50%",
     className: "lg:col-span-2 lg:row-span-2",
   },
   {
-    src: "/images/pr 1 im 2.webp",
-    alt: "Warehouse and packaged inventory ready for shipment",
+    src: "/Rong Xing Gallery Images/img 5.jpeg",
+    alt: "RONG XING business operations and partner coordination",
     position: "50% 50%",
-    className: "lg:col-span-3 lg:row-span-2",
+    className: "lg:col-span-6 lg:row-span-2",
   },
   {
-    src: "/images/pr 3 im 1.webp",
-    alt: "Cargo vessel representing global shipment operations",
+    src: "/Rong Xing Gallery Images/img 6.jpeg",
+    alt: "RONG XING site visit and operational review",
     position: "50% 50%",
-    className: "lg:col-span-3 lg:row-span-2",
-  },
-  {
-    src: "/images/project 3.webp",
-    alt: "RONG XING exhibition and partner presentation area",
-    position: "58% 50%",
-    className: "lg:col-span-4 lg:row-span-2",
+    className: "lg:col-span-6 lg:row-span-2",
   },
 ] as const;
 

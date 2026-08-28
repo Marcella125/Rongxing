@@ -289,27 +289,27 @@ type GalleryPhoto = {
 
 const galleryPhotos = [
   {
-    src: "/images/pr 1 im 1.webp",
-    alt: "Rong Xing sourcing and inspection operations",
+    src: "/Rong Xing Gallery Images/img 5.jpeg",
+    alt: "Rong Xing business operations and partner coordination",
     position: "50% 50%",
     className: "lg:col-span-5 lg:row-span-2",
   },
   {
-    src: "/images/pr 2 im 1.webp",
-    alt: "Manufacturing and supplier coordination in China",
+    src: "/Rong Xing Gallery Images/img 6.jpeg",
+    alt: "Rong Xing site visit and operational review",
     position: "50% 50%",
     className: "lg:col-span-4",
   },
   {
-    src: "/images/pr 3 im 2.webp",
-    alt: "Factory equipment review and technical inspection",
+    src: "/Rong Xing Gallery Images/img 3.jpeg",
+    alt: "Rong Xing factory and supplier inspection",
     position: "50% 50%",
     className: "lg:col-span-3",
   },
   {
-    src: "/images/project 2.webp",
-    alt: "International trade and logistics preparation",
-    position: "58% 50%",
+    src: "/Rong Xing Gallery Images/img 2.jpeg",
+    alt: "Rong Xing trade and logistics preparation",
+    position: "50% 50%",
     className: "lg:col-span-7",
   },
 ] as const satisfies readonly GalleryPhoto[];
