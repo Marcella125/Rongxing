@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 
 import { assetPath } from "@/lib/paths";
 import { Container } from "@/components/ui/Container";
-import { cn } from "@/utils/cn";
 
 export type GalleryImage = {
   src: string;
@@ -89,27 +88,20 @@ export function GalleryLightboxGrid({ images }: GalleryLightboxGridProps) {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 lg:grid-cols-12 lg:auto-rows-[6.25rem] lg:gap-2.5">
+      <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 sm:gap-2 lg:grid-cols-4 lg:gap-2.5 xl:grid-cols-5">
         {images.map((image, index) => (
           <button
             type="button"
             key={image.src}
             aria-label={`Open image: ${image.alt}`}
-            className={cn(
-              "group relative aspect-square overflow-hidden rounded-[0.22rem] bg-[color:var(--color-navy-950)] text-left shadow-[0_8px_18px_rgba(7,28,61,0.1)] outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f4ef] lg:aspect-auto lg:rounded-[0.35rem] lg:shadow-[0_10px_28px_rgba(7,28,61,0.12)]",
-              image.className,
-            )}
+            className="group relative aspect-square overflow-hidden rounded-[0.22rem] bg-[color:var(--color-navy-950)] text-left shadow-[0_8px_18px_rgba(7,28,61,0.1)] outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f4ef] lg:rounded-[0.35rem] lg:shadow-[0_10px_28px_rgba(7,28,61,0.12)]"
             onClick={() => setActiveIndex(index)}
           >
             <Image
               src={assetPath(image.src)}
               alt={image.alt}
               fill
-              sizes={
-                index === 0
-                  ? "(min-width: 1024px) 58vw, 100vw"
-                  : "(min-width: 1024px) 38vw, 100vw"
-              }
+              sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
               className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
               style={{ objectPosition: image.position }}
             />

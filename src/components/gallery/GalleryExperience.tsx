@@ -1,7 +1,10 @@
 import { ArrowRight, Camera } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { GalleryLightboxGrid } from "@/components/gallery/GalleryLightboxGrid";
+import {
+  GalleryLightboxGrid,
+  type GalleryImage,
+} from "@/components/gallery/GalleryLightboxGrid";
 import { Container } from "@/components/ui/Container";
 import { getPageContent } from "@/services/content.service";
 
@@ -11,44 +14,32 @@ type GalleryExperienceProps = {
 
 const pageContent = getPageContent("gallery");
 
-const galleryImages = [
-  {
-    src: "/Rong Xing Gallery Images/img 1.jpeg",
-    alt: "RONG XING business operations and partner coordination",
-    position: "50% 50%",
-    className: "lg:col-span-3 lg:row-span-2",
-  },
-  {
-    src: "/Rong Xing Gallery Images/img 2.jpeg",
-    alt: "RONG XING trade and logistics preparation",
-    position: "50% 50%",
-    className: "lg:col-span-3 lg:row-span-2",
-  },
-  {
-    src: "/Rong Xing Gallery Images/img 3.jpeg",
-    alt: "RONG XING factory and supplier inspection",
-    position: "50% 50%",
-    className: "lg:col-span-4 lg:row-span-2",
-  },
-  {
-    src: "/Rong Xing Gallery Images/img 4.jpeg",
-    alt: "RONG XING site visit and operational review",
-    position: "50% 50%",
-    className: "lg:col-span-2 lg:row-span-2",
-  },
-  {
-    src: "/Rong Xing Gallery Images/img 5.jpeg",
-    alt: "RONG XING business operations and partner coordination",
-    position: "50% 50%",
-    className: "lg:col-span-6 lg:row-span-2",
-  },
-  {
-    src: "/Rong Xing Gallery Images/img 6.jpeg",
-    alt: "RONG XING site visit and operational review",
-    position: "50% 50%",
-    className: "lg:col-span-6 lg:row-span-2",
-  },
+const galleryImageLayouts = [
+  { imageNumber: 7, className: "lg:col-span-3 lg:row-span-3" },
+  { imageNumber: 8, className: "lg:col-span-3 lg:row-span-3" },
+  { imageNumber: 9, className: "lg:col-span-3 lg:row-span-3" },
+  { imageNumber: 10, className: "lg:col-span-3 lg:row-span-3" },
+  { imageNumber: 11, className: "lg:col-span-6 lg:row-span-2" },
+  { imageNumber: 12, className: "lg:col-span-6 lg:row-span-2" },
+  { imageNumber: 13, className: "lg:col-span-4 lg:row-span-2" },
+  { imageNumber: 14, className: "lg:col-span-4 lg:row-span-2" },
+  { imageNumber: 15, className: "lg:col-span-4 lg:row-span-2" },
+  { imageNumber: 16, className: "lg:col-span-6 lg:row-span-2" },
+  { imageNumber: 17, className: "lg:col-span-6 lg:row-span-2" },
+  { imageNumber: 1, className: "lg:col-span-3 lg:row-span-2" },
+  { imageNumber: 2, className: "lg:col-span-3 lg:row-span-2" },
+  { imageNumber: 3, className: "lg:col-span-4 lg:row-span-2" },
+  { imageNumber: 4, className: "lg:col-span-2 lg:row-span-2" },
+  { imageNumber: 5, className: "lg:col-span-6 lg:row-span-2" },
+  { imageNumber: 6, className: "lg:col-span-6 lg:row-span-2" },
 ] as const;
+
+const galleryImages = galleryImageLayouts.map(({ imageNumber, className }) => ({
+  src: `/Rong Xing Gallery Images/img ${imageNumber}.jpeg`,
+  alt: `RONG XING gallery image ${imageNumber} showing business operations and partnerships`,
+  position: "50% 50%",
+  className,
+})) satisfies readonly GalleryImage[];
 
 export function GalleryExperience({ closeControl }: GalleryExperienceProps) {
   return (

@@ -289,30 +289,43 @@ type GalleryPhoto = {
 
 const galleryPhotos = [
   {
-    src: "/Rong Xing Gallery Images/img 5.jpeg",
+    src: "/Rong Xing Gallery Images/img 7.jpeg",
     alt: "Rong Xing business operations and partner coordination",
     position: "50% 50%",
     className: "lg:col-span-5 lg:row-span-2",
   },
   {
-    src: "/Rong Xing Gallery Images/img 6.jpeg",
+    src: "/Rong Xing Gallery Images/img 9.jpeg",
     alt: "Rong Xing site visit and operational review",
     position: "50% 50%",
     className: "lg:col-span-4",
   },
   {
-    src: "/Rong Xing Gallery Images/img 3.jpeg",
+    src: "/Rong Xing Gallery Images/img 11.jpeg",
     alt: "Rong Xing factory and supplier inspection",
     position: "50% 50%",
     className: "lg:col-span-3",
   },
   {
-    src: "/Rong Xing Gallery Images/img 2.jpeg",
+    src: "/Rong Xing Gallery Images/img 17.jpeg",
     alt: "Rong Xing trade and logistics preparation",
     position: "50% 50%",
     className: "lg:col-span-7",
   },
 ] as const satisfies readonly GalleryPhoto[];
+
+const mobileGalleryPhotos = [
+  {
+    src: "/Rong Xing Gallery Images/img 7.jpeg",
+    alt: "Rong Xing business operations and partner coordination",
+    position: "50% 50%",
+  },
+  {
+    src: "/Rong Xing Gallery Images/img 11.jpeg",
+    alt: "Rong Xing factory and supplier inspection",
+    position: "50% 50%",
+  },
+] as const;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -2859,12 +2872,12 @@ export function HomeSections() {
               className="absolute left-3 right-5 top-3 h-[13rem] overflow-hidden bg-[color:var(--color-navy-950)] shadow-[0_18px_42px_rgba(7,28,61,0.16)] sm:h-[16.5rem]"
             >
               <Image
-                src={assetPath(galleryPhotos[0].src)}
-                alt={galleryPhotos[0].alt}
+                src={assetPath(mobileGalleryPhotos[0].src)}
+                alt={mobileGalleryPhotos[0].alt}
                 fill
                 sizes="(min-width: 640px) 27rem, 92vw"
                 className="object-cover"
-                style={{ objectPosition: galleryPhotos[0].position }}
+                style={{ objectPosition: mobileGalleryPhotos[0].position }}
               />
             </Reveal>
             <Reveal
@@ -2874,12 +2887,12 @@ export function HomeSections() {
               className="absolute bottom-3 left-[3.5rem] right-3 h-[11.75rem] overflow-hidden border-[5px] border-[#f8f4ef] bg-[color:var(--color-navy-950)] shadow-[0_20px_46px_rgba(7,28,61,0.18)] sm:h-[14rem] sm:border-[6px]"
             >
               <Image
-                src={assetPath(galleryPhotos[1].src)}
-                alt={galleryPhotos[1].alt}
+                src={assetPath(mobileGalleryPhotos[1].src)}
+                alt={mobileGalleryPhotos[1].alt}
                 fill
                 sizes="(min-width: 640px) 24rem, 78vw"
                 className="object-cover"
-                style={{ objectPosition: galleryPhotos[1].position }}
+                style={{ objectPosition: mobileGalleryPhotos[1].position }}
               />
             </Reveal>
             <span
@@ -2899,28 +2912,20 @@ export function HomeSections() {
             </button>
           </Reveal>
 
-          <div className="hidden auto-rows-[12.5rem] gap-3 sm:auto-rows-[15rem] lg:grid lg:grid-cols-12 lg:auto-rows-[12.25rem] lg:gap-4">
+          <div className="hidden gap-3 lg:grid lg:grid-cols-4 lg:gap-4">
             {galleryPhotos.map((photo, index) => (
               <Reveal
                 forceMotion
                 key={photo.src}
                 delay={index * 0.08}
                 distance={26}
-                className={cn(
-                  "group relative overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)] shadow-[0_18px_44px_rgba(11,31,59,0.12)]",
-                  photo.className,
-                  index > 1 && "hidden lg:block"
-                )}
+                className="group relative aspect-square overflow-hidden border border-[color:var(--color-navy-900)]/10 bg-[color:var(--color-navy-950)] shadow-[0_18px_44px_rgba(11,31,59,0.12)]"
               >
                 <Image
                   src={assetPath(photo.src)}
                   alt={photo.alt}
                   fill
-                  sizes={
-                    index === 0
-                      ? "(min-width: 1024px) 42vw, 100vw"
-                      : "(min-width: 1024px) 35vw, 100vw"
-                  }
+                  sizes="(min-width: 1024px) 25vw, 100vw"
                   className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
                   style={{ objectPosition: photo.position }}
                 />
