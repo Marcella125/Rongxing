@@ -608,6 +608,12 @@ function SolutionCapabilityCard({
   onSelect?: () => void;
 }) {
   const Icon = item.icon;
+  const titleLines =
+    item.title === "Electric Vehicle Trading"
+      ? ["Electric", "Vehicle Trading"]
+      : item.title === "International Brand Representation"
+        ? ["International Brand", "Representation"]
+        : [item.title];
 
   return (
     <button
@@ -631,12 +637,21 @@ function SolutionCapabilityCard({
       </div>
 
       <div className="grid h-[13rem] grid-rows-[3rem_minmax(0,1fr)_2.25rem] px-5 py-5 xl:h-[14rem] xl:px-6">
-        <div className="grid h-[2.7rem] grid-cols-[3.15rem_minmax(0,1fr)] items-start gap-3.5">
+        <div className="grid h-[2.7rem] grid-cols-[3.15rem_minmax(0,1fr)] items-center gap-3.5">
           <span className="font-serif text-[2rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <h3 className="max-w-[22ch] pt-0.5 text-[0.86rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white [text-wrap:balance] xl:text-[0.9rem]">
-            {item.title}
+          <h3
+            className={cn(
+              "flex h-[1.8rem] max-w-[22ch] flex-col justify-center text-[0.86rem] font-bold uppercase tracking-[0.02em] text-white xl:text-[0.9rem]",
+              titleLines.length > 1 ? "leading-[1.045]" : "leading-none"
+            )}
+          >
+            {titleLines.map((line) => (
+              <span key={line} className="block whitespace-nowrap">
+                {line}
+              </span>
+            ))}
           </h3>
         </div>
 
@@ -666,6 +681,12 @@ function MobileSolutionCapabilityCard({
   onSelect?: () => void;
 }) {
   const Icon = item.icon;
+  const titleLines =
+    item.title === "Electric Vehicle Trading"
+      ? ["Electric", "Vehicle Trading"]
+      : item.title === "International Brand Representation"
+        ? ["International Brand", "Representation"]
+        : [item.title];
 
   return (
     <button
@@ -686,12 +707,21 @@ function MobileSolutionCapabilityCard({
       </div>
 
       <div className="grid h-[11.25rem] grid-rows-[2.9rem_minmax(0,1fr)_2.25rem] px-4 py-4">
-        <div className="grid h-[2.65rem] grid-cols-[2.8rem_minmax(0,1fr)] items-start gap-3">
+        <div className="grid h-[2.65rem] grid-cols-[2.8rem_minmax(0,1fr)] items-center gap-3">
           <span className="font-serif text-[1.8rem] font-bold leading-[0.9] tracking-[-0.06em] text-[color:var(--color-gold-500)]">
             {item.number}
           </span>
-          <h3 className="max-w-[24ch] pt-0.5 text-[0.78rem] font-bold uppercase leading-[1.12] tracking-[0.02em] text-white [text-wrap:balance]">
-            {item.title}
+          <h3
+            className={cn(
+              "flex h-[1.62rem] max-w-[24ch] flex-col justify-center text-[0.78rem] font-bold uppercase tracking-[0.02em] text-white",
+              titleLines.length > 1 ? "leading-[1.04]" : "leading-none"
+            )}
+          >
+            {titleLines.map((line) => (
+              <span key={line} className="block whitespace-nowrap">
+                {line}
+              </span>
+            ))}
           </h3>
         </div>
 
