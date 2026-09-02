@@ -3227,18 +3227,7 @@ export function HomeSections() {
               <Reveal forceMotion className="mt-7 lg:mt-8" delay={0.3} distance={20}>
                 <div className="flex max-w-full flex-col items-start gap-2.5 sm:flex-row sm:flex-wrap">
                   <div>
-                  <CtaLink
-                    href="/contact"
-                    icon={
-                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    }
-                    className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
-                  >
-                    Request a Quote
-                  </CtaLink>
-                </div>
-                  <div>
-                  <CtaLink href="/contact" variant="secondary" className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]">
+                  <CtaLink href="/contact" variant="secondary" className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !border-[color:var(--color-navy-900)] !bg-[color:var(--color-navy-900)] !px-3 !py-2 !text-[0.58rem] !text-white !tracking-[0.08em] hover:!border-[color:var(--color-navy-950)] hover:!bg-[color:var(--color-navy-950)] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]">
                     WhatsApp
                   </CtaLink>
                 </div>
@@ -3246,7 +3235,7 @@ export function HomeSections() {
                   <CtaLink
                     href="mailto:info@rongxingtrading.com"
                     variant="secondary"
-                    className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !px-3 !py-2 !text-[0.58rem] !tracking-[0.08em] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
+                    className="!min-h-[2.65rem] w-[11.75rem] !justify-start whitespace-nowrap !gap-2 !border-[color:var(--color-gold-500)] !bg-[color:var(--color-gold-500)] !px-3 !py-2 !text-[0.58rem] !text-[color:var(--color-navy-950)] !tracking-[0.08em] hover:!border-[color:var(--color-gold-600)] hover:!bg-[color:var(--color-gold-600)] sm:w-auto sm:justify-center lg:!min-h-12 lg:!gap-2.5 lg:!px-5 lg:!py-3 lg:!text-[0.68rem] lg:!tracking-[0.16em]"
                   >
                     Email Us
                   </CtaLink>

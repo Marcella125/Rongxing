@@ -13,9 +13,9 @@ import { cn } from "@/utils/cn";
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const [language, setLanguage] = useState<"en" | "zh">("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("/#top");
+  const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const scrollToHomeSection = (hash: string, behavior: ScrollBehavior = "smooth") => {
@@ -180,12 +180,19 @@ export function Header() {
         <div className="flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
           <Link
             href="/"
-            className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white lg:text-[1.32rem]"
+            className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white lg:col-start-1 lg:text-[1.32rem]"
           >
             RONG XING
           </Link>
 
-          <nav aria-label="Primary" className="hidden overflow-x-auto lg:block">
+          <nav
+            id="desktop-navigation"
+            aria-label="Primary"
+            className={cn(
+              "hidden overflow-x-auto lg:col-start-2",
+              isDesktopMenuOpen && "lg:block"
+            )}
+          >
             <ul className="flex min-w-max items-center justify-center gap-2 sm:gap-3">
               {navigationItems.map((item) => {
                 const isActive = currentNavigationHref === item.href;
@@ -209,25 +216,21 @@ export function Header() {
             </ul>
           </nav>
 
-          <div
-            aria-label="Language"
-            className="hidden items-center justify-end gap-4 text-[0.68rem] font-semibold uppercase tracking-[0.13em] !text-white lg:flex"
-          >
+          <div className="hidden justify-end lg:col-start-3 lg:flex">
             <button
               type="button"
-              aria-label={`Switch language to ${language === "en" ? "Chinese" : "English"}`}
-              onClick={() => setLanguage((current) => (current === "en" ? "zh" : "en"))}
-              className="min-w-8 text-right text-[color:var(--color-gold-600)] transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              aria-label={isDesktopMenuOpen ? "Close menu" : "Open menu"}
+              aria-controls="desktop-navigation"
+              aria-expanded={isDesktopMenuOpen}
+              className="inline-flex h-8 w-8 items-center justify-center text-white transition hover:text-[color:var(--color-gold-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
+              onClick={() => setIsDesktopMenuOpen((current) => !current)}
             >
-              {language === "en" ? "EN" : "中文"}
+              {isDesktopMenuOpen ? (
+                <X className="h-[18px] w-[18px]" strokeWidth={1.8} />
+              ) : (
+                <Menu className="h-[18px] w-[18px]" strokeWidth={1.8} />
+              )}
             </button>
-            <Link
-              href="/#contact"
-              onClick={(event) => handleNavigationClick(event, "/#contact")}
-              className="inline-flex min-h-8 items-center border border-[color:var(--color-gold-500)] bg-[color:var(--color-gold-500)] px-3 text-[0.64rem] font-semibold uppercase tracking-[0.12em] !text-[color:var(--color-navy-950)] transition hover:border-[color:var(--color-gold-600)] hover:bg-[color:var(--color-gold-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-gold-500)]"
-            >
-              Request a Quote
-            </Link>
           </div>
 
           <button
@@ -320,41 +323,6 @@ export function Header() {
             </nav>
           </div>
 
-          <div
-            aria-label="Mobile language"
-            className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white"
-          >
-            <span className="text-white/48">Language</span>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                aria-pressed={language === "en"}
-                onClick={() => setLanguage("en")}
-                className={cn(
-                  "transition",
-                  language === "en"
-                    ? "text-[color:var(--color-gold-500)]"
-                    : "text-white/55"
-                )}
-              >
-                EN
-              </button>
-              <span aria-hidden="true" className="text-white/24">/</span>
-              <button
-                type="button"
-                aria-pressed={language === "zh"}
-                onClick={() => setLanguage("zh")}
-                className={cn(
-                  "transition",
-                  language === "zh"
-                    ? "text-[color:var(--color-gold-500)]"
-                    : "text-white/55"
-                )}
-              >
-                中文
-              </button>
-            </div>
-          </div>
         </Container>
       </div>
     </header>
