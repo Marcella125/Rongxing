@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, type PropsWithChildren } from "react";
 
 import { Footer } from "@/components/layout/Footer";
-import { TradeIntro } from "@/components/home/TradeIntro";
 import { Header } from "@/components/layout/Header";
 import { cn } from "@/utils/cn";
 
@@ -51,7 +50,7 @@ export function AppShell({ children }: PropsWithChildren) {
 
   return (
     <>
-      {enteredOnHome ? <TradeIntro /> : <RefreshLoader />}
+      {!enteredOnHome && <RefreshLoader />}
       {isHomePage || isGalleryPage ? children : (
         <>
           <Header />
