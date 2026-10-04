@@ -47,7 +47,7 @@ export function TradeIntro() {
       setReduced(preference.matches);
       window.clearTimeout(timer);
       if (preference.matches) dismiss();
-      else timer = window.setTimeout(dismiss, 4050);
+      else timer = window.setTimeout(dismiss, 6550);
     };
     schedule();
     preference.addEventListener("change", schedule);
