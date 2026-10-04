@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, type PropsWithChildren } from "react";
 
 import { Footer } from "@/components/layout/Footer";
+import { TradeIntro } from "@/components/home/TradeIntro";
 import { Header } from "@/components/layout/Header";
 import { cn } from "@/utils/cn";
 
@@ -45,23 +46,19 @@ function RefreshLoader() {
 export function AppShell({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const [enteredOnHome] = useState(isHomePage);
   const isGalleryPage = pathname === "/gallery" || pathname === "/gallery/";
-
-  if (isHomePage || isGalleryPage) {
-    return (
-      <>
-        <RefreshLoader />
-        {children}
-      </>
-    );
-  }
 
   return (
     <>
-      <RefreshLoader />
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
+      {enteredOnHome ? <TradeIntro /> : <RefreshLoader />}
+      {isHomePage || isGalleryPage ? children : (
+        <>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </>
+      )}
     </>
   );
 }

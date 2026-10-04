@@ -39,6 +39,7 @@ import {
 } from "react";
 
 import { GalleryExperience } from "@/components/gallery/GalleryExperience";
+import { ObjectiveCard } from "@/components/home/ObjectiveCard";
 import { useDesktopGsap } from "@/hooks/use-desktop-gsap";
 import { assetPath } from "@/lib/paths";
 import { Reveal, TextReveal } from "@/components/motion/Reveal";
@@ -1263,12 +1264,7 @@ function BackToTopButton() {
 
 export function HomeSections() {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const objectivesAreaRef = useRef<HTMLDivElement | null>(null);
-  const objectivesProgressRef = useRef<HTMLDivElement | null>(null);
-  const objectivesIntroRef = useRef<HTMLDivElement | null>(null);
-  const objectivesSectionRef = useRef<HTMLElement | null>(null);
   const detailedSectionRef = useRef<HTMLElement | null>(null);
-  const objectivesDesktopRef = useRef<HTMLDivElement | null>(null);
   const detailedDesktopRef = useRef<HTMLDivElement | null>(null);
   const detailedMobileRef = useRef<HTMLDivElement | null>(null);
   const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
@@ -1282,7 +1278,6 @@ export function HomeSections() {
   const [isSolutionsCarouselInView, setIsSolutionsCarouselInView] =
     useState(false);
   const [isSolutionDragging, setIsSolutionDragging] = useState(false);
-  const [objectivesDesktopIndex, setObjectivesDesktopIndex] = useState(0);
   const [detailedDesktopIndex, setDetailedDesktopIndex] = useState(0);
   const [activeMobileDetailedIndex, setActiveMobileDetailedIndex] = useState<
     number | null
@@ -1832,125 +1827,6 @@ export function HomeSections() {
   useDesktopGsap(rootRef, setupDesktopAnimations);
 
   useEffect(() => {
-    const intro = objectivesIntroRef.current;
-    const area = objectivesAreaRef.current;
-    const progress = objectivesProgressRef.current;
-
-    if (!intro || !area) {
-      return;
-    }
-
-    if (isMobileViewport) {
-      if (!progress) {
-        return;
-      }
-
-      const rows = Array.from(area.querySelectorAll(".js-objective-item")) as HTMLDivElement[];
-
-      const ctx = gsap.context(() => {
-        gsap.set(progress, { scaleY: 0, transformOrigin: "top center" });
-        gsap.to(progress, {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: area,
-            start: "top 78%",
-            end: "bottom 74%",
-            scrub: 1,
-          },
-        });
-
-        rows.forEach((row) => {
-          const number = row.querySelector(".js-objective-mobile-number");
-          const title = row.querySelector(".js-objective-mobile-title");
-          const copy = row.querySelector(".js-objective-mobile-copy");
-
-          gsap.set(row, { opacity: 0.46, y: 10, scale: 0.985 });
-          gsap.set(number, { opacity: 0.72, scale: 0.9 });
-          gsap.set(title, { opacity: 0.72, x: 6 });
-          gsap.set(copy, { opacity: 0.54, x: 6 });
-
-          gsap.to(row, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 72%",
-              end: "top 42%",
-              scrub: 1,
-            },
-          });
-
-          gsap.to([number, title, copy], {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 70%",
-              end: "top 40%",
-              scrub: 1,
-            },
-          });
-        });
-      }, area);
-
-      return () => {
-        ctx.revert();
-      };
-    }
-
-    const section = objectivesSectionRef.current;
-    const desktopStage = objectivesDesktopRef.current;
-
-    if (!section || !desktopStage) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const objectiveCount = strategicObjectives.length;
-
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        // Match the per-item scroll distance used by Detailed Services.
-        end: () =>
-          `+=${Math.max(window.innerHeight * 0.6, 450) * objectiveCount}`,
-        pin: section,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        fastScrollEnd: false,
-        onEnter: () => setObjectivesDesktopIndex(0),
-        onEnterBack: () => setObjectivesDesktopIndex(objectiveCount - 1),
-        onUpdate: (self) => {
-          // Divide pinned scroll distance into five equal slides.
-          const nextIndex = Math.min(
-            objectiveCount - 1,
-            Math.floor(self.progress * objectiveCount)
-          );
-
-          setObjectivesDesktopIndex((current) =>
-            current === nextIndex ? current : nextIndex
-          );
-        },
-      });
-
-      // Recalculate after layout/fonts settle so pin measurements are correct.
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-
-      return () => trigger.kill();
-    }, section);
-
-    return () => {
-      ctx.revert();
-    };
-  }, [isMobileViewport]);
-
-  useEffect(() => {
     const section = detailedSectionRef.current;
     const stage = detailedDesktopRef.current;
 
@@ -2483,12 +2359,11 @@ export function HomeSections() {
       </section>
 
       <section
-        ref={objectivesSectionRef}
-        className="js-objectives-section mobile-section-pad relative bg-[color:var(--color-surface)] lg:h-screen lg:min-h-0 lg:overflow-hidden lg:py-0"
+        className="js-objectives-section mobile-section-pad relative bg-[color:var(--color-surface)] lg:min-h-screen lg:py-16"
       >
-        <Container className="max-w-[var(--content-max)] lg:flex lg:h-full lg:items-center">
+        <Container className="max-w-[var(--content-max)] lg:flex lg:min-h-[calc(100svh-8rem)] lg:items-center">
           <div className="grid w-full gap-12 lg:translate-y-6 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] lg:items-center lg:gap-14">
-            <div ref={objectivesIntroRef} className="js-objectives-intro lg:self-center">
+            <div className="js-objectives-intro lg:self-center">
               <p className="section-label mb-4">STRATEGIC OBJECTIVES</p>
               <TextReveal forceMotion distance={42}>
                 <h2 className="mobile-section-heading text-[color:var(--color-navy-900)] md:hidden">
@@ -2512,118 +2387,26 @@ export function HomeSections() {
               </Reveal>
             </div>
 
-            <div ref={objectivesAreaRef} className="relative grid gap-10 md:gap-14 lg:gap-18">
-              {!isMobileViewport ? (
-                <div
-                  ref={objectivesDesktopRef}
-                  className="relative h-[34rem]"
+            <div className="relative">
+              {strategicObjectives.map((objective, index) => (
+                <ObjectiveCard
+                  key={objective.number}
+                  className="relative grid grid-cols-[1px_2.2rem_minmax(0,1fr)] items-start gap-x-4 border-b border-[color:var(--color-border)]/75 py-4 lg:grid-cols-[1px_3.8rem_minmax(0,1fr)] lg:items-center lg:gap-5 lg:py-3.5"
                 >
-                  <div className="flex h-full flex-col justify-center">
-                    {strategicObjectives.map((objective, index) => {
-                      const isActive = index === objectivesDesktopIndex;
-                      const isPast = index < objectivesDesktopIndex;
-
-                      return (
-                      <article
-                        key={objective.number}
-                        className={cn(
-                          "relative grid origin-center grid-cols-[1px_3.8rem_minmax(0,1fr)] items-center gap-5 border-b border-[color:var(--color-border)]/75 py-3.5 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                          isActive
-                            ? "translate-y-0 scale-100 opacity-100"
-                            : isPast
-                              ? "-translate-y-2 scale-[0.985] opacity-45"
-                              : "translate-y-1.5 scale-[0.985] opacity-60"
-                        )}
-                      >
-                        <div className="h-[78%] w-px bg-[color:var(--color-border)]" />
-
-                        <p
-                          className={cn(
-                            "origin-left font-serif text-[2.65rem] leading-none tracking-[-0.07em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                            isActive
-                              ? "scale-100 text-[color:var(--color-gold-500)]"
-                              : "scale-90 text-[color:var(--color-gold-500)]"
-                          )}
-                        >
-                          {objective.number}
-                        </p>
-
-                        <div className="min-w-0">
-                          <h3
-                            className={cn(
-                              "max-w-[34rem] text-[clamp(0.94rem,1.25vw,1.12rem)] font-semibold uppercase leading-[1.12] tracking-[-0.025em] transition-[color,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                              isActive
-                                ? "translate-x-0 text-[color:var(--color-navy-900)]"
-                                : "translate-x-1 text-[color:var(--color-navy-900)]/65"
-                            )}
-                          >
-                            {objective.title}
-                          </h3>
-                          <p
-                            className={cn(
-                              "mt-1.5 max-w-[36rem] text-[0.8rem] leading-5 text-[color:var(--color-slate-700)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                              isActive
-                                ? "translate-y-0 opacity-100"
-                                : "translate-y-0.5 opacity-70"
-                            )}
-                          >
-                            {objective.description}
-                          </p>
-                        </div>
-
-                        <div
-                          className={cn(
-                            "pointer-events-none absolute bottom-[-1px] left-[5.3rem] right-0 h-[2px] origin-left bg-[linear-gradient(90deg,transparent_0%,rgba(197,160,98,0.9)_24%,rgba(197,160,98,0.2)_72%,transparent_100%)] shadow-[0_0_14px_rgba(197,160,98,0.45)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                            isActive
-                              ? "scale-x-100 opacity-100"
-                              : "scale-x-0 opacity-0"
-                          )}
-                        />
-                      </article>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="absolute bottom-2 left-0 top-2 w-px bg-[linear-gradient(180deg,transparent,rgba(197,160,98,0.28)_12%,rgba(197,160,98,0.2)_88%,transparent)] md:hidden" />
-                  <div
-                    ref={objectivesProgressRef}
-                    className="absolute bottom-2 left-0 top-2 w-px origin-top bg-[color:var(--color-gold-500)] shadow-[0_0_12px_rgba(197,160,98,0.32)] md:hidden"
-                    style={{ transform: "scaleY(0)" }}
-                  />
-                  <div className="absolute bottom-0 right-[0.35rem] top-2 hidden w-px bg-[color:var(--color-navy-900)]/10 md:block" />
-                  <div
-                    className="absolute bottom-0 right-[0.35rem] top-2 hidden w-px origin-top bg-[color:var(--color-gold-500)] md:block"
-                    style={{ transform: "scaleY(0)" }}
-                  />
-
-                  {strategicObjectives.map((objective, index) => (
-                    <article
-                      key={objective.number}
-                      className={cn(
-                        "js-objective-item relative grid grid-cols-[1px_2.2rem_minmax(0,1fr)] items-start gap-x-4 py-4 lg:hidden",
-                        index % 2 === 1 ? "lg:ml-12" : "lg:mr-12"
-                      )}
-                    >
-                      <span className="block h-full min-h-[6.5rem] w-px bg-transparent" />
-
-                      <p className="js-objective-mobile-number font-serif text-[2rem] leading-[0.84] tracking-[-0.08em] text-[color:var(--color-gold-500)]">
-                        {objective.number}
-                      </p>
-
-                      <div className="min-w-0 pb-1 pr-1">
-                        <h3 className="js-objective-mobile-title mobile-section-subheading max-w-[17rem] text-[0.78rem] leading-[1.22] tracking-[0.11em] text-[color:var(--color-navy-900)]">
-                          {objective.title}
-                        </h3>
-                        <p className="js-objective-mobile-copy mobile-section-copy mt-2.5 max-w-[18rem] text-[0.86rem] leading-[1.62] text-[color:var(--color-slate-700)]">
-                          {objective.description}
-                        </p>
-                      </div>
-                    </article>
-                  ))}
-                </>
-              )}
+                  <div aria-hidden="true" className="w-px" />
+                  <p className="font-serif text-[2rem] leading-none tracking-[-0.07em] text-[color:var(--color-gold-500)] lg:text-[2.65rem]">
+                    {objective.number}
+                  </p>
+                  <Reveal delay={index * 0.06} distance={18} className="min-w-0">
+                    <h3 className="mobile-section-subheading max-w-[34rem] text-[0.78rem] leading-[1.22] tracking-[0.11em] text-[color:var(--color-navy-900)] lg:text-[clamp(0.94rem,1.25vw,1.12rem)] lg:font-semibold lg:leading-[1.12] lg:tracking-[-0.025em]">
+                      {objective.title}
+                    </h3>
+                    <p className="mobile-section-copy mt-2.5 max-w-[36rem] text-[0.86rem] leading-[1.62] text-[color:var(--color-slate-700)] lg:mt-1.5 lg:text-[0.8rem] lg:leading-5">
+                      {objective.description}
+                    </p>
+                  </Reveal>
+                </ObjectiveCard>
+              ))}
             </div>
           </div>
         </Container>

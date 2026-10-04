@@ -7,6 +7,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 
 import { navigationItems } from "@/data/navigation";
 import { Container } from "@/components/ui/Container";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { appPath } from "@/lib/paths";
 import { cn } from "@/utils/cn";
 
@@ -182,7 +183,7 @@ export function Header() {
             href="/"
             className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white lg:col-start-1 lg:text-[1.32rem]"
           >
-            RONG XING
+            <BrandLogo />
           </Link>
 
           <nav
@@ -263,7 +264,7 @@ export function Header() {
               className="font-serif text-[1.08rem] uppercase leading-none tracking-[0.12em] !text-white"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              RONG XING
+              <BrandLogo />
             </Link>
             <button
               type="button"

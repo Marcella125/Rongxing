@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Container } from "@/components/ui/Container";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { assetPath } from "@/lib/paths";
 import { cn } from "@/utils/cn";
 
@@ -130,9 +131,9 @@ export function Footer({ onePage = false }: FooterProps) {
       <Container className="footer-shell relative max-w-[var(--content-max)] px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.72fr)_minmax(0,0.98fr)_minmax(0,0.86fr)] lg:gap-12">
           <div className="js-footer-logo">
-            <p className="font-serif text-[1.65rem] uppercase tracking-[0.16em] text-white lg:text-[1.5rem] lg:tracking-[0.14em]">
-              RONG XING
-            </p>
+            <Link href="/" className="inline-block">
+              <BrandLogo className="h-8 w-36 sm:w-36" />
+            </Link>
             <p className="mt-1 text-[0.5rem] uppercase tracking-[0.52em] text-white/62 lg:text-[0.48rem] lg:tracking-[0.48em]">
               Trading Co., Ltd.
             </p>
